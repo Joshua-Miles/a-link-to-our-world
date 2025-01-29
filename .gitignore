@@ -1,0 +1,4 @@
+dist
+.expo
+.env
+node_modules
