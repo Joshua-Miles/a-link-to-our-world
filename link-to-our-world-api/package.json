@@ -1,0 +1,31 @@
+{
+  "name": "link-to-our-world-api",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "triframe node.dev src/index.ts",
+    "build": "triframe node.build src/index.ts",
+    "start": "node ./dist/index.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@triframe/gcp-file-store": "^0.0.1",
+    "@triframe/proprietor": "^0.0.9",
+    "@triframe/scribe": "^0.0.6",
+    "bcrypt": "^5.1.1",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@triframe/mason": "^0.0.2",
+    "@triframe/transpiler": "^0.0.5",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^20.9.0",
+    "@types/node-fetch": "^2.6.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
+  }
+}

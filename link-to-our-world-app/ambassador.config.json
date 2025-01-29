@@ -1,0 +1,9 @@
+{
+    "extends": "@triframe/ambassador/web-app.config.json",
+    "apis": [
+        {
+            "remoteUrl": "{{process.env.EXPO_PUBLIC_API_URL}}",
+            "destination": "./api"
+        }
+    ]
+}

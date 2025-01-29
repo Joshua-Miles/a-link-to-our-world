@@ -1,0 +1,29 @@
+{
+    "production": {
+        "app": {
+            "type": "app.shared",
+            "name": "link-to-our-world",
+            "codebase": ".",
+            "build": "local",
+            "ports": [
+                "link-to-our-world-web"
+            ],
+            "env": {
+                "PORT": "{{this.ports.link-to-our-world-web}}",
+                "EXPO_PUBLIC_API_URL": "https://link-to-our-world-api.smallapps.dev",
+                "NODE_ENV": "production"
+            }
+        },
+        "dns": {
+            "type": "load-balancer.shared",
+            "name": "link-to-our-world",
+            "rules": {
+                "link-to-our-world": {
+                    "url": "https://ltow.smallapps.dev",
+                    "instance": "{{app.instance}}",
+                    "port": "{{app.ports.link-to-our-world-web}}"
+                }
+            }
+        }
+    }
+}

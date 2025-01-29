@@ -1,0 +1,41 @@
+{
+    "production": {
+        "storage": {
+            "type": "file_store",
+            "bucketName": "link_to_our_world_api"
+       },
+        "db": {
+            "type": "postgres.shared",
+            "name": "link_to_our_world_api"
+        },
+        "app": {
+            "type": "app.shared",
+            "name": "link-to-our-world-api",
+            "codebase": ".",
+            "build": "remote",
+            "ports": [
+                "link-to-our-world-api-web"
+            ],
+            "env": {
+                "SESSION_SECRET": "christfirstcoderchristfirstcoder",
+                "DATABASE_URL": "{{db.url}}",
+                "API_PORT": "{{this.ports.link-to-our-world-api-web}}",
+                "ADMIN_EMAIL": "{{process.env.ADMIN_EMAIL}}",
+                "ADMIN_SECRET": "{{process.env.ADMIN_SECRET}}",
+                "SLACK_API_TOKEN": "{{process.env.SLACK_API_TOKEN}}",
+                "BUCKET_NAME": "{{storage.bucketName}}"
+            }
+        },
+        "dns": {
+            "type": "load-balancer.shared",
+            "name": "link-to-our-world-api",
+            "rules": {
+                "link-to-our-world-api": {
+                    "url": "http://ltow-api.smallapps.dev",
+                    "instance": "{{app.instance}}",
+                    "port": "{{app.ports.link-to-our-world-api-web}}"
+                }
+            }
+        }
+    }
+}
