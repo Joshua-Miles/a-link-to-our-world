@@ -7,8 +7,7 @@ import { Users } from './User';
 import { validateCreateUserOptions } from './validateCreateUserOptions';
 
 type SignUpOptions = {
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string
     password: string
 }
@@ -17,7 +16,7 @@ export async function signUp(client: Client<Session>, options: SignUpOptions) {
     const error = validateCreateUserOptions(options);
     if (error) return error;
 
-    const { email, password, firstName, lastName } = options;
+    const { email, password, name } = options;
 
     const existingUserWithEmail = await Users.withEmail(options.email).get({
         select: from(Users.type)
@@ -28,7 +27,7 @@ export async function signUp(client: Client<Session>, options: SignUpOptions) {
 
     const passwordDigest = await hash(password, 10);
 
-    const user = await Users.append({ email, passwordDigest, firstName, lastName });
+    const user = await Users.append({ email, passwordDigest, name });
 
     await login(client, options);
 

@@ -9,9 +9,8 @@ export function getLoggedInUser<S>(this: AmbassadorClient | void, options: {
             id: number & {
                 __serial__?: undefined | true;
             };
-            firstName: string;
-            lastName: string;
             role: 1 | 100;
+            name: string;
             email: string;
             passwordDigest: string;
         };

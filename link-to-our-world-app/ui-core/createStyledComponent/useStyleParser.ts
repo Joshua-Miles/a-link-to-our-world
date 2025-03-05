@@ -174,6 +174,7 @@ export class StyleParser<S extends InteractionState> {
 
         for (let key in this.inherritedInteractionStates) {
             const interactionStateIdentifier = this.inherritedInteractionStates[key]
+            if (!interactionStateIdentifier) continue;
             if (parentInteractionStates.some( parentInteractionStateIdentifier => parentInteractionStateIdentifier.extends(interactionStateIdentifier))) {
                 activeInteractionStates.push(key);
             }
@@ -197,7 +198,7 @@ export class StyleParser<S extends InteractionState> {
 
         const { breakpoints } = this.theme;
         for (let breakpoint in breakpoints) {
-            if (breakpoints[breakpoint] < screenWidth) {
+            if (breakpoints[breakpoint as Breakpoint] < screenWidth) {
                 activeBreakpoints.push(breakpoint as Breakpoint)
             }
         }
@@ -212,7 +213,7 @@ export class StyleParser<S extends InteractionState> {
     }
 
     private categorizeStyleProps(styleProps: StyleProps<S>): CategorizeStylesReturnValue<S> {
-        const forcedStates = [];
+        const forcedStates: S[] = [];
         const transitions = {}
 
         const parsed: CategorizedStylesRecord<S>  = {
@@ -239,7 +240,8 @@ export class StyleParser<S extends InteractionState> {
             const propName = key as keyof StyleProps<S>;
 
             if (propName === 'forceState') {
-                forcedStates.push(...this.parseForceState(styleProps[propName]))
+                const styleProp = styleProps[propName]
+                if (styleProp) forcedStates.push(...this.parseForceState(styleProp))
                 continue;
             }
 
@@ -249,7 +251,9 @@ export class StyleParser<S extends InteractionState> {
             }
 
             if (isBreakpoint(propName)) {
-                const parsedBreakpointStyles = this.categorizeStyleProps(styleProps[propName])
+                const styleProp = styleProps[propName]
+                if (!styleProp) continue;
+                const parsedBreakpointStyles = this.categorizeStyleProps(styleProp)
                 parsed.breakpointStyles[propName] = parsedBreakpointStyles.view.baseStyle;
                 parsed.breakpointInteractionStateStyles[propName] = parsedBreakpointStyles.view.interactionStateStyles;
                 parsedText.breakpointStyles[propName] = parsedBreakpointStyles.text.baseStyle;
@@ -301,6 +305,7 @@ export class StyleParser<S extends InteractionState> {
         return {
             baseStyle: StyleSheet.create({ baseStyle }).baseStyle,
             breakpointStyles: StyleSheet.create(breakpointStyles),
+            // @ts-ignore
             interactionStateStyles: StyleSheet.create(interactionStateStyles),
             breakpointInteractionStateStyles: this.optimizeBreakPointInteractionStateStyles(breakpointInteractionStateStyles),
             forcedStates,
@@ -314,6 +319,7 @@ export class StyleParser<S extends InteractionState> {
         const result: CategorizedStylesRecord<S>['breakpointInteractionStateStyles'] = {}
 
         for (let breakpoint in breakpointInteractionStateStyles) {
+            // @ts-ignore
             result[breakpoint] = StyleSheet.create(breakpointInteractionStateStyles[breakpoint]);
         }
 
@@ -381,6 +387,7 @@ export class ParsedStyles<S extends InteractionState>  {
         for (let breakpoint of activeBreakpoints) {
             const breakpointStyle = categorizedStyles.breakpointStyles[breakpoint]
             if (breakpointStyle) {
+                // @ts-ignore
                 this.append(breakpointStyle, optimizedStyles.breakpointStyles[breakpoint])
             }
             const runtimeBreakpointStyle = runtimeStyles.breakpointStyles[breakpoint];
@@ -393,6 +400,7 @@ export class ParsedStyles<S extends InteractionState>  {
         for (let interactionState in categorizedStyles.interactionStateStyles) {
             const interactionStateStyle = categorizedStyles.interactionStateStyles[interactionState]
             if (interactionStateStyle && activeInteractionStates.includes(interactionState)) {
+                // @ts-ignore
                 this.append(interactionStateStyle, optimizedStyles.interactionStateStyles[interactionState]);
             }
         }
@@ -410,6 +418,7 @@ export class ParsedStyles<S extends InteractionState>  {
                 for (let interactionState in breakpointInteractionStateStyle) {
                     const interactionStateStyle = breakpointInteractionStateStyle[interactionState]
                     if (interactionStateStyle && activeInteractionStates.includes(interactionState)) {
+                        // @ts-ignore
                         this.append(interactionStateStyle, optimizedStyles.breakpointInteractionStateStyles[breakpoint][interactionState]);
                     }
                 }
@@ -463,7 +472,7 @@ function isObject(item: any) {
 
 export function deepMerge<T>(...sources: T[]): null | T {
     if (!sources.length) return null;
-    const target = sources.shift();
+    const target = sources.shift() ?? null;
 
     if (!sources.length) return target;
 
@@ -472,13 +481,15 @@ export function deepMerge<T>(...sources: T[]): null | T {
     if (isObject(target) && isObject(source)) {
       for (const key in source) {
         if (isObject(source[key])) {
-          if (!target[key]) Object.assign(target, { [key]: {} });
-          deepMerge(target[key], source[key]);
+            // @ts-ignore
+            if (!target[key]) Object.assign(target, { [key]: {} });
+            // @ts-ignore
+            deepMerge(target[key], source[key]);
         } else {
-          Object.assign(target, { [key]: source[key] });
+            Object.assign(target, { [key]: source[key] });
         }
       }
     }
-
+    // @ts-ignore
     return deepMerge(target, ...sources);
 }

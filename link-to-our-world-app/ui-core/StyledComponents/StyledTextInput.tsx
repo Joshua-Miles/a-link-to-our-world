@@ -3,6 +3,7 @@ import Animated from "react-native-reanimated";
 import { TextInput, TextInputProps, StyleSheet, LayoutChangeEvent, TextInputChangeEventData, Platform } from "react-native";
 import { createStyledComponent } from "../createStyledComponent";
 import { BaseSyntheticEvent, ForwardedRef, useCallback, useEffect } from "react";
+import { ViewStyle } from "react-native";
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
@@ -15,16 +16,19 @@ export const StyledTextInput = createStyledComponent((props: TextInputProps, ref
     if (parsedStyles.hasTransitions()) {
         return <AnimatedTextInput style={styles} ref={ref} {...props} />
     } else {
+        // @ts-ignore
         return <TextInput style={styles} ref={ref} {...props} />
     }
 })
 
-const { suppressOutlineStyles } = StyleSheet.create({
+const styles = StyleSheet.create({
     suppressOutlineStyles: {
         // @ts-ignore
         outlineStyle: 'none',
     }
 })
+
+const suppressOutlineStyles = styles.suppressOutlineStyles as ViewStyle
 
 // on web, multiline TextInput does not auto-resize like it does on mobile:
 //  https://github.com/necolas/react-native-web/issues/795

@@ -3,17 +3,22 @@ import { LayoutChangeEvent, LayoutRectangle, Pressable, PressableProps, View, Vi
 import { createStyledComponent } from "../createStyledComponent";
 import { BoxShadow, SVGShadow } from "../SVGShadow";
 import { ForwardedRef, useEffect, useState } from "react";
-import { router } from 'expo-router';
+import { useOnNavigate } from "../Navigation";
+import { Href } from "expo-router";
+import { ViewStyle } from "react-native";
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 type StyledViewSpecificProps = {
-    href?: string
+    href?: Href
     hideOnKeyboard?: boolean
 }
 
-export const StyledView = createStyledComponent((props: ViewProps & PressableProps & StyledViewSpecificProps, ref: ForwardedRef<View>, parsedStyles, internalInteractions, styles, children) => {
-    const [ layout, setLayout ] = useState<LayoutRectangle>(null);
+type AllViewProps = ViewProps & PressableProps & StyledViewSpecificProps
+
+export const StyledView = createStyledComponent((props: AllViewProps, ref: ForwardedRef<View>, parsedStyles, internalInteractions, styles, children) => {
+    const [ layout, setLayout ] = useState<LayoutRectangle | null>(null);
+    const onNavigate = useOnNavigate()
 
     const shadowStyles = parsedStyles.getCurrentValue('shadow') as BoxShadow;
 
@@ -35,7 +40,8 @@ export const StyledView = createStyledComponent((props: ViewProps & PressablePro
         props = {
             ...props,
             onPress(e) {
-                router.push(props.href);
+                if (!props.href) return;
+                onNavigate(props.href);
                 if (onPress) onPress(e);
             }
         }
@@ -62,9 +68,9 @@ export const StyledView = createStyledComponent((props: ViewProps & PressablePro
         }
     } else if (internalInteractions.isPressable()) {
         if (parsedStyles.hasTransitions()) {
-            return <AnimatedPressable style={styles} {...internalInteractions.getProps()} onLayout={handleLayoutChange} ref={ref} {...otherProps}>{children}{shadow}</AnimatedPressable>
+            return <AnimatedPressable style={styles} {...otherProps} {...internalInteractions.getProps()} onLayout={handleLayoutChange} ref={ref} >{children}{shadow}</AnimatedPressable>
         } else {
-            return <Pressable style={styles} {...internalInteractions.getProps()} onLayout={handleLayoutChange} ref={ref} {...otherProps}>{children}{shadow}</Pressable>
+            return <Pressable style={styles} {...otherProps} {...internalInteractions.getProps()} onLayout={handleLayoutChange} ref={ref} >{children}{shadow}</Pressable>
         }
     } else {
         if (parsedStyles.hasTransitions()) {
@@ -75,12 +81,14 @@ export const StyledView = createStyledComponent((props: ViewProps & PressablePro
     }
 })
 
-const { suppressOutlineStyles } = StyleSheet.create({
+const styles = StyleSheet.create({
     suppressOutlineStyles: {
         // @ts-ignore
         outlineStyle: 'none',
     }
 })
+
+const suppressOutlineStyles = styles.suppressOutlineStyles as ViewStyle
 
 const useKeyboardOpen = () => {
     const [isKeyboardOpen, setIsKeyboardOpen] = useState(Keyboard.isVisible);

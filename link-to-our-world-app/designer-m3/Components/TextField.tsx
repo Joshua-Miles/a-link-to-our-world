@@ -48,7 +48,8 @@ const TextFieldLabel = StyledText
 const TextInput = StyledTextInput
     .style((theme: Theme) => ({
         ...theme.typography.body.medium,
-        paddingLeft: theme.spacing.sm
+        paddingLeft: theme.spacing.sm,
+        color: theme.colors.roles.onSurface
     }))
 
 const SupportingText = Body.Small
@@ -168,12 +169,13 @@ function TextFieldBase({ variant, label, supporting, hasError, ...props }: TextF
                 <TextInput
                     ref={input}
                     cursorColor={hasError ? theme.colors.roles.error : theme.colors.roles.primary}
+                    // @ts-ignore
                     onFocus={() => setIsFocused(true)}
+                    // @ts-ignore
                     onBlur={() => setIsFocused(false)}
                     onChangeText={handleChangeText}
                     {...props}
                 />
-
             </TextFieldContainer>
             <SupportingText forceState={interactionState}>
                 {supporting}

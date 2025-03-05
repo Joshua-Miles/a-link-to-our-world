@@ -1,18 +1,23 @@
 import { StyledView } from "ui-core";
+import { PageContainer } from "./Page";
 
-export const Row = StyledView.style(() => ({
+const Box = StyledView
+    .inheritInteractionState(PageContainer.is('_navTransitionIn'), '_navTransitionIn')
+    .inheritInteractionState(PageContainer.is('_navTransitionOut'), '_navTransitionOut')
+
+export const Row = Box.style(() => ({
     flexDirection: 'row'
 }))
 
-export const RowReverse = StyledView.style(() => ({
+export const RowReverse = Box.style(() => ({
     flexDirection: 'row-reverse'
 }))
 
-export const Column = StyledView.style(() => ({
+export const Column = Box.style(() => ({
     flexDirection: 'column'
 }))
 
-export const ColumnReverse = StyledView.style(() => ({
+export const ColumnReverse = Box.style(() => ({
     flexDirection: 'column-reverse'
 }))
 

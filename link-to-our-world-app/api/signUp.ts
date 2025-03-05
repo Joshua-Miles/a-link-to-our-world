@@ -1,8 +1,7 @@
 import { AmbassadorClient } from "@triframe/ambassador";
 
 export function signUp(this: AmbassadorClient | void, options: {
-    firstName: string;
-    lastName: string;
+    name: string;
     email: string;
     password: string;
 }): Promise<(number & {
@@ -15,10 +14,7 @@ export function signUp(this: AmbassadorClient | void, options: {
     code: "passwordTooShort";
 } | {
     isFailure: true;
-    code: "firstNameIsEmpty";
-} | {
-    isFailure: true;
-    code: "lastNameIsEmpty";
+    code: "name";
 } | {
     isFailure: true;
     code: "emailIsInUse";

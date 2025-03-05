@@ -10,7 +10,17 @@ export const ListItem = Row
         paddingVertical: theme.spacing.xs,
         paddingHorizontal: theme.spacing.sm,
         backgroundColor: theme.colors.roles.surface,
-        alignItems: 'center'
+        alignItems: 'center',
+    }))
+
+export const PressableListItem = ListItem
+    .style((theme: Theme) => ({
+        _press: {
+            backgroundColor: theme.colors.roles.surfaceContainerHigh
+        },
+        transitions: {
+            backgroundColor: theme.motion.transitions.standard
+        }
     }))
 
 export const ListItemTitle = Body.Large;

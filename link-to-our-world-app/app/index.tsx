@@ -7,8 +7,7 @@ export default function App() {
       select: from(UserType)
         .email()
     });
-    console.log(loggedInUser)
     if (isLoading(loggedInUser)) return null;
-    if (loggedInUser) return <Redirect href="/landing" />
-    return <Redirect href="/login" />
+    if (loggedInUser) return <Redirect href="/map" />
+    return <Redirect href="/splash" />
 }

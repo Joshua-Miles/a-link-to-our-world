@@ -2,7 +2,7 @@ import { TextStyle } from "react-native/types";
 
 type TypographySize = 'base' | 'small' | 'medium' | 'large';
 
-type TypographyStyle = Pick<TextStyle, 'fontSize' | 'lineHeight' | 'fontWeight' | 'letterSpacing' | 'fontFamily'>;
+type TypographyStyle = Pick<TextStyle, 'fontSize' | 'lineHeight' | 'fontWeight' | 'letterSpacing' | 'fontFamily'> & { lineHeight: number };
 
 export type TypographyTheme = {
     display: Record<TypographySize, TypographyStyle>
@@ -16,7 +16,8 @@ export const defaultTypographyTheme: TypographyTheme = {
     display: {
         base: {
             fontWeight: 400,
-            fontFamily: 'Disney'
+            fontFamily: 'Disney',
+            lineHeight: 58.66,
         },
         small: {
             fontSize: 48,
@@ -36,7 +37,8 @@ export const defaultTypographyTheme: TypographyTheme = {
     },
     headline: {
         base: {
-            fontWeight: 400
+            fontWeight: 400,
+            lineHeight: 42.66,
         },
         small: {
             fontSize: 32,
@@ -56,7 +58,8 @@ export const defaultTypographyTheme: TypographyTheme = {
     },
     title: {
         base: {
-            fontWeight: 500
+            fontWeight: 500,
+            lineHeight: 26.66,
         },
         small: {
             fontSize: 18.66,
@@ -76,7 +79,8 @@ export const defaultTypographyTheme: TypographyTheme = {
     },
     body: {
         base: {
-            fontWeight: 400
+            fontWeight: 400,
+            lineHeight: 21.33,
         },
         small: {
             fontSize: 16,
@@ -96,7 +100,8 @@ export const defaultTypographyTheme: TypographyTheme = {
     },
     label: {
         base: {
-            fontWeight: 500
+            fontWeight: 500,
+            lineHeight: 21.33,
         },
         small: {
             fontSize: 14.66,

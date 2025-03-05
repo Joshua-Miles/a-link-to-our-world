@@ -63,12 +63,12 @@ export const defaultLightModeTones: KeyToneSet = {
 
 export const ColorTheme = {
 
-    fromSourceColor(sourceHex: string): ColorTheme {
+    fromSourceColor(sourceHex: string, tones: KeyToneSet = defaultLightModeTones): ColorTheme {
         const source = Color(sourceHex).hsl();
         const primary = calculatePrimary(source).hex();
         const secondary = calculateSecondary(source).hex();
         const tertiary = calculateTertiary(source).hex();
-        return ColorTheme.fromKeyColors({ primary, secondary, tertiary });
+        return ColorTheme.fromKeyColors({ primary, secondary, tertiary }, tones);
     },
 
     fromKeyColors(colors: Record<KeyColor, string> & Partial<Record<SemanticColor | NeutralColor, string>>, tones: KeyToneSet = defaultLightModeTones): ColorTheme {

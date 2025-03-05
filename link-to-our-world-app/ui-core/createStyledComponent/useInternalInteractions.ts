@@ -58,7 +58,7 @@ export function useInternalInteractions<S extends InteractionState>(options: Opt
             _mounted: false,
             _displayed: false,
             _focus: false,
-            _disabled: disabled
+            _disabled: disabled ?? false
         }
     })
 
@@ -90,6 +90,7 @@ export function useInternalInteractions<S extends InteractionState>(options: Opt
             ...state,
             activeStates: {
                 ...state.activeStates,
+                _mounted: true,
                 _displayed: true,
             }
         })
@@ -101,7 +102,7 @@ export function useInternalInteractions<S extends InteractionState>(options: Opt
                 ...state,
                 activeStates: {
                     ...state.activeStates,
-                    _disabled: disabled,
+                    _disabled: disabled ?? false,
                 }
             })
         }
@@ -178,7 +179,7 @@ export class InternalInteractions<S extends InteractionState> {
                 if (this.stylesObserve('_press'))  {
                     const threshold = 250
                     const { pressStartTime } = this.state;
-                    const elapsed = Date.now() - pressStartTime
+                    const elapsed = Date.now() - (pressStartTime ?? 0)
                     const remaining = Math.max(threshold - elapsed, 0)
                     setTimeout(() => this.setInteractionState('_press', false), remaining)
                 }

@@ -15,7 +15,7 @@ import { WithAlaises } from './aliases';
 export type InteractionState = `_${string}`;
 
 export type CoreStyleProps = WithFixedPosition<WithViewPortDimensionValues<WithAlaises<Omit<TextStyle & ViewStyle, 'transform' | 'shadowColor' | 'shadowOffset' | 'shadowOpacity' | 'shadowRadius' | 'cursor'> & {
-    transform?: { [key in TransformName]?: Exclude<ViewStyle['transform'], string>[number][key] }[]
+    transform?: { [key in TransformName]?: Exclude<ViewStyle['transform'], string | undefined>[number][key] }[]
     shadow?: BoxShadow
     cursor?: 'pointer' | 'initial' | 'text'
 }>>>
@@ -134,7 +134,9 @@ export function createStyledComponent<P, R, S extends InteractionState = Interna
         const ChildText = parsedStyles.hasTransitions() ? Animated.Text : Text;
 
         children = React.Children.map(children, child => {
+            // @ts-ignore
             if (typeof child === 'string') return <ChildText style={textStyles}>{child}</ChildText>
+            // @ts-ignore
             if (typeof child === 'number') return <ChildText style={textStyles}>{child}</ChildText>
             else return child;
         })
@@ -150,7 +152,6 @@ export function createStyledComponent<P, R, S extends InteractionState = Interna
             ...internalInteractions.getActiveStateIdentifiers(),
             ...derivedInteractionStates.map( interactionState => styledComponentInterface.is(interactionState))
         ]
-
         // TODO: make this conditional
         children = (
             <ParentContextProvider interactionStates={interactionStates} textColor={textColor}>

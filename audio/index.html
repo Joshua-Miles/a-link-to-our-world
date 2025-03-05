@@ -1,0 +1,220 @@
+<html>
+  <script>
+    const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
+    // Function to simulate a woodwind note
+    let audioCtx;
+    let recordedChunks = [];
+
+    async function playWoodwind(note, duration) {
+      const frequency = noteToFrequency(note);
+
+      const oscillator = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      // Oscillator settings (square wave for clarinet-like tone)
+      oscillator.type = "square";
+      oscillator.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+
+      // Bandpass filter to shape the timbre
+      filter.type = "bandpass";
+      filter.frequency.setValueAtTime(frequency * 2, audioCtx.currentTime);
+      filter.Q.setValueAtTime(10, audioCtx.currentTime); // Resonance
+
+      // Amplitude envelope (ADSR)
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime + 0.1); // Attack
+      gainNode.gain.linearRampToValueAtTime(0.6, audioCtx.currentTime + 0.3); // Decay
+      gainNode.gain.setValueAtTime(0.6, audioCtx.currentTime); // Sustain
+
+      function pulse() {
+        gainNode.gain.exponentialRampToValueAtTime(
+          0.3,
+          audioCtx.currentTime + 1
+        );
+        gainNode.gain.exponentialRampToValueAtTime(
+          0.6,
+          audioCtx.currentTime + 2
+        );
+      }
+      pulse();
+      const interval = setInterval(pulse, 2000);
+
+      // Connect nodes
+      oscillator.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      oscillator.start();
+
+      await sleep(duration);
+
+      oscillator.stop();
+      clearInterval(interval);
+    }
+
+    function noteToFrequency(note) {
+      const A4 = 440;
+      const notes = {
+        C: -9,
+        "C#": -8,
+        Db: -8,
+        D: -7,
+        "D#": -6,
+        Eb: -6,
+        E: -5,
+        F: -4,
+        "F#": -3,
+        Gb: -3,
+        G: -2,
+        "G#": -1,
+        Ab: -1,
+        A: 0,
+        "A#": 1,
+        Bb: 1,
+        B: 2,
+      };
+
+      const match = note.match(/^([A-Ga-g]#?|b?)(\d)$/);
+      if (!match) return A4;
+
+      const [, pitch, octave] = match;
+      const semitoneOffset = notes[pitch.toUpperCase()] + (octave - 4) * 12;
+
+      return A4 * Math.pow(2, semitoneOffset / 12);
+    }
+
+    const tempo = 1000;
+
+    const whole = (note) => ({
+      note,
+      duration: tempo,
+    });
+
+    const half = (note) => ({
+      note,
+      duration: tempo / 2,
+    });
+
+    const quarter = (note) => ({
+      note,
+      duration: tempo / 4,
+    });
+
+    const eighth = (note) => ({
+      note,
+      duration: tempo / 8,
+    });
+
+    const dotted = (note) => ({
+      note: note.note,
+      duration: note.duration * 1.5,
+    });
+
+    // Recording functions
+    function startRecording() {
+      recordedChunks = [];
+      const destination = audioCtx.createMediaStreamDestination(); // For recording
+      const mediaRecorder = new MediaRecorder(destination.stream);
+
+      mediaRecorder.ondataavailable = (event) => {
+        console.log(event)
+        if (event.data.size > 0) recordedChunks.push(event.data);
+      };
+
+      mediaRecorder.onstop = exportRecording;
+      mediaRecorder.start();
+      console.log("Recording started...");
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state === "recording") {
+        mediaRecorder.stop();
+        console.log("Recording stopped.");
+      }
+    }
+
+    function exportRecording() {
+      const blob = new Blob(recordedChunks, { type: "audio/webm" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+      a.download = "recording.webm";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    }
+
+    async function exportNote(note) {
+      startRecording();
+      await playWoodwind(note, 5000);
+      stopRecording();
+    }
+
+    // Play a note when clicking anywhere on the screen
+    document.addEventListener("mousedown", async () => {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+      const mainTheme = [
+        half("A4"),
+        eighth("A4"),
+
+        quarter("A4"),
+        quarter("A4"),
+        quarter("A4"),
+
+        quarter("A4"),
+        eighth("G4"),
+        quarter("A4"),
+
+        eighth("A4"),
+        quarter("A4"),
+        quarter("A4"),
+        quarter("A4"),
+
+        quarter("A4"),
+        eighth("G4"),
+        quarter("A4"),
+
+        eighth("A4"),
+        quarter("A4"),
+        quarter("A4"),
+        quarter("A4"),
+
+        quarter("A4"),
+        eighth("E4"),
+        eighth("E4"),
+
+        quarter("E4"),
+        eighth("E4"),
+        eighth("E4"),
+
+        quarter("E4"),
+        eighth("E4"),
+        eighth("E4"),
+
+        quarter("E4"),
+        quarter("E4"),
+
+        quarter("A4"),
+        dotted(quarter("E4")),
+
+        eighth("A4"),
+        eighth("A4"),
+        eighth("B4#"),
+        eighth("C5"),
+        eighth("D5"),
+
+        half("E5"),
+      ];
+      //   for (let note of mainTheme) {
+      //     console.log(note.duration, note.note)
+      //     await playWoodwind(note.note, note.duration)
+      //   }
+
+      await exportNote("A4");
+    });
+  </script>
+</html>

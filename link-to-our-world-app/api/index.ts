@@ -9,3 +9,5 @@ export * from "./getLoggedInUser";
 export * from "./UserType";
 
 export * from "./UserRoles";
+
+export * from "./isEmailInUse";

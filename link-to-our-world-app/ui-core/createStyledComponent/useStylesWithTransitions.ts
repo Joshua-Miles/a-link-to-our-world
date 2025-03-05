@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { interpolate, interpolateColor, runOnJS, useAnimatedProps, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring, WithSpringConfig, withTiming, WithTimingConfig } from "react-native-reanimated";
+import { interpolate, Easing, interpolateColor, runOnJS, useAnimatedProps, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring, WithSpringConfig, withTiming, WithTimingConfig } from "react-native-reanimated";
 import { ViewStyle } from "react-native/types";
 import { CoreStyleProps, InteractionState } from "./createStyledComponent";
 import { ParsedStyles } from "./useStyleParser";
 import Color from 'color';
+
+export { Easing }
 
 type TransitionCommon = {
     duration: number
@@ -44,7 +46,7 @@ export const spring = (duration: number, options: TimingTransition['options'] = 
 })
 
 
-export type TransformName =  keyof (Exclude<ViewStyle['transform'], string>[number])
+export type TransformName =  keyof (Exclude<ViewStyle['transform'], string | undefined>[number])
 
 type TransformTransitions = Partial<Record<TransformName, Transition>>[];
 
@@ -61,13 +63,17 @@ export function useStylesWithTransitions<S extends InteractionState>(parsedStyle
 
     const transitionStyle: ViewStyle = {};
 
-    for (let propertyName in transitions) {
+    for (let key in transitions) {
+        const propertyName = key as keyof Transitions;
         const transition = transitions[propertyName];
+        if (!transition) continue;
+
         const currentValue = parsedStyles.getCurrentValue(propertyName as keyof ViewStyle);
 
-        if (propertyName !== 'transform') {
+        if (propertyName !== 'transform' && !Array.isArray(transition)) {
             if (currentValue === undefined) continue;
-            transitionStyle[propertyName] = useTransition(transition, currentValue);
+            // @ts-ignore
+            transitionStyle[propertyName] = useTransition(propertyName, transition, currentValue);
         } else {
             const transformTransitions = transition as TransformTransitions;
             if (!Array.isArray(transformTransitions)) throw Error(`Transform transitions must be array, got: "${JSON.stringify(transformTransitions)}"`);
@@ -85,11 +91,12 @@ export function useStylesWithTransitions<S extends InteractionState>(parsedStyle
                 const transformValueRecord = transformValues.find( value => transformPropertyName in value);
                 if (!transformValueRecord) throw Error(`Could not find value for animated transform.${transformPropertyName}`);
                 const [ currentValue ] = Object.values(transformValueRecord);
-                const result = { [transformPropertyName]: useTransition(transformTransition, currentValue) } as (typeof results)[number]
+                const result = { [transformPropertyName]: useTransition(propertyName, transformTransition, currentValue) } as (typeof results)[number]
                 results.push(result);
             }
 
-            (transitionStyle[propertyName] as any) = results;
+            // @ts-ignore
+            transitionStyle[propertyName] = results;
         }
     }
 
@@ -104,6 +111,7 @@ export function useStylesWithTransitions<S extends InteractionState>(parsedStyle
 type TransitionState = {
     value: any
     currentTransition: null | {
+        hasStarted: boolean,
         fromValue: any,
         toValue: any,
         startedAt: number,
@@ -112,7 +120,7 @@ type TransitionState = {
     }
 }
 
-function useTransition(transition: Transition, currentValue: any) {
+function useTransition(propertyName: string, transition: Transition, currentValue: any) {
     const sharedTransitionState = useSharedValue<TransitionState>({
         // Initialize with the current value
         value: currentValue,
@@ -144,6 +152,7 @@ function useTransition(transition: Transition, currentValue: any) {
             sharedTransitionState.value = {
                 value: currentValue,
                 currentTransition: {
+                    hasStarted: false,
                     fromValue: formerValue,
                     toValue: currentValue,
                     interpolationType: deriveInterpolationType(formerValue),
@@ -154,7 +163,7 @@ function useTransition(transition: Transition, currentValue: any) {
 
             sharedValue.value = 0;
 
-            function handleEnd(isComplete: boolean) {
+            function handleEnd(isComplete?: boolean) {
                 'worklet'
                 if (isComplete) {
                     sharedTransitionState.value = {
@@ -177,16 +186,31 @@ function useTransition(transition: Transition, currentValue: any) {
         }
     }, [ currentValue ]);
 
-
-
     return useDerivedValue(() => {
         const currentTransition = sharedTransitionState.value.currentTransition;
 
         if (currentTransition === null) {
+            // console.log('aborting', propertyName, currentValue)
             return currentValue;
         }
 
-        return  interpolateByType(currentTransition.interpolationType, sharedValue.value, currentTransition.fromValue, currentTransition.toValue)
+        if ((currentTransition.hasStarted === false && sharedValue.value !== 0)) {
+            return currentTransition.fromValue;
+        }
+
+        if (!currentTransition.hasStarted) {
+            sharedTransitionState.value = {
+                ...sharedTransitionState.value,
+                currentTransition: {
+                    ...currentTransition,
+                    hasStarted: true
+                }
+            }
+        }
+
+        let result =  interpolateByType(currentTransition.interpolationType, sharedValue.value, currentTransition.fromValue, currentTransition.toValue)
+        // console.log('interpolating', sharedValue.value, propertyName, result)
+        return result
     })
 }
 

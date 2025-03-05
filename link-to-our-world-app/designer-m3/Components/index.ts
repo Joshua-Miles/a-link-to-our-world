@@ -13,3 +13,4 @@ export * from './CircularProgress';
 export * from './Slider';
 export * from './Avatar';
 export * from './RadioButton';
+export * from './Page'

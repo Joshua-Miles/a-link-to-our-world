@@ -3,9 +3,8 @@ import { UserRole, UserRoles } from "./UserRoles";
 
 export type User = {
     id: Serial;
-    firstName: string;
-    lastName: string;
     role: UserRole;
+    name: string;
     email: string;
     passwordDigest: string;
 }

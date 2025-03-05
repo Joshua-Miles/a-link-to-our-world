@@ -6,9 +6,8 @@ type IUserType = {
     id: number & {
         __serial__?: undefined | true;
     };
-    firstName: string;
-    lastName: string;
     role: 1 | 100;
+    name: string;
     email: string;
     passwordDigest: string;
 };
@@ -47,14 +46,6 @@ export const UserType = {
                     } as const
                 }] as const
         } as const,
-        firstName: {
-            kind: "string" as const,
-            __isReflected: true as const
-        } as const,
-        lastName: {
-            kind: "string" as const,
-            __isReflected: true as const
-        } as const,
         role: {
             kind: "union" as const,
             __isReflected: true as const,
@@ -71,6 +62,10 @@ export const UserType = {
                     __isReflected: true as const,
                     value: 100 as const
                 }] as const
+        } as const,
+        name: {
+            kind: "string" as const,
+            __isReflected: true as const
         } as const,
         email: {
             kind: "string" as const,

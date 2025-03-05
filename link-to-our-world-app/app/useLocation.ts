@@ -19,7 +19,7 @@ export function useLocation(): UseLocationResult {
                 return;
             }
 
-            await Location.watchPositionAsync({}, location => {
+            await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, timeInterval: 0, distanceInterval: 1 }, location => {
                 setResult(location);
             });
         }
