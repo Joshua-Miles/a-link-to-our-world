@@ -16,7 +16,7 @@ export const defaultTypographyTheme: TypographyTheme = {
     display: {
         base: {
             fontWeight: 400,
-            fontFamily: 'Disney',
+            fontFamily: 'TriForce',
             lineHeight: 58.66,
         },
         small: {

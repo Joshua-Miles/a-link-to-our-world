@@ -314,6 +314,7 @@ export default function Prologue() {
               id="marker"
               lat={markerCoordinate.lat}
               lng={markerCoordinate.lng}
+              imageSlug="marker"
             />
           )}
         </MapView>
@@ -330,7 +331,7 @@ export default function Prologue() {
           }}
         >
           <Label.Small>The</Label.Small>
-          <Display.Small>Legend of Zelda</Display.Small>
+          <Display.Medium>Legend of Zelda</Display.Medium>
           <Label.Small textAlign="right">A Link to Our World</Label.Small>
           <Row justifyContent="center" my={spacing.md} gap={spacing.xs}>
             <Button.Text href="/intro/sign-up" alignItems="center">

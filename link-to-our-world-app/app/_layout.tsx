@@ -10,8 +10,9 @@ import {
 } from "designer-m3";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Globals } from "@triframe/ambassador";
-import { Nav } from "./Nav";
+import { Nav } from "./shared/Nav";
 import { StatusBar } from "react-native";
+import { useFonts } from 'expo-font'
 
 Globals.storage = AsyncStorage;
 
@@ -47,6 +48,9 @@ const theme = {
 StatusBar.setBackgroundColor(theme.colors.roles.surfaceContainerLowest)
 
 export default function RootLayout() {
+  useFonts({
+    'TriForce': require('../assets/Triforce.ttf'),
+  });
   return (
     <DesignerM3Provider theme={theme}>
       <Column

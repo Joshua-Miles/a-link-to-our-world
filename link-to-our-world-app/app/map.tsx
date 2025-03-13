@@ -1,83 +1,95 @@
 import { isFailure } from "@triframe/ambassador";
-import { isLoading } from "@triframe/utils-react";
-import { Label, Column } from "designer-m3";
+import { isLoading, useResult } from "@triframe/utils-react";
+import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon } from "designer-m3";
 import { useLocation } from "./useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
-import { useRef } from "react";
-import { Point } from "./distance";
+import { useState } from "react";
+import { listEncounters } from "api";
+import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements } from "./shared";
+import { Href } from "expo-router";
+import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";
-import { Nav } from "./Nav";
 
 Mapbox.setAccessToken(
   "pk.eyJ1IjoiY2hyaXN0Zmlyc3Rjb2RlciIsImEiOiJjbTZod3h3ajUwMjl6Mmtwa3hvYzR0Nm9hIn0.BZK9rdHBOzIyP6H3xPfUFA"
 );
 
+const MAX_FEET_FOR_NEARBY_ENCOUNTER = 30;
+
 export default function Map() {
-  return (
-    <>
-      <Column style={{ flex: 1 }}>
-        {/* <SongPlayer song={mainTheme} /> */}
-        <ExampleMap />
-      </Column>
-      <Nav />
-    </>
-  );
-}
+  const realLocation = useLocation();
 
-function ExampleMap() {
-  const target: Point = {
-    latitude: 29.915563,
-    longitude: -95.588659,
-  };
-  const location = useLocation();
+  const [ spoofLocation, setSpoofLocation ] = useState<Coordinate | null>(null);
 
-  if (isLoading(location)) return null;
+  const location = spoofLocation === null ? realLocation : spoofLocation;
+
+  const encounters = useResult(listEncounters)
+
+  const [ mapLoaded, setMapLoaded ] = useState(false);
+
+  if (isLoading(location) || isLoading(encounters)) return <><Column flex={1}/><Nav /></>;
 
   if (isFailure(location, "permissionDenied"))
     return <Label.Small>Location Unavailable</Label.Small>;
 
+  function handleMapPress(e: any) {
+    if (!__DEV__) return;
+    const [ lng, lat ] = e.geometry.coordinates as number[];
+    setSpoofLocation({ lat, lng })
+  }
+
+  const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
   return (
-    <MapView
-      style={{ flex: 1 }}
-      styleURL={Mapbox.StyleURL.Dark}
-      scaleBarEnabled={false}
-    >
-      <Mapbox.Camera followZoomLevel={12} followUserLocation />
-      <Mapbox.UserLocation />
-      <PointMarker id="tom-bass-park" lat={29.588333} lng={-95.37445} />
-      <PointMarker id="challenger-7-park" lat={29.507617} lng={-95.141983} />
-      <PointMarker id="stella-roberts-park" lat={29.54195} lng={-95.306933} />
-      <PointMarker id="shadow-creek-park" lat={29.582217} lng={-95.411933} />
-      <PointMarker id="stevenson-park" lat={29.520817} lng={-95.192433} />
-      <PointMarker id="wilson-park" lat={29.64205} lng={-95.2185} />
-      <PointMarker id="centennial-park" lat={29.496667} lng={-95.183217} />
-      <PointMarker id="frankie-carter-park" lat={29.553283} lng={-95.199233} />
-    </MapView>
-  );
-}
-
-type PointProps = {
-  id: string;
-  lat: number;
-  lng: number;
-};
-
-function PointMarker({ id, lat, lng }: PointProps) {
-  const pointAnnotation = useRef<Mapbox.PointAnnotation>(null);
-
-  return (
-    <Mapbox.PointAnnotation
-      id={id}
-      coordinate={[lng, lat]}
-      ref={pointAnnotation}
-      onSelected={() => console.log(id)}
-    >
-      <Image
-        style={{ width: 30, height: 30,  }}
-        source={require("../assets/boulder.png")}
-        onLoad={() => pointAnnotation.current?.refresh()}
-      />
-    </Mapbox.PointAnnotation>
+    <>
+      <Column flex={1}>
+        <Announcements />
+        <MapView
+          style={{ flex: 1 }}
+          styleURL={Mapbox.StyleURL.Dark}
+          scaleBarEnabled={false}
+          onDidFinishLoadingMap={() => setMapLoaded(true)}
+          onPress={handleMapPress}
+        >
+          <Mapbox.Camera
+            centerCoordinate={mapLoaded ? undefined : [ location.lng, location.lat ]}
+            animationDuration={mapLoaded ? 500 : 0}
+            zoomLevel={12}
+          />
+          <Mapbox.UserLocation />
+          {encounters.map( encounter => (
+            <Marker
+              key={encounter.id}
+              id={encounter.slug}
+              lat={encounter.lat}
+              lng={encounter.lng}
+              imageSlug={encounter.imageSlug}
+              size={encounter.imageSize}
+            />
+          ))}
+        </MapView>
+        {nearbyEncounters.map( encounter => (
+          <PressableListItem href={`/encounters/${encounter.slug}` as Href} key={encounter.id}>
+            <ListItemLeadingIcon>
+              <Image
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10
+                }}
+                source={Assets[encounter.imageSlug]}
+              />
+            </ListItemLeadingIcon>
+            <ListItemTitle>
+              {encounter.label}
+            </ListItemTitle>
+            <ListItemTrailing>
+              <ArrowRightIcon />
+            </ListItemTrailing>
+          </PressableListItem>
+        ))}
+      </Column>
+      <Nav />
+    </>
   );
 }
 
@@ -95,3 +107,16 @@ function PointMarker({ id, lat, lng }: PointProps) {
  * Centennial Park?: https://www.geocaching.com/geocache/GC4EB1K
  *
  */
+/* <PointMarker id="tom-bass-park" lat={29.588333} lng={-95.37445} />
+      <PointMarker id="challenger-7-park" lat={29.507617} lng={-95.141983} />
+      <PointMarker id="stella-roberts-park" lat={29.54195} lng={-95.306933} />
+      <PointMarker id="shadow-creek-park" lat={29.582217} lng={-95.411933} />
+      <PointMarker id="stevenson-park" lat={29.520817} lng={-95.192433} />
+      <PointMarker id="wilson-park" lat={29.64205} lng={-95.2185} />
+      <PointMarker id="centennial-park" lat={29.496667} lng={-95.183217} />
+      <PointMarker id="frankie-carter-park" lat={29.553283} lng={-95.199233} /> */
+
+// const target: Point = {
+//   latitude: 29.915563,
+//   longitude: -95.588659,
+// };

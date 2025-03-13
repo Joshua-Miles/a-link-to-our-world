@@ -21,6 +21,10 @@ export function useSequence<T extends string>({ hasStarted }: Options, segments:
     return {
         currentIndex,
 
+        hasStarted() {
+            return currentIndex !== null
+        },
+
         hasReached(segment: T) {
             if (currentIndex === null) return false;
             return segments.indexOf(segment) <= currentIndex
@@ -58,6 +62,11 @@ export function useSequence<T extends string>({ hasStarted }: Options, segments:
                 result = result && this.hasNotPassed(options.notPassed)
             }
             return result;
+        },
+
+        jumpTo(segment: T) {
+            const index = segments.indexOf(segment);
+            setCurrentIndex(index);
         },
 
         next() {

@@ -33,5 +33,6 @@ export const ListItemLeadingIcon = StyledView
 export const ListItemTrailing = Row
     .style((theme: Theme) => ({
         flex: 1,
+        color: theme.colors.roles.onSurfaceVariant,
         flexDirection: 'row-reverse'
     }))

@@ -23,6 +23,7 @@
     "expo-av": "~15.0.2",
     "expo-dev-client": "~5.0.10",
     "expo-location": "~18.0.5",
+    "expo-sensors": "~14.0.2",
     "serve-static": "^1.16.2"
   },
   "devDependencies": {

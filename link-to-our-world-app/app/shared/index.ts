@@ -3,3 +3,10 @@ export * from './Fade'
 export * from './Speech'
 export * from './Marker'
 export * from './useSequence';
+export * from './Assets';
+export * from './feetBetween';
+export * from './SongPlayer'
+export * from './Nav'
+export * from './Announcements';
+export * from './wait';
+export * from './Dialog';

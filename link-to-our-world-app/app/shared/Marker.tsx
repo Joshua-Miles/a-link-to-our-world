@@ -1,16 +1,21 @@
 import Mapbox from "@rnmapbox/maps";
 import { useRef } from "react";
 import { Image } from "react-native";
+import { Assets } from ".";
 
 export type MarkerProps = {
   id: string;
-  lat: number;
-  lng: number;
+  lat: number | string;
+  lng: number | string;
+  size?: number | null;
+  imageSlug: string
 };
 
-export function Marker({ id, lat, lng }: MarkerProps) {
+export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
+  console.log(size)
   const pointAnnotation = useRef<Mapbox.PointAnnotation>(null);
-
+  lat = typeof lat == 'number' ? lat : parseFloat(lat)
+  lng = typeof lng == 'number' ? lng : parseFloat(lng)
   return (
     <Mapbox.PointAnnotation
       id={id}
@@ -20,8 +25,8 @@ export function Marker({ id, lat, lng }: MarkerProps) {
     >
       <Image
         fadeDuration={0}
-        style={{ width: 20, height: 20 }}
-        source={require("../../assets/marker.png")}
+        style={{ width: size ?? 20, height: size ?? 20,  }}
+        source={Assets[imageSlug]}
         onLoad={() => pointAnnotation.current?.refresh()}
       />
     </Mapbox.PointAnnotation>

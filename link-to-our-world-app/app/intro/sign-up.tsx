@@ -323,6 +323,7 @@ function PasswordStep({ name, hasStarted, onNext, ...props }: PasswordStepProps)
           <TextField.Filled
             key={sequence.hasReached('passwordInputFocused' ) ? 'focusedInput' : 'fadeIn'}
             autoFocus={sequence.hasReached('passwordInputFocused' )}
+            secureTextEntry
             label="Password"
             value={password}
             onChangeText={password => {

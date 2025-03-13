@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { IndeterminateValue, indeterminateValue } from '@triframe/utils-react'
 import { Failure, makeFailure } from '@triframe/ambassador';
 import * as Location from 'expo-location';
+import { Coordinate } from './shared';
 
 export type UseLocationResult =
     | IndeterminateValue
-    | Location.LocationObject
+    | Coordinate
     | Failure<'permissionDenied'>
 
 export function useLocation(): UseLocationResult {
@@ -20,7 +21,10 @@ export function useLocation(): UseLocationResult {
             }
 
             await Location.watchPositionAsync({ accuracy: Location.Accuracy.Highest, timeInterval: 0, distanceInterval: 1 }, location => {
-                setResult(location);
+                setResult({
+                    lat: location.coords.latitude,
+                    lng: location.coords.longitude
+                });
             });
         }
 

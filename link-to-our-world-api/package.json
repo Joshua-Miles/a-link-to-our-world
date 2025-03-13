@@ -14,7 +14,7 @@
   "dependencies": {
     "@triframe/gcp-file-store": "^0.0.1",
     "@triframe/proprietor": "^0.0.9",
-    "@triframe/scribe": "^0.0.6",
+    "@triframe/scribe": "^0.0.10",
     "bcrypt": "^5.1.1",
     "node-fetch": "^2.7.0"
   },

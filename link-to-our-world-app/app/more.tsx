@@ -1,13 +1,13 @@
-import { logout } from "api";
+import { logout, resetGame } from "api";
 import {
   Column,
   ListItemLeadingIcon,
   ListItemTitle,
   PressableListItem,
 } from "designer-m3";
-import { LockIcon } from "designer-m3/icons";
+import { BackwardIcon, LockIcon } from "designer-m3/icons";
 import { useRouter } from "expo-router";
-import { Nav } from "./Nav";
+import { Nav } from "./shared/Nav";
 
 export default function More() {
   const router = useRouter();
@@ -26,6 +26,14 @@ export default function More() {
           </ListItemLeadingIcon>
           <ListItemTitle>Logout</ListItemTitle>
         </PressableListItem>
+        {__DEV__ && (
+          <PressableListItem onPress={resetGame}>
+            <ListItemLeadingIcon>
+              <BackwardIcon />
+            </ListItemLeadingIcon>
+            <ListItemTitle>Reset</ListItemTitle>
+          </PressableListItem>
+        )}
       </Column>
       <Nav />
     </>

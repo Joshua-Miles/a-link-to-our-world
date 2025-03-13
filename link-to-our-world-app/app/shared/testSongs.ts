@@ -2,7 +2,7 @@ import { SongData } from "./SongPlayer";
 import { dotted, eighth, half, Note, quarter } from "./SongPlayer";
 
 export const zeldasLullaby: SongData = {
-    src: require('../assets/songs/zeldas-lullabye.mp3'),
+    src: require('assets/songs/zeldas-lullabye.mp3'),
     offset: 28,
     bpm: 104,
     notes: [
@@ -18,7 +18,7 @@ export const zeldasLullaby: SongData = {
 }
 
 export const mainTheme: SongData = {
-    src: require('../assets/songs/main-theme.mp3'),
+    src: require('assets/songs/main-theme.mp3'),
     offset: 90.5,
     bpm: 130,
     notes: [

@@ -3,6 +3,10 @@ import { Session } from './Session';
 import { Globals as ScribeGlobals } from '@triframe/scribe';
 import { createGCPFileStore } from '@triframe/gcp-file-store';
 import { PublicUserInterface } from './User';
+import { PublicEncountersInterface } from './Encounter';
+import { PublicInventoryItemsInterface } from './InventoryItem';
+import { PublicObjectivesInterface } from './Objective';
+import { resetGame } from './resetGame';
 
 if (process.env.BUCKET_NAME) {
     ScribeGlobals.fileStore = createGCPFileStore(process.env.BUCKET_NAME);
@@ -10,6 +14,10 @@ if (process.env.BUCKET_NAME) {
 
 const PublicInterface = {
     ...PublicUserInterface,
+    ...PublicEncountersInterface,
+    ...PublicInventoryItemsInterface,
+    ...PublicObjectivesInterface,
+    resetGame
 }
 
 serve(PublicInterface, {

@@ -11,3 +11,23 @@ export * from "./UserType";
 export * from "./UserRoles";
 
 export * from "./isEmailInUse";
+
+export * from "./listEncounters";
+
+export * from "./getEncounter";
+
+export * from "./resolveEncounter";
+
+export * from "./listInventoryItems";
+
+export * from "./acknowledgeInventoryItem";
+
+export * from "./listObjectives";
+
+export * from "./acknowledgeObjective";
+
+export * from "./acknowledgeObjectiveCompleted";
+
+export * from "./resetObjectives";
+
+export * from "./resetGame";

@@ -50,7 +50,7 @@ export const StyledView = createStyledComponent((props: AllViewProps, ref: Forwa
     // For some instane reason, you can set "display" on a View and it will 100% override your styles :facepalm:
     //  TODO: filter props to the actual view props we expect here
     // @ts-ignore
-    let { display, href, ...otherProps } = props;
+    let { display, position, href, ...otherProps } = props;
 
     styles = [ suppressOutlineStyles, ...styles ]
 

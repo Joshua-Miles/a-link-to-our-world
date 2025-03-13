@@ -15,8 +15,7 @@ export async function upsertAdmin() {
     const passwordDigest = await hash(ADMIN_SECRET, 10);
 
     await Users.append({
-        firstName: 'System',
-        lastName: 'Admin',
+        name: 'System Admin',
         email: ADMIN_EMAIL,
         role: UserRoles.admin,
         passwordDigest

@@ -1,16 +1,18 @@
 import { Label } from "designer-m3";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type SpeechProps = {
   text: string;
-  duration: number;
+  duration?: number;
   hasStarted?: boolean;
   onFinished?: () => any
 };
 
-export function Speech({ text, duration, hasStarted = true, onFinished }: SpeechProps) {
+export function Speech({ text, duration: durationProp, hasStarted = true, onFinished }: SpeechProps) {
   const letters = text.split("");
   const [lettersShown, setLettersShown] = useState(0);
+  const started = useRef<Record<string, boolean>>({});
+  const duration = durationProp === undefined ? text.length * 100 : durationProp;
 
   function showNextLetter() {
     setLettersShown((lettersShown) => {
@@ -24,8 +26,12 @@ export function Speech({ text, duration, hasStarted = true, onFinished }: Speech
   }
 
   useEffect(() => {
-      if (hasStarted) showNextLetter();
-  }, [ hasStarted ]);
+    if (hasStarted && !started.current[text]) {
+      started.current[text] = true;
+      setLettersShown(0)
+      showNextLetter();
+    }
+  }, [ hasStarted, text ]);
 
   return <Label.Small>{text.slice(0, lettersShown)}</Label.Small>;
 }
