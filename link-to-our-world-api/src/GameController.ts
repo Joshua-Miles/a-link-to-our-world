@@ -1,5 +1,6 @@
 import { createEncounter } from "./Encounter";
 import { GameEvent } from "./GameEvent";
+import { createInventoryItem } from "./InventoryItem";
 import { completeObjective, createObjective } from "./Objective";
 
 export const GameController = {
@@ -32,6 +33,11 @@ export const GameController = {
                             // Nonni and Hohos house
                             lat: 29.539823,
                             lng: -95.362979
+                        })
+                        createInventoryItem(event.playerId, {
+                            name: 'Sword',
+                            slug: 'sword',
+                            imageSlug: 'sword'
                         })
                 }
             break;

@@ -9,7 +9,7 @@ export function listInventoryItems(this: AmbassadorClient | void): Observable<ne
         __serial__?: undefined | true;
     };
 } & {
-    slug: "";
+    slug: "sword" | "master-sword" | "fire-sword" | "ice-sword" | "electric-sword" | "water-sword";
 } & {
     name: string;
 } & {
