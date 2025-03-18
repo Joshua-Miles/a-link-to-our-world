@@ -1,5 +1,5 @@
 {
-    "extends": "@triframe/ambassador/web-app.config.json",
+    "extends": "@triframe/ambassador/expo-app.config.json",
     "apis": [
         {
             "remoteUrl": "{{process.env.EXPO_PUBLIC_API_URL}}",

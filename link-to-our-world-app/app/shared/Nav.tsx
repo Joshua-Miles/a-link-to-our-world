@@ -6,7 +6,7 @@ import {
   NavigationLabel,
   theme,
 } from "designer-m3";
-import { BarsIcon, MapIcon } from "designer-m3/icons";
+import { BarsIcon, ImageIcon, MapIcon, ShieldIcon } from "designer-m3/icons";
 import { usePathname } from "expo-router";
 
 export function Nav() {
@@ -18,6 +18,18 @@ export function Nav() {
           <MapIcon />
         </NavigationIcon>
         <NavigationLabel>Map</NavigationLabel>
+      </NavigationItem>
+      <NavigationItem active={pathName.startsWith('/inventory')} href="/inventory">
+        <NavigationIcon>
+          <ShieldIcon />
+        </NavigationIcon>
+        <NavigationLabel>Inventory</NavigationLabel>
+      </NavigationItem>
+      <NavigationItem active={pathName.startsWith('/memories')} href="/memories">
+        <NavigationIcon>
+          <ImageIcon />
+        </NavigationIcon>
+        <NavigationLabel>Memories</NavigationLabel>
       </NavigationItem>
       <NavigationItem active={pathName.startsWith('/more')} href="/more">
         <NavigationIcon>

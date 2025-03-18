@@ -12,7 +12,6 @@ export type MarkerProps = {
 };
 
 export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
-  console.log(size)
   const pointAnnotation = useRef<Mapbox.PointAnnotation>(null);
   lat = typeof lat == 'number' ? lat : parseFloat(lat)
   lng = typeof lng == 'number' ? lng : parseFloat(lng)

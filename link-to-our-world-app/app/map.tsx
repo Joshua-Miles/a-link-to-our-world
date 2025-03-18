@@ -66,6 +66,16 @@ export default function Map() {
               size={encounter.imageSize}
             />
           ))}
+          {(Object.keys(Locations) as (keyof typeof Locations)[]).map( (location: keyof typeof Locations) => (
+             <Marker
+              key={location}
+              id={location}
+              lat={Locations[location].lat}
+              lng={Locations[location].lng}
+              imageSlug={'marker'}
+              size={20}
+           />
+          ))}
         </MapView>
         {nearbyEncounters.map( encounter => (
           <PressableListItem href={`/encounters/${encounter.slug}` as Href} key={encounter.id}>
@@ -92,6 +102,49 @@ export default function Map() {
     </>
   );
 }
+
+const Locations = {
+  ShadowCreek: {
+    lat: 29.582217,
+    lng: -95.411933,
+  },
+  TomBass: {
+    lat: 29.588333,
+    lng: -95.37445,
+  },
+  StellaRoberts: {
+    lat: 29.54195,
+    lng: -95.306933,
+  },
+  Wilson: {
+    lat: 29.64205,
+    lng: -95.2185,
+  },
+  FrankieCarter: {
+    lat: 29.553283,
+    lng: -95.199233,
+  },
+  Stevenson: {
+    lat: 29.520817,
+    lng: -95.199233,
+  },
+  Centennial: {
+    lat: 29.496667,
+    lng: -95.183217,
+  },
+  ChallengerSeven: {
+    lat: 29.507617,
+    lng: -95.141983,
+  },
+  Portsmouth: {
+    lat: 29.574452,
+    lng: -95.363353,
+  },
+  // Centroid: {
+  //   lat: 29.54195,
+  //   lng: -95.266933,
+  // },
+};
 
 /**
  *
