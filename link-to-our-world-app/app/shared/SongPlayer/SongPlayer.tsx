@@ -1,29 +1,42 @@
 import { fadeIn } from "app/shared";
-import { Column, Row, timing } from "designer-m3";
+import { Column, Row, timing, useDesignerTheme } from "designer-m3";
 import { AudioPlayer, useAudioPlayer } from "expo-audio";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Easing } from "react-native-reanimated";
+import { Speech } from "../Speech";
 import { SongData, useSongPlayer } from "./useSongPlayer";
 
 export { SongData };
 
 export type SongPlayerProps = {
   song: SongData;
+  restartMessage?: string;
+  onFinished?: () => any
 };
 
-export function SongPlayer({ song }: SongPlayerProps) {
+export function SongPlayer({ song, restartMessage, onFinished }: SongPlayerProps) {
+  const { colors } = useDesignerTheme();
   const songPlayer = useSongPlayer(song);
-
-  const actualSong = useAudioPlayer(song.src);
+  const [ isRestarting, setIsRestarting ] = useState(false)
 
   useEffect(() => {
    if (songPlayer.score > .5) {
-      actualSong.volume = 0;
-      actualSong.seekTo(song.offset)
-      actualSong.play();
-      fadeIn(actualSong, 2000)
+      onFinished?.()
+   } else if (songPlayer.ended) {
+      setIsRestarting(true);
    }
   }, [ songPlayer.ended ]);
+
+  if (isRestarting) {
+    return  (
+      <Column flex={1} justifyContent="center" alignItems="center">
+        <Speech hasStarted={isRestarting} text={restartMessage ?? 'Lets try that again...'} onFinished={() => {
+          songPlayer.restart();
+          setIsRestarting(false)
+        }} />
+      </Column>
+    )
+  }
 
   return (
     <Row flex={1} position="relative" {...songPlayer.panHandlers}>
@@ -44,7 +57,7 @@ export function SongPlayer({ song }: SongPlayerProps) {
           }}
           justifyContent="center"
           alignItems="center"
-          backgroundColor={pitch.isPressed ? "red" : undefined}
+          backgroundColor={pitch.isPressed ? colors.roles.primary : undefined}
         >
           {pitch.notes.map((note) => (
             <Column
@@ -53,7 +66,7 @@ export function SongPlayer({ song }: SongPlayerProps) {
               top={note.offset}
               height={note.height}
               width="100%"
-              backgroundColor="grey"
+              backgroundColor={colors.roles.secondary}
             >
               {pitch.id}
             </Column>
@@ -65,7 +78,7 @@ export function SongPlayer({ song }: SongPlayerProps) {
         position="absolute"
         width="100%"
         height={50}
-        backgroundColor="green"
+        backgroundColor={colors.roles.success}
         bottom={songPlayer.bottomMargin - 50}
       />
     </Row>

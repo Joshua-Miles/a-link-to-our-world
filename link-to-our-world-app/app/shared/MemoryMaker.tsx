@@ -5,11 +5,14 @@ import { CameraIcon, RotateIcon } from 'designer-m3/icons';
 import { CameraView, CameraType, useCameraPermissions } from 'expo-camera'
 import { useRef, useState } from 'react';
 
-export type MemoryMakerProps = {
+export type MemorySlug = Parameters<typeof saveMemory>[0]
 
+export type MemoryMakerProps = {
+    slug: MemorySlug
+    onComplete?: () => any
 }
 
-export function MemoryMaker ({  }: MemoryMakerProps) {
+export function MemoryMaker ({ slug, onComplete  }: MemoryMakerProps) {
     const { spacing, colors } = useDesignerTheme();
     const [facing, setFacing] = useState<CameraType>('back');
     const cameraViewRef = useRef<CameraView>(null);
@@ -23,7 +26,7 @@ export function MemoryMaker ({  }: MemoryMakerProps) {
     if (!permission.granted) {
       // Camera permissions are not granted yet.
       return (
-        <Column>
+        <Column p={spacing.md} justifyContent="center">
             <Label.Large>We need your permission to show the camera</Label.Large>
             <Button.Elevated onPress={requestPermission}>
                 Grant Permission
@@ -41,7 +44,8 @@ export function MemoryMaker ({  }: MemoryMakerProps) {
         if (!cameraView) return;
         const result = await cameraView.takePictureAsync();
         if (!result) return;
-        await saveMemory('memory-1', LocalFileReference.fromURI(result.uri))
+        await saveMemory(slug, LocalFileReference.fromURI(result.uri))
+        onComplete?.();
     }
 
     return (

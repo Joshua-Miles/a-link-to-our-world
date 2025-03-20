@@ -1,6 +1,8 @@
 export * from './Coordinate'
 export * from './Fade'
 export * from './Speech'
+export * from './SpeechGroup'
+export * from './SpeechStepper'
 export * from './Marker'
 export * from './useSequence';
 export * from './Assets';
@@ -12,3 +14,4 @@ export * from './wait';
 export * from './Dialog';
 export * from './Combat';
 export * from './MemoryMaker';
+export * from './ItemGet';

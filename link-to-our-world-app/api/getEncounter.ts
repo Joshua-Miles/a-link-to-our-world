@@ -2,7 +2,7 @@ import { AmbassadorClient } from "@triframe/ambassador";
 
 import type { Observable } from "@triframe/ambassador";
 
-export function getEncounter(this: AmbassadorClient | void, slug: "beckoning" | "moblin-1"): Observable<never[] | ({
+export function getEncounter(this: AmbassadorClient | void, slug: "intro/beckoning" | "intro/seeds" | "intro/sword-chest" | "intro/gorruk" | "lurelin/intro" | "lurelin/tidebane" | "lurelin/moldarach" | "lurelin/lullaby" | "lurelin/cache" | "faron/intro" | "faron/KOKORI" | "faron/skull-kid" | "faron/lullaby" | "faron/cache" | "floria/intro" | "floria/FAIRY" | "floria/bog-dobber" | "floria/lullaby" | "floria/cache" | "necluda/intro" | "necluda/RITO" | "necluda/argorok" | "necluda/lullaby" | "necluda/cache"): Observable<never[] | ({
     id: number & {
         __serial__?: undefined | true;
     };
@@ -13,7 +13,7 @@ export function getEncounter(this: AmbassadorClient | void, slug: "beckoning" | 
 } & {
     lng: number;
 } & {
-    slug: "beckoning" | "moblin-1";
+    slug: "intro/beckoning" | "intro/seeds" | "intro/sword-chest" | "intro/gorruk" | "lurelin/intro" | "lurelin/tidebane" | "lurelin/moldarach" | "lurelin/lullaby" | "lurelin/cache" | "faron/intro" | "faron/KOKORI" | "faron/skull-kid" | "faron/lullaby" | "faron/cache" | "floria/intro" | "floria/FAIRY" | "floria/bog-dobber" | "floria/lullaby" | "floria/cache" | "necluda/intro" | "necluda/RITO" | "necluda/argorok" | "necluda/lullaby" | "necluda/cache";
 } & {
     state: unknown;
 })> {

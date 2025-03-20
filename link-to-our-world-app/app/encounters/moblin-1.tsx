@@ -4,7 +4,6 @@ import { Column } from "designer-m3"
 export default () => {
     return (
         <Column flex={1}>
-
             {/* <Dialog
                 flex={1}
                 tree={dialog('Hey!', {
@@ -16,8 +15,6 @@ export default () => {
                     'When': dialog('Lets fight'),
                 })}
             /> */}
-            {/* <Combat fortitude={50} asset="moblin" /> */}
-            <MemoryMaker />
         </Column>
     )
 }

@@ -40,10 +40,14 @@ export function useSongPlayer(songData: SongData) {
         pressTimes: {},
     });
 
-    useEffect(() => {
-        setState((state) => ({ ...state, started: true, startTime: Date.now() }));
+    function start() {
+        setState((state) => ({ ...state, score: 0, recordedNotes: [], ended: false, started: true, startTime: Date.now() }));
         setTimeout(() => handleSongEnd.current(), song.durationInMS);
-    }, []);
+    }
+
+    useEffect(() => {
+        if (!state.started) start()
+    }, [ state.started ]);
 
     const pianoWidth = screen.width;
     const keyWidth = pianoWidth / pitches.length;
@@ -172,5 +176,8 @@ export function useSongPlayer(songData: SongData) {
                         bottomMargin,
                 })),
         })),
+        restart: () => {
+            setState(state => ({ ...state, started: false }))
+        }
     };
 }

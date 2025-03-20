@@ -12,7 +12,7 @@ export function Speech({ text, duration: durationProp, hasStarted = true, onFini
   const letters = text.split("");
   const [lettersShown, setLettersShown] = useState(0);
   const started = useRef<Record<string, boolean>>({});
-  const duration = durationProp === undefined ? text.length * 100 : durationProp;
+  const duration = durationProp === undefined ? text.length * 60 : durationProp;
 
   function showNextLetter() {
     setLettersShown((lettersShown) => {

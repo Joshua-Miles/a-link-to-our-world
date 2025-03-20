@@ -1,8 +1,16 @@
 import { InventoryItem, InventoryItems } from "./InventoryItem";
 
-export const createInventoryItem = (playerId: number, options: Pick<InventoryItem, 'slug' | 'name' | 'imageSlug'>) =>
+type Slug = InventoryItem['slug'];
+
+type RequiredOptions = Pick<InventoryItem, 'name'>
+
+type Options = RequiredOptions & Partial<Pick<InventoryItem, 'imageSlug'>>
+
+export const createInventoryItem = (playerId: number, slug: Slug, { name, ...options }: Options) =>
         InventoryItems.append({
             playerId,
-            ...options,
+            slug,
+            name,
+            imageSlug: options.imageSlug ?? slug,
             acknowledged: false
         })

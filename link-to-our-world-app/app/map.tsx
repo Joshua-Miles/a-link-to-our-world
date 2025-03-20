@@ -66,16 +66,6 @@ export default function Map() {
               size={encounter.imageSize}
             />
           ))}
-          {(Object.keys(Locations) as (keyof typeof Locations)[]).map( (location: keyof typeof Locations) => (
-             <Marker
-              key={location}
-              id={location}
-              lat={Locations[location].lat}
-              lng={Locations[location].lng}
-              imageSlug={'marker'}
-              size={20}
-           />
-          ))}
         </MapView>
         {nearbyEncounters.map( encounter => (
           <PressableListItem href={`/encounters/${encounter.slug}` as Href} key={encounter.id}>

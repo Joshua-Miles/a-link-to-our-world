@@ -28,8 +28,6 @@ export * from "./acknowledgeObjective";
 
 export * from "./acknowledgeObjectiveCompleted";
 
-export * from "./resetObjectives";
-
 export * from "./saveMemory";
 
 export * from "./listMemories";

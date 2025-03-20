@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 type Options = {
     hasStarted: boolean
+    onFinished?: () => any
 }
 
 type HasOptions<T> = {
@@ -11,12 +12,18 @@ type HasOptions<T> = {
     notPassed?: T
 }
 
-export function useSequence<T extends string>({ hasStarted }: Options, segments: T[]) {
+export function useSequence<T extends string>({ hasStarted, onFinished }: Options, segments: T[]) {
     const [ currentIndex, setCurrentIndex ] = useState<null | number>(null)
+
+    const numberOfSegments = segments.length;
 
     useEffect(() => {
         if (hasStarted && currentIndex === null) setCurrentIndex(0)
     }, [ hasStarted ])
+
+    useEffect(() => {
+        if (currentIndex === numberOfSegments) onFinished?.();
+    }, [ currentIndex, numberOfSegments ])
 
     return {
         currentIndex,
@@ -70,7 +77,7 @@ export function useSequence<T extends string>({ hasStarted }: Options, segments:
         },
 
         next() {
-            setCurrentIndex(index => index === null ? null : index + 1)
+            setCurrentIndex(index => index === null ? null : Math.min(index + 1, numberOfSegments))
         }
     }
 }

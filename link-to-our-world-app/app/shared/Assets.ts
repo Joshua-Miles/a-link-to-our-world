@@ -10,6 +10,9 @@ export const Assets: Record<string, any> = {
     'ice-moblin': require('../../assets/enemies/ice-moblin.png'),
     'water-moblin': require('../../assets/enemies/water-moblin.png'),
 
+    // Characters
+    'lumina': require('../../assets/characters/lumina.png'),
+
 
     // Items
     'sword': require('../../assets/items/sword.png'),
@@ -17,5 +20,6 @@ export const Assets: Record<string, any> = {
     'electric-sword': require('../../assets/items/electric-sword.png'),
     'ice-sword': require('../../assets/items/ice-sword.png'),
     'water-sword': require('../../assets/items/water-sword.png'),
+    'goddess-flute': require('../../assets/items/goddess-flute.png'),
 
 }

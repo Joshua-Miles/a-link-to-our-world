@@ -6,7 +6,7 @@
 * Ascended
 * One day a hero will come to tend the soil and restore Hyrule
 
-### Intro - pt 1 - Nonni & Hohos park
+### Intro - pt 1 - Nonni & Hohos park (Message from the Goddess)
 * Meet assistant
 * Assistant: "I do not know why the goddess chose you; your time bears no resemblance to the Hyrule that is."
 * Get the goddess fluet
@@ -49,7 +49,7 @@
   * Eldin Volcano (Fire Blade, Goron, Fyrus) - Challenger 7
   * Hebra Mountains (Ice Blade, Llorons, Frostus) - Shadow Creek
 
-### Finale - pt 1 - wherever
+### Finale - pt 1 - wherever (Sealing Blow)
 * Encounter Gorruk
 * Gorruk Becomes Ganon
 * After being defeated, Ganon uses skull kid's flute
