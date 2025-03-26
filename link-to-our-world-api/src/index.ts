@@ -8,6 +8,7 @@ import { PublicInventoryItemsInterface } from './InventoryItem';
 import { PublicObjectivesInterface } from './Objective';
 import { resetGame } from './resetGame';
 import { PublicMemoryInterface } from './Memory';
+import { PublicHealthInterface } from './Health';
 
 if (process.env.BUCKET_NAME) {
     ScribeGlobals.fileStore = createGCPFileStore(process.env.BUCKET_NAME);
@@ -19,6 +20,7 @@ const PublicInterface = {
     ...PublicInventoryItemsInterface,
     ...PublicObjectivesInterface,
     ...PublicMemoryInterface,
+    ...PublicHealthInterface,
     resetGame
 }
 

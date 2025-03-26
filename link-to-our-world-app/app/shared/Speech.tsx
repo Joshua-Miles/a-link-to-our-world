@@ -1,14 +1,17 @@
 import { Label } from "designer-m3";
 import { useEffect, useRef, useState } from "react";
 
+type LabelProps = Parameters<typeof Label.Small>[0]
+
 export type SpeechProps = {
   text: string;
+  textAlign?: LabelProps['textAlign']
   duration?: number;
   hasStarted?: boolean;
   onFinished?: () => any
 };
 
-export function Speech({ text, duration: durationProp, hasStarted = true, onFinished }: SpeechProps) {
+export function Speech({ text, duration: durationProp, textAlign = 'center', hasStarted = true, onFinished }: SpeechProps) {
   const letters = text.split("");
   const [lettersShown, setLettersShown] = useState(0);
   const started = useRef<Record<string, boolean>>({});
@@ -33,5 +36,5 @@ export function Speech({ text, duration: durationProp, hasStarted = true, onFini
     }
   }, [ hasStarted, text ]);
 
-  return <Label.Small>{text.slice(0, lettersShown)}</Label.Small>;
+  return <Label.Small textAlign={textAlign}>{text.slice(0, lettersShown)}</Label.Small>;
 }

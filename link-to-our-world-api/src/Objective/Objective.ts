@@ -1,6 +1,8 @@
 import { persist, Serial } from "@triframe/scribe";
 
-export type ObjectiveSlug = 'beckoning'
+export type ObjectiveSlug = 
+    | 'beckoning'
+    | 'plant-seeds'
 
 export type Objective = {
     id: Serial

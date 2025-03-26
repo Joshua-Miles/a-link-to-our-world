@@ -7,11 +7,12 @@ import { ArrowRightIcon } from "designer-m3/icons";
 export type SpeechStepperProps = Parameters<typeof Column>[0] & {
     hasStarted: boolean
     groups: string[][]
+    onNext?: () => any
     onFinished?: () => any
 }
 
 
-export function SpeechStepper({ hasStarted, groups, onFinished, ...columnProps }: SpeechStepperProps) {
+export function SpeechStepper({ hasStarted, groups, onNext, onFinished, ...columnProps }: SpeechStepperProps) {
     const { spacing } = useDesignerTheme();
 
     const sequence = useSequence({ hasStarted, onFinished: handleSequenceFinished }, [
@@ -26,8 +27,8 @@ export function SpeechStepper({ hasStarted, groups, onFinished, ...columnProps }
     const lastGroupIndex = groups.length - 1;
 
     function handleSequenceFinished() {
-        console.log('this far')
         if (currentGroupIndex !== lastGroupIndex) {
+            onNext?.()
             sequence.jumpTo('fadeIn');
             setCurrentGroupIndex(currentGroupIndex + 1);
         } else {

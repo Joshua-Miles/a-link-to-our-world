@@ -13,6 +13,8 @@ import { Globals } from "@triframe/ambassador";
 import { Nav } from "./shared/Nav";
 import { StatusBar } from "react-native";
 import { useFonts } from 'expo-font'
+import { SoundtrackProvider } from "./shared";
+
 
 Globals.storage = AsyncStorage;
 
@@ -52,14 +54,16 @@ export default function RootLayout() {
     'TriForce': require('../assets/Triforce.ttf'),
   });
   return (
-    <DesignerM3Provider theme={theme}>
-      <Column
-        flex={1}
-        backgroundColor={theme.colors.roles.surfaceContainerLowest}
-      >
-        <StatusBar barStyle="light-content" />
-        <Slot />
-      </Column>
-    </DesignerM3Provider>
+    <SoundtrackProvider preload={['item-get', 'game-over']}>
+      <DesignerM3Provider theme={theme}>
+        <Column
+          flex={1}
+          backgroundColor={theme.colors.roles.surfaceContainerLowest}
+        >
+          <StatusBar barStyle="light-content" />
+          <Slot />
+        </Column>
+      </DesignerM3Provider>
+    </SoundtrackProvider>
   );
 }

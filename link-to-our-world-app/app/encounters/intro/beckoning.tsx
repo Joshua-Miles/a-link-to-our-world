@@ -1,18 +1,15 @@
 import { isLoading } from "@triframe/utils-react"
 import { resolveEncounter } from "api";
-import { Assets, fadeIn, ItemGet, SongPlayer, SpeechStepper, useSequence } from "app/shared"
+import { Assets, ItemGet, SongPlayer, Soundtrack, SpeechStepper, useSequence } from "app/shared"
 import { zeldasLullaby } from "app/shared/testSongs";
 import { usePlayerName } from "app/shared/usePlayerName"
 import { Column, timing, useDesignerTheme } from "designer-m3"
-import { useAudioPlayer } from "expo-audio";
 import { router } from "expo-router";
 import { Image } from 'react-native';
 
 export default () => {
     const { spacing } = useDesignerTheme();
     const playerName = usePlayerName();
-
-    const actualSong = useAudioPlayer(zeldasLullaby.src);
 
     const sequence = useSequence({ hasStarted: true }, [
         'luminaEnters',
@@ -28,19 +25,24 @@ export default () => {
 
     if (sequence.isAt('playSong')) return (
         <SongPlayer
-            onFinished={() => {
-                actualSong.volume = 0;
-                actualSong.seekTo(zeldasLullaby.offset)
-                actualSong.play();
-                fadeIn(actualSong, 2000)
-                sequence.next()
-            }}
+            onFinished={sequence.next}
             song={zeldasLullaby}
         />
     )
 
     return (
         <Column flex={1}>
+            <Soundtrack  
+                asset='luminas-theme' 
+                fadeDuration={2000} 
+                isPlaying={sequence.hasNotReached('luminaPromptsSong')} 
+            />
+            <Soundtrack 
+                asset='zeldas-lullabye'
+                fadeDuration={1000}
+                isPlaying={sequence.hasReached('luminaReturns')}
+                offset={zeldasLullaby.offset}
+            />
             <Column
                 flex={1}
                 alignItems="center"
@@ -94,11 +96,12 @@ export default () => {
                     ]}
                 />
                 <ItemGet
-                    display={sequence.isAt('fluteGet') ? 'flex' : 'none'}
-                    hasStarted={sequence.hasReached('fluteGet')}
+                    isOpen={sequence.isAt('fluteGet')}
                     onFinished={sequence.next}
                     title='The Goddess Flute'
                     description="Use this to awake the deku seedlings"
+                    asset="goddess-flute"
+                    resumeParentTrack={false}
                 />
                 <SpeechStepper
                     display={sequence.isAt('luminaPromptsSong') ? 'flex' : 'none'}

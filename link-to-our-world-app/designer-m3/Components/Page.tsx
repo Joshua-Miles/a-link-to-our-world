@@ -5,10 +5,10 @@ import { NavigationProvider, StyledView } from "ui-core";
 export type PageProps = Parameters<typeof StyledView>[0] & {
     navTransitionOutDuration?: number
     children: ReactNode
-    onBeforeNaviage?: () => any
+    onBeforeNavigate?: () => any
 }
 
-export function Page({ children, navTransitionOutDuration = 0, onBeforeNaviage, ...props }: PageProps) {
+export function Page({ children, navTransitionOutDuration = 0, onBeforeNavigate, ...props }: PageProps) {
     const [navTransition, setNavTransition] = useState<null | 'in' | 'out' | 'preload'>('preload');
 
     useEffect(() => {
@@ -19,11 +19,11 @@ export function Page({ children, navTransitionOutDuration = 0, onBeforeNaviage, 
     function onNavigate(path: Href) {
         if (navTransitionOutDuration === 0) {
             setNavTransition('in')
-            onBeforeNaviage?.()
+            onBeforeNavigate?.()
             router.push(path)
         } else {
             setNavTransition('out')
-            onBeforeNaviage?.()
+            onBeforeNavigate?.()
             setTimeout(() => {
                 setNavTransition(null)
                 router.push(path)

@@ -34,4 +34,8 @@ export * from "./listMemories";
 
 export * from "./downloadMemoryImage";
 
+export * from "./getHealthMeter";
+
+export * from "./setHealth";
+
 export * from "./resetGame";

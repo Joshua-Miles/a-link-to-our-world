@@ -5,7 +5,7 @@ import { useLocation } from "./useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
 import { listEncounters } from "api";
-import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements } from "./shared";
+import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack } from "./shared";
 import { Href } from "expo-router";
 import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";
@@ -40,7 +40,8 @@ export default function Map() {
 
   const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
   return (
-    <>
+    <Column flex={1}>
+      <Soundtrack asset="hyrule-theme" fadeDuration={4000} />
       <Column flex={1}>
         <Announcements />
         <MapView
@@ -89,7 +90,7 @@ export default function Map() {
         ))}
       </Column>
       <Nav />
-    </>
+    </Column>
   );
 }
 

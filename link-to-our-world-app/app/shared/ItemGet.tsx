@@ -1,19 +1,21 @@
 import { Button, Column, Headline, Label, Row, useDesignerTheme, timing } from "designer-m3"
 import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";
-import { Assets, useSequence } from ".";
+import { Assets, Soundtrack, useSequence } from ".";
 
 export type ItemGetProps = Parameters<typeof Column>[0] & {
-    hasStarted: boolean
+    isOpen: boolean
     title: string
+    asset: string;
     description: string
     onFinished?: () => any
+    resumeParentTrack?: boolean
 }
 
-export function ItemGet({ hasStarted, title, description, onFinished, ...columnProps }: ItemGetProps) {
+export function ItemGet({ isOpen, title, description, asset, onFinished, resumeParentTrack = true, ...columnProps }: ItemGetProps) {
     const { spacing, colors } = useDesignerTheme();
 
-    const sequence = useSequence({ hasStarted, onFinished }, [
+    const sequence = useSequence({ hasStarted: isOpen, onFinished }, [
         'fadeIn',
         'displayed',
         'fadeOut'
@@ -21,8 +23,10 @@ export function ItemGet({ hasStarted, title, description, onFinished, ...columnP
 
     return (
         <>
+            <Soundtrack asset="item-get" push isPlaying={isOpen} fadeDuration={0} />
             <Row
                 {...columnProps}
+                display={isOpen ? 'flex' : 'none'}
                 opacity={sequence.has({ reached: 'fadeIn', notReached: 'fadeOut'}) ? 1 : 0}
                 gap={spacing.xs}
                 position="fixed"
@@ -35,7 +39,7 @@ export function ItemGet({ hasStarted, title, description, onFinished, ...columnP
                     opacity: timing(1000).then(sequence.next)
                 }}
             >
-                <Image source={Assets['goddess-flute']} style={{ width: 120, height: 120 }} />
+                <Image source={Assets[asset]} style={{ width: 120, height: 120 }} />
                 <Column>
                     <Headline.Small color={colors.roles.onPrimary}>
                         {title}

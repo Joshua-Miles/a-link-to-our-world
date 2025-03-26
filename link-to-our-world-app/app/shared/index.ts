@@ -15,3 +15,8 @@ export * from './Dialog';
 export * from './Combat';
 export * from './MemoryMaker';
 export * from './ItemGet';
+export * from './SubjectImage';
+export * from './useLatestCallback';
+export * from './usePlayerName';
+export * from './SpeechCard';
+export * from './Soundtrack';

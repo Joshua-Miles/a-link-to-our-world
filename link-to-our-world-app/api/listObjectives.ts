@@ -11,7 +11,7 @@ export function listObjectives(this: AmbassadorClient | void): Observable<never[
 } & {
     title: string;
 } & {
-    slug: "beckoning";
+    slug: "beckoning" | "plant-seeds";
 } & {
     acknowledged: boolean;
 } & {

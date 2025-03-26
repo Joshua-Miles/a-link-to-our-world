@@ -256,7 +256,7 @@ export default function Prologue() {
   return (
     <Page
       navTransitionOutDuration={2000}
-      onBeforeNaviage={() => fadeOut(overture, 2000)}
+      onBeforeNavigate={() => fadeOut(overture, 2000)}
       justifyContent="center"
     >
       <Column

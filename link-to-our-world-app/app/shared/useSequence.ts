@@ -78,6 +78,12 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
 
         next() {
             setCurrentIndex(index => index === null ? null : Math.min(index + 1, numberOfSegments))
+        },
+
+        select<R>(values: Record<T, R>): R | null{
+            if (!currentIndex) return null;
+            const segment = segments[currentIndex]
+            return values[segment];
         }
     }
 }
