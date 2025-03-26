@@ -21,8 +21,10 @@ export const GameController = {
             break;
             case 'ENCOUNTER_RESOLVED':
                 handleIntroEncounters(event);
-
-                
+                handleLurelinEncounters(event);
+                handleFaronEncounters(event);
+                handleFloriaEncounters(event);
+                handleNecludaEncounters(event);
             break;
         }
     }
@@ -32,7 +34,6 @@ export const GameController = {
 function handleIntroEncounters(event: EncounterResolvedEvent) {
     switch(event.slug) {
         case 'intro/beckoning':
-            // completeObjective(event.playerId, 'beckoning')
             createEncounter(event.playerId, 'intro/seeds', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -60,6 +61,7 @@ function handleIntroEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'intro/gorruk':
+            completeObjective(event.playerId, 'beckoning')
             createObjective(event.playerId, {
                 title: 'Plant the Korok Seeds',
                 slug: 'plant-seeds'
@@ -94,19 +96,37 @@ function handleIntroEncounters(event: EncounterResolvedEvent) {
 
 function handleLurelinEncounters(event: EncounterResolvedEvent) {
     switch(event.slug) {
-        case 'lurelin/intro':
-            createEncounter(event.playerId, 'necluda/intro', {
-                label: 'Inspect...',
+        case 'lurelin/intro':    
+            createEncounter(event.playerId, 'lurelin/tidebane', {
+                label: 'Talk',
                 imageSlug: 'tidebane-avatar',
-                lat: 29.588201,
-                lng: -95.373022
+                lat: 29.545435, 
+                lng: -95.308331
             })
         break;
         case 'lurelin/tidebane':
+            createEncounter(event.playerId, 'lurelin/moldarach', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.544165,
+                lng: -95.306604
+            })
         break;
         case 'lurelin/moldarach':
+            createEncounter(event.playerId, 'lurelin/lullaby', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.542236,
+                lng: -95.306583
+            })
         break;
         case 'lurelin/lullaby':
+            createEncounter(event.playerId, 'lurelin/cache', {
+                label: 'Plant Korok',
+                imageSlug: 'marker',
+                lat: 29.54195,
+                lng: -95.306933,
+            })
         break;
         case 'lurelin/cache':
         break;
@@ -114,22 +134,118 @@ function handleLurelinEncounters(event: EncounterResolvedEvent) {
 }
 
 function handleFaronEncounters(event: EncounterResolvedEvent) {
-    switch(event.slug) {
+     switch(event.slug) {
         case 'faron/intro':
+            createEncounter(event.playerId, 'faron/tavon', {
+                label: 'Talk',
+                imageSlug: 'tavon-avatar',
+                lat: 29.548375, 
+                lng: -95.195959
+            })    
+        break;
+        case 'faron/tavon':
+            createEncounter(event.playerId, 'faron/skull-kid', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.553270, 
+                lng: -95.199190
+            })
+        break;
+        case 'faron/skull-kid':
+            createEncounter(event.playerId, 'faron/lullaby', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.551661, 
+                lng: -95.196925
+            })
+        break;
+        case 'faron/lullaby':
+            createEncounter(event.playerId, 'faron/cache', {
+                label: 'Plant Korok',
+                imageSlug: 'marker',
+                lat: 29.553283, 
+                lng: -95.199233
+            })
+        break;
+        case 'faron/cache':
         break;
     }
 }
 
 function handleFloriaEncounters(event: EncounterResolvedEvent) {
-    switch(event.slug) {
-        case 'floria/intro':
+     switch(event.slug) {
+        case 'floria/intro':  
+            createEncounter(event.playerId, 'floria/nimri', {
+                label: 'Talk',
+                imageSlug: 'nimri-avatar',
+                lat: 29.498131, 
+                lng: -95.182841
+            })  
+        break;
+        case 'floria/nimri':
+            createEncounter(event.playerId, 'floria/bog-dobber', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.497761,
+                lng: -95.181730
+            })  
+        break;
+        case 'floria/bog-dobber':
+            createEncounter(event.playerId, 'floria/lullaby', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.496953, 
+                lng: -95.183297
+            })  
+        break;
+        case 'floria/lullaby':
+            createEncounter(event.playerId, 'floria/cache', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.496667, 
+                lng: -95.183217
+            })  
+        break;
+        case 'floria/cache':
         break;
     }
 }
 
 function handleNecludaEncounters(event: EncounterResolvedEvent) {
-    switch(event.slug) {
-        case 'necluda/intro':
+     switch(event.slug) {
+        case 'necluda/intro':  
+            createEncounter(event.playerId, 'necluda/kyllis', {
+                label: 'Talk',
+                imageSlug: 'kyllis-avatar',
+                lat: 29.589597, 
+                lng: -95.374739
+            })    
+        break;
+        case 'necluda/kyllis':
+            createEncounter(event.playerId, 'necluda/argorok', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.545435, 
+                lng: -95.308331
+            })  
+        break;
+        case 'necluda/argorok':
+            createEncounter(event.playerId, 'necluda/lullaby', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.588552,
+                lng: -95.375426
+            })  
+        break;
+        case 'necluda/lullaby':
+            createEncounter(event.playerId, 'floria/cache', {
+                label: 'Plant Korok',
+                imageSlug: 'marker',
+                lat: 29.588333, 
+                lng: -95.37445
+            })  
+        break;
+        case 'necluda/cache':
         break;
     }
 }

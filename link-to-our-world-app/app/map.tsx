@@ -1,6 +1,6 @@
 import { isFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
-import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon } from "designer-m3";
+import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon, useDesignerTheme } from "designer-m3";
 import { useLocation } from "./useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
@@ -18,6 +18,8 @@ const MAX_FEET_FOR_NEARBY_ENCOUNTER = 30;
 
 export default function Map() {
   const realLocation = useLocation();
+
+  const { colors } = useDesignerTheme();
 
   const [ spoofLocation, setSpoofLocation ] = useState<Coordinate | null>(null);
 
@@ -69,7 +71,7 @@ export default function Map() {
           ))}
         </MapView>
         {nearbyEncounters.map( encounter => (
-          <PressableListItem href={`/encounters/${encounter.slug}` as Href} key={encounter.id}>
+          <PressableListItem href={`/encounters/${encounter.slug}` as Href} key={encounter.id} backgroundColor={colors.roles.surfaceContainerHighest}>
             <ListItemLeadingIcon>
               <Image
                 style={{
@@ -112,8 +114,8 @@ const Locations = {
     lng: -95.2185,
   },
   FrankieCarter: {
-    lat: 29.553283,
-    lng: -95.199233,
+    lat: 29.550533, 
+    lng: -95.195267
   },
   Stevenson: {
     lat: 29.520817,
@@ -144,12 +146,14 @@ const Locations = {
  * Tom Bass Park: https://www.geocaching.com/geocache/GCA21R3
  * Challenger 7 Park: https://www.geocaching.com/geocache/GC88E
  * Stella Roberts Recycling: https://www.geocaching.com/geocache/GCATPA6
- * Buffalo Bayou Bark?: https://www.geocaching.com/geocache/GCAH48Z
  * Shadow Creek Park: https://www.geocaching.com/geocache/GCATPBM
  * Stevenson Park: https://www.geocaching.com/geocache/GC864TN
  * Wilson Park?: https://www.geocaching.com/geocache/GC9XCDB
  * Centennial Park?: https://www.geocaching.com/geocache/GC4EB1K
- *
+ * Frankie Carter Randolph Park: https://www.geocaching.com/geocache/GCA0Y2W
+ * 
+ * Buffalo Bayou Bark?: https://www.geocaching.com/geocache/GCAH48Z
+
  */
 /* <PointMarker id="tom-bass-park" lat={29.588333} lng={-95.37445} />
       <PointMarker id="challenger-7-park" lat={29.507617} lng={-95.141983} />

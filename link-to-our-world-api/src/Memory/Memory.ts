@@ -1,8 +1,10 @@
 import { persist, Serial, Float } from "@triframe/scribe";
 
 export type MemorySlug =
-    'memory-1'
-    | 'memory-2'
+    'planting-grinroot'
+    | 'planting-scribeleaf'
+    | 'planting-tumblebreeze'
+    | 'planting-fayflutter'
 
 export type Memory = {
     id: Serial

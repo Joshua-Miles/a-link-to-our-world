@@ -26,7 +26,7 @@ export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
         fadeDuration={0}
         style={{ width: size ?? 20, height: size ?? 20,  }}
         source={Assets[imageSlug]}
-        onLoad={() => pointAnnotation.current?.refresh()}
+        onLoadEnd={() => pointAnnotation.current?.refresh()}
       />
     </Mapbox.PointAnnotation>
   );

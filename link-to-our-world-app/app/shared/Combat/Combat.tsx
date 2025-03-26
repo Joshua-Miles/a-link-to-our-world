@@ -71,7 +71,6 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
     const itemSlugs = inventoryItems.map( item => item.slug);
 
     const swipeHandlers = selectedWeapon !== null ? {...swipe.panHandlers} : {};
-
     return (
         <Column flex={1} alignItems="center">
             <HitScrim gap={4} width="100%" px={16} showHit={showHitScrim}>
@@ -95,7 +94,7 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
                     transform: [ { scale: timing(250) }]
                 }}
             >
-                <Image style={{ width: '100%', objectFit: 'contain' }} source={Assets[asset]} {...swipeHandlers} />
+                <Image style={{ width: 200, height: 200, objectFit: 'contain' }} source={Assets[asset]} {...swipeHandlers} />
             </Column>
             <Row width="50%" height={spacing.md} backgroundColor={colors.roles.surfaceContainerHighest}>
                 <Row backgroundColor={colors.roles.error} height={spacing.md} width={`${enemyHealth}%`} transitions={{

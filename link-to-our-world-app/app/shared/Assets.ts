@@ -11,6 +11,13 @@ export const Assets: Record<string, any> = {
     'ice-moblin': require('../../assets/enemies/ice-moblin.png'),
     'water-moblin': require('../../assets/enemies/water-moblin.png'),
 
+    // Bosses
+    'moldarach': require('../../assets/enemies/moldarach.png'),
+    'skull-kid': require('../../assets/enemies/skull-kid.png'),
+    'argorok': require('../../assets/enemies/argorok.png'),
+    'bog-dobber': require('../../assets/enemies/bog-dobber.png'),
+
+
     // Characters
     'lumina': require('../../assets/characters/lumina.png'),
     'lumina-avatar': require('../../assets/characters/lumina-avatar.png'),
@@ -21,6 +28,14 @@ export const Assets: Record<string, any> = {
     'fayflutter': require('../../assets/characters/fayflutter.png'),
 
     'gorruk': require('../../assets/enemies/boarblin.png'),
+
+    'tidebane': require('../../assets/characters/tidebane.png'),
+    'tidebane-avatar': require('../../assets/characters/tidebane-avatar.png'),
+
+    'tavon': require('../../assets/characters/tavon.png'),
+    'nimri': require('../../assets/characters/nimri.png'),
+    'kyllis': require('../../assets/characters/kyllis.png'),
+
 
     // Items
     'sword': require('../../assets/items/sword.png'),

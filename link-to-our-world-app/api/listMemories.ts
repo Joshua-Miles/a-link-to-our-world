@@ -7,7 +7,7 @@ export function listMemories(this: AmbassadorClient | void): Observable<{
     id: number & {
         __serial__?: undefined | true;
     };
-    slug: "memory-1" | "memory-2";
+    slug: "planting-grinroot" | "planting-scribeleaf" | "planting-tumblebreeze" | "planting-fayflutter";
     imageUUID: string;
 }[]> {
     let api = AmbassadorClient.get(this, process.env.EXPO_PUBLIC_API_URL as string);
