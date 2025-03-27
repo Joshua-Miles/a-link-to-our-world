@@ -14,9 +14,10 @@ export type MemoryMakerProps = {
 
 export function MemoryMaker ({ slug, onComplete  }: MemoryMakerProps) {
     const { spacing, colors } = useDesignerTheme();
-    const [facing, setFacing] = useState<CameraType>('back');
+    const [facing, setFacing] = useState<CameraType>('front');
     const cameraViewRef = useRef<CameraView>(null);
     const [permission, requestPermission] = useCameraPermissions();
+    const [ saving, setSaving ] = useState(false);
 
     if (!permission) {
       // Camera permissions are still loading.
@@ -26,13 +27,21 @@ export function MemoryMaker ({ slug, onComplete  }: MemoryMakerProps) {
     if (!permission.granted) {
       // Camera permissions are not granted yet.
       return (
-        <Column p={spacing.md} justifyContent="center">
+        <Column p={spacing.md} justifyContent="center" flex={1}>
             <Label.Large>We need your permission to show the camera</Label.Large>
             <Button.Elevated onPress={requestPermission}>
                 Grant Permission
             </Button.Elevated>
         </Column>
       );
+    }
+
+    if (saving) {
+        return (
+            <Column flex={1} justifyContent='center'>
+                <Label.Large>Saving...</Label.Large>
+            </Column>
+        )
     }
 
     function toggleCameraFacing() {
@@ -44,6 +53,7 @@ export function MemoryMaker ({ slug, onComplete  }: MemoryMakerProps) {
         if (!cameraView) return;
         const result = await cameraView.takePictureAsync();
         if (!result) return;
+        setSaving(true)
         await saveMemory(slug, LocalFileReference.fromURI(result.uri))
         onComplete?.();
     }

@@ -20,3 +20,4 @@ export * from './useLatestCallback';
 export * from './usePlayerName';
 export * from './SpeechCard';
 export * from './Soundtrack';
+export * from './usePersistedState';

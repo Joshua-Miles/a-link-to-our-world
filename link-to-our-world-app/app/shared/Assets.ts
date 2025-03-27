@@ -33,8 +33,13 @@ export const Assets: Record<string, any> = {
     'tidebane-avatar': require('../../assets/characters/tidebane-avatar.png'),
 
     'tavon': require('../../assets/characters/tavon.png'),
+    'tavon-avatar': require('../../assets/characters/tavon-avatar.png'),
+
     'nimri': require('../../assets/characters/nimri.png'),
+    'nimri-avatar': require('../../assets/characters/nimri-avatar.png'),
+
     'kyllis': require('../../assets/characters/kyllis.png'),
+    'kyllis-avatar': require('../../assets/characters/kyllis-avatar.png'),
 
 
     // Items

@@ -5,7 +5,7 @@ import { useLocation } from "./useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
 import { listEncounters } from "api";
-import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack } from "./shared";
+import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack, usePersistedState } from "./shared";
 import { Href } from "expo-router";
 import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";
@@ -21,7 +21,7 @@ export default function Map() {
 
   const { colors } = useDesignerTheme();
 
-  const [ spoofLocation, setSpoofLocation ] = useState<Coordinate | null>(null);
+  const [ spoofLocation, setSpoofLocation ] = usePersistedState<Coordinate | null>('persisted-state', null);
 
   const location = spoofLocation === null ? realLocation : spoofLocation;
 
@@ -40,6 +40,8 @@ export default function Map() {
     setSpoofLocation({ lat, lng })
   }
 
+  console.log(encounters.map(encounter => encounter.slug))
+
   const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
   return (
     <Column flex={1}>
@@ -56,7 +58,7 @@ export default function Map() {
           <Mapbox.Camera
             centerCoordinate={mapLoaded ? undefined : [ location.lng, location.lat ]}
             animationDuration={mapLoaded ? 500 : 0}
-            zoomLevel={12}
+            zoomLevel={16}
           />
           <Mapbox.UserLocation />
           {encounters.map( encounter => (

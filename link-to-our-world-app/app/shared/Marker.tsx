@@ -1,5 +1,5 @@
 import Mapbox from "@rnmapbox/maps";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Image } from "react-native";
 import { Assets } from ".";
 
@@ -13,6 +13,7 @@ export type MarkerProps = {
 
 export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
   const pointAnnotation = useRef<Mapbox.PointAnnotation>(null);
+  const [_, setState] = useState(0);
   lat = typeof lat == 'number' ? lat : parseFloat(lat)
   lng = typeof lng == 'number' ? lng : parseFloat(lng)
   return (
@@ -26,7 +27,13 @@ export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
         fadeDuration={0}
         style={{ width: size ?? 20, height: size ?? 20,  }}
         source={Assets[imageSlug]}
-        onLoadEnd={() => pointAnnotation.current?.refresh()}
+        onLoadEnd={() => {
+          pointAnnotation.current?.refresh()
+          setTimeout(() => {
+            pointAnnotation.current?.refresh()
+            setState(_ + 1)
+          }, 500)
+        }}
       />
     </Mapbox.PointAnnotation>
   );

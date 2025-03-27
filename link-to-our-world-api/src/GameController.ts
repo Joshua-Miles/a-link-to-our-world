@@ -163,8 +163,8 @@ function handleFaronEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'faron/cache', {
                 label: 'Plant Korok',
                 imageSlug: 'marker',
-                lat: 29.553283, 
-                lng: -95.199233
+                lat: 29.550533, 
+                lng:  -95.195267
             })
         break;
         case 'faron/cache':
@@ -225,20 +225,20 @@ function handleNecludaEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'necluda/argorok', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.545435, 
-                lng: -95.308331
+                lat: 29.588566, 
+                lng: -95.375422
             })  
         break;
         case 'necluda/argorok':
             createEncounter(event.playerId, 'necluda/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.588552,
-                lng: -95.375426
+                lat: 29.588545, 
+                lng: -95.373849
             })  
         break;
         case 'necluda/lullaby':
-            createEncounter(event.playerId, 'floria/cache', {
+            createEncounter(event.playerId, 'necluda/cache', {
                 label: 'Plant Korok',
                 imageSlug: 'marker',
                 lat: 29.588333, 
