@@ -39,7 +39,7 @@ export function SongPlayer({ song, restartMessage, onFinished }: SongPlayerProps
   }
 
   return (
-    <Row flex={1} position="relative" {...songPlayer.panHandlers}>
+    <Row px={40} flex={1} position="relative" {...songPlayer.panHandlers}>
       {songPlayer.pitches.map((pitch, i) => (
         <Column
           key={pitch.id}
@@ -80,6 +80,7 @@ export function SongPlayer({ song, restartMessage, onFinished }: SongPlayerProps
         height={50}
         backgroundColor={colors.roles.success}
         bottom={songPlayer.bottomMargin - 50}
+        left={40}
       />
     </Row>
   );

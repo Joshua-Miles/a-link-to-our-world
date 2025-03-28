@@ -8,7 +8,7 @@ const fs = require("fs");
 async function playWoodwind(note, duration) {
   const audioCtx = new AudioContext();
 
-  const frequency = noteToFrequency(note);
+  const [frequency, label] = noteToFrequency(note);
 
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
@@ -59,7 +59,7 @@ async function playWoodwind(note, duration) {
       })
       .pipe(
         fs.createWriteStream(
-          `${note.replace("b", "Flat").replace("#", "Sharp")}.mp3`
+          `${label}.mp3`
         )
       )
   );
@@ -70,30 +70,38 @@ function noteToFrequency(note) {
   const notes = {
     C: -9,
     "C#": -8,
-    Db: -8,
+    DB: -8,
     D: -7,
     "D#": -6,
-    Eb: -6,
+    EB: -6,
     E: -5,
     F: -4,
     "F#": -3,
-    Gb: -3,
+    GB: -3,
     G: -2,
     "G#": -1,
-    Ab: -1,
+    AB: -1,
     A: 0,
     "A#": 1,
-    Bb: 1,
+    BB: 1,
     B: 2,
   };
 
-  const match = note.match(/^([A-Ga-g]#?|b?)(\d)$/);
-  if (!match) return A4;
+  const match = note.match(/^([A-Ga-g](#?|b?))(\d)$/);
+  if (!match) throw Error(`Cannot parse ${note}`)
 
-  const [, pitch, octave] = match;
+  const [, pitch, _, octave] = match;
   const semitoneOffset = notes[pitch.toUpperCase()] + (octave - 4) * 12;
 
-  return A4 * Math.pow(2, semitoneOffset / 12);
+  console.log(pitch, octave)
+
+  const frequency = A4 * Math.pow(2, semitoneOffset / 12);
+
+  const modifierLabel = note.includes('b') ? 'Flat' : note.includes('#') ? 'Sharp' : '';
+
+  const label = `${pitch.replace('#', '').replace('b', '')}${octave}${modifierLabel}`
+
+  return [ frequency, label ]
 }
 
 async function exportNote(note) {
@@ -108,7 +116,7 @@ async function main() {
   for (let octave of octaves) {
     for (let note of notes) {
       for (let modifier of modifiers) {
-        await exportNote(`${note}${octave}${modifier}`);
+        await exportNote(`${note}${modifier}${octave}`);
       }
     }
   }

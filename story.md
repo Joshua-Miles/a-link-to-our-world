@@ -26,10 +26,10 @@
 * Take a photo
 * **After Faron Woods:** Gorruk gets Skull Kids flute, deems it too dangerous to use, and stashes it for safe keeping
 * Levels
-  * Lurelin Beach (Isaac, Pirate, Moldarach) -> Electricity - Stella Roberts
-  * Faron Woods (Miles, Kokiri, Skull Kid) -> Water - Frankie Carter
-  * Floria Springs (Lydia, Fairy, Bog Dobber) -> Fire - Centennial
-  * Necluda Cliffs (Joy, Rito, Argorok) -> Ice - Tom Bass
+  * Lurelin Beach (Isaac, Pirate, Moldarach) -> Electricity - Stella Roberts - dragon roost theme
+  * Faron Woods (Miles, Kokiri, Skull Kid) -> Water - Frankie Carter - botw theme
+  * Floria Springs (Lydia, Fairy, Bog Dobber) -> Fire - Centennial - fairy theme
+  * Necluda Cliffs (Joy, Rito, Argorok) -> Ice - Tom Bass - 
 
 ### Interlude
 * Encounter Gorruk, who has learned to teleport

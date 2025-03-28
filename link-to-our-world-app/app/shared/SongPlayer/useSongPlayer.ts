@@ -49,13 +49,13 @@ export function useSongPlayer(songData: SongData) {
         if (!state.started) start()
     }, [ state.started ]);
 
-    const pianoWidth = screen.width;
+    const pianoWidth = screen.width - 80;
     const keyWidth = pianoWidth / pitches.length;
 
     function touchesToPitches(touches: NativeTouchEvent[]) {
         return touches
             .map((touch) => {
-                const index = Math.floor((touch.pageX) / keyWidth);
+                const index = Math.floor((touch.pageX-40) / keyWidth);
                 return pitches[index];
             })
             .filter((pitch) => pitch !== undefined);

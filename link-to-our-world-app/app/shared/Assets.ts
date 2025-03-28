@@ -61,6 +61,8 @@ export const Assets: Record<string, any> = {
     'gorruks-theme': require('../../assets/soundtrack/gorruks-theme.mp3'),
 
     // Songs
-    'zeldas-lullabye': require('../../assets/songs/zeldas-lullabye.mp3')
+    'zeldas-lullabye': require('../../assets/songs/zeldas-lullabye.mp3'),
+    'dragon-roost-theme': require('../../assets/songs/dragon-roost-theme.mp3'),
+    'sky-theme': require('../../assets/songs/sky-theme.mp3'),
 
 }

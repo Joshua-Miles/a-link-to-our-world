@@ -34,6 +34,14 @@ export default function More() {
             <ListItemTitle>Reset</ListItemTitle>
           </PressableListItem>
         )}
+         {__DEV__ && (
+          <PressableListItem href="/scrathpad">
+            <ListItemLeadingIcon>
+              <BackwardIcon />
+            </ListItemLeadingIcon>
+            <ListItemTitle>Scratch Paad</ListItemTitle>
+          </PressableListItem>
+        )}
       </Column>
       <Nav />
     </>

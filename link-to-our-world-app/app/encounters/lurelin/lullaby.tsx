@@ -1,12 +1,11 @@
 import { resolveEncounter } from "api";
-import { Assets, Combat, SongPlayer, Speech, SubjectImage, useSequence } from "app/shared";
-import { zeldasLullaby } from "app/shared/testSongs";
+import { Assets, Combat, SongPlayer, Soundtrack, Speech, SubjectImage, useSequence } from "app/shared";
+import { dragonRootTheme, zeldasLullaby } from "app/shared/testSongs";
 import { Button, Column, Row } from "designer-m3";
 import { ArrowRightIcon } from "designer-m3/icons";
 import { router } from "expo-router";
 
 export default function () {
-    console.log('THIS FAR')
     const sequnece = useSequence({ hasStarted: true, onFinished: handleFinished }, [
         'intro',
         'playing',
@@ -21,6 +20,12 @@ export default function () {
 
     return (
         <Column flex={1}>
+            <Soundtrack 
+                asset='dragon-roost-theme'
+                fadeDuration={1000}
+                isPlaying={sequnece.hasReached('thankYou')}
+                offset={dragonRootTheme.offset}
+            />
             {sequnece.isAt('intro') && <>
                 <Row flex={1} alignItems="center" justifyContent="center">
                     <SubjectImage source={Assets['lumina']} />
@@ -36,7 +41,7 @@ export default function () {
             </>}
             {sequnece.isAt('playing') && <>
                 <SongPlayer
-                    song={zeldasLullaby}
+                    song={dragonRootTheme}
                     onFinished={sequnece.next}
                 />
             </>}
