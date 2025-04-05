@@ -149,7 +149,7 @@ export default function Prologue() {
 
     moveCamera(Locations.Centroid, 9.75, 41000);
 
-    say("Once, many eras ago, the goddess Hylia tended the soil of an ancient world as a garden...", 6000);
+    say("Long ago, Hylia created Hyrule from a song...", 6000);
 
     await wait(1500)
 
@@ -157,57 +157,61 @@ export default function Prologue() {
 
     await wait(4500);
 
-    say("But as a great demise decended, she fled to the sky, to protect her power of creation", 5000)
+    say("4 seeds sprouted from the song, bringing fire, water, ice, and lightning to Hyrule ", 5000)
 
     await wait(5000);
 
-    say("Before she ascended, Hylia would seal the carefully tended soil of 8 regions, and entrusted them to the peoples nearby.", 6000)
+    say("Hylia tended these seedlings, but fearing a great demise descending, she hid them away, and ascended to the heavens.", 6000)
 
     await wait(6000);
 
-    say("The snowy soil of Hebra...", 2000);
+    say("The kingdom of Hyrule became a kingdom in decline, a scattered people striving against trial and monster in isolation.", 6000);
 
-    setMarker(Locations.ShadowCreek)
+    await wait(6000);
 
-    await wait(2000);
-
-    say("The clay of Tabantha...", 2000)
+    say("From the harsh cliffsides of Necluda...", 2000)
 
     setMarker(Locations.TomBass)
 
     await wait(2000);
 
-    say("The desert sands of Gerudo Desert...", 2000)
+    say("...to the lofty peaks of Hebra", 2000)
+
+    setMarker(Locations.ShadowCreek)
+
+    await wait(2000);
+
+    say("From the white sands of Lurelin beach...", 2000);
 
     setMarker(Locations.StellaRoberts)
 
     await wait(2000);
 
-    say("The volcanic soil of Eldin...", 2000)
+    say("...to the relentless Gerudo Desert", 2000)
 
     setMarker(Locations.Wilson)
 
     await wait(2000);
 
-    say("The moist soil of Lanayru Wetlands...", 2000)
+    say("From the streams of Faron woods...", 2000)
 
     setMarker(Locations.FrankieCarter)
 
     await wait(2000);
 
-    say("The rich fields of Kakariko...", 2000)
+    say("...to the lake of Lanayru", 2000)
 
     setMarker(Locations.Stevenson)
 
     await wait(2000);
 
-    say("The desolate moorlands of Hateno...", 2000)
+    say("From the warmth of Floria springs...", 2000)
 
     setMarker(Locations.Centennial)
 
     await wait(2000);
 
-    say("and the hearty soil of Faron Woods...", 2000)
+    say("...to the heat of Eldin Mountains.", 2000)
 
     setMarker(Locations.ChallengerSeven)
 
@@ -215,7 +219,7 @@ export default function Prologue() {
 
     setMarker(null)
 
-    say("Legend says that one day, a hero will appear with the power to tend the soil, and bring new life to the world...", 6000)
+    say("Legend says that a hero will one day restore the seeds, unite Hyrule's peoples, and save the world....", 6000)
 
     await wait(6000);
 
@@ -324,15 +328,35 @@ export default function Prologue() {
           height="100%"
           width="100%"
           justifyContent="center"
+          alignItems="center"
           backgroundColor="rgba(0,0,0,0.75)"
           opacity={showTitle ? 1 : 0}
           transitions={{
             opacity: timing(1500),
           }}
         >
-          <Label.Small>The</Label.Small>
-          <Display.Medium>Legend of Zelda</Display.Medium>
-          <Label.Small textAlign="right">A Link to Our World</Label.Small>
+          <Column position="relative" height={150} width={300}>
+            <Label.Small 
+              position="absolute"
+              top={20}
+              left={100}
+            >
+              The Legend of
+            </Label.Small>
+            <Display.Large
+              lineHeight={150} 
+              position="absolute"
+              top={20}
+            >
+              Zelda
+            </Display.Large>
+            <Label.Large 
+              top={130}
+              left={100}
+            >
+              A Link to Our World
+            </Label.Large>
+          </Column>
           <Row justifyContent="center" my={spacing.md} gap={spacing.xs}>
             <Button.Text href="/intro/sign-up" alignItems="center">
               Begin <ArrowRightIcon />

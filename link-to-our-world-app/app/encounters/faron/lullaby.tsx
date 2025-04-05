@@ -1,6 +1,6 @@
 import { resolveEncounter } from "api";
-import { Assets, Combat, SongPlayer, Speech, SubjectImage, useSequence } from "app/shared";
-import { zeldasLullaby } from "app/shared/testSongs";
+import { Assets, Combat, SongPlayer, Soundtrack, Speech, SubjectImage, useSequence } from "app/shared";
+import { wildsTheme, zeldasLullaby } from "app/shared/testSongs";
 import { Button, Column, Row } from "designer-m3";
 import { ArrowRightIcon } from "designer-m3/icons";
 import { router } from "expo-router";
@@ -18,8 +18,11 @@ export default function () {
         router.push('/map')
     }
 
+    const song = wildsTheme;
+
     return (
         <Column flex={1}>
+            <Soundtrack isPlaying={sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
             {sequnece.isAt('intro') && <>
                 <Row flex={1} alignItems="center" justifyContent="center">
                     <SubjectImage source={Assets['lumina']} />
@@ -35,7 +38,7 @@ export default function () {
             </>}
             {sequnece.isAt('playing') && <>
                 <SongPlayer
-                    song={zeldasLullaby}
+                    song={song}
                     onFinished={sequnece.next}
                 />
             </>}

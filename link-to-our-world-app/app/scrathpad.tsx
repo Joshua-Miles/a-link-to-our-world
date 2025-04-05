@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { SongPlayer, Soundtrack } from "./shared";
-import { dragonRootTheme, skyTheme } from "./shared/testSongs";
+import { mainTheme, dragonRootTheme, skyTheme, wildsTheme, fairyTheme } from "./shared/testSongs";
 
 export default function () {
     const [ hasWon, setHasWon ] = useState(false);
-    const song = dragonRootTheme
+    const song = skyTheme
     return (
         <>
             <Soundtrack isPlaying={hasWon} asset={song.src} offset={song.offset} />
@@ -12,3 +12,5 @@ export default function () {
         </>
     )
 }
+
+

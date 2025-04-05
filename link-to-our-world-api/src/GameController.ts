@@ -15,7 +15,7 @@ export const GameController = {
                     lng: -95.362554
                 })
                 createObjective(event.playerId, {
-                    title: 'The Beckoning',
+                    title: 'Visit the Sacred Grove',
                     slug: 'beckoning'
                 })
             break;

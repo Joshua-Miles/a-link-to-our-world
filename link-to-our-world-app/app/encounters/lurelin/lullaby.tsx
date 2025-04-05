@@ -18,14 +18,11 @@ export default function () {
         router.push('/map')
     }
 
+    const song = dragonRootTheme;
+
     return (
         <Column flex={1}>
-            <Soundtrack 
-                asset='dragon-roost-theme'
-                fadeDuration={1000}
-                isPlaying={sequnece.hasReached('thankYou')}
-                offset={dragonRootTheme.offset}
-            />
+            <Soundtrack isPlaying={sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
             {sequnece.isAt('intro') && <>
                 <Row flex={1} alignItems="center" justifyContent="center">
                     <SubjectImage source={Assets['lumina']} />

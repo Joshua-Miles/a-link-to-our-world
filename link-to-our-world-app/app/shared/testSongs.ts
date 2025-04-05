@@ -1,4 +1,4 @@
-import { REST, SongData } from "./SongPlayer";
+import { REST, SongData, whole } from "./SongPlayer";
 import { dotted, eighth, half, Note, quarter } from "./SongPlayer";
 
 export const zeldasLullaby: SongData = {
@@ -19,7 +19,7 @@ export const zeldasLullaby: SongData = {
 
 export const dragonRootTheme: SongData = {
     src: 'dragon-roost-theme',
-    offset: 18,
+    offset: 13,
     bpm: 106,
     notes: [
         eighth('D4'),
@@ -50,13 +50,56 @@ export const skyTheme: SongData = {
         dotted(quarter('D5')),
         dotted(quarter('G5')),
         dotted(quarter('B5Flat')),
+        half('E5Flat'),
+    ]
+}
+
+export const wildsTheme: SongData = {
+    src: 'botw-theme',
+    offset: 20,
+    bpm: 90,
+    notes: [
+        half('E5'),
+        quarter('F5Sharp'),
+        quarter('G5'),
         quarter('E5'),
+        quarter('D5'),
+        whole('C5'),
+
+        half('E5'),
+        quarter('F5Sharp'),
+        quarter('G5'),
         quarter('E5'),
+        quarter('D5'),
+        quarter('C5'),
+        quarter('D5'),
+    ]
+}
+
+export const fairyTheme: SongData = {
+    src: 'fairy-theme',
+    offset: 11,
+    bpm: 80,
+    notes: [
+        quarter('F5'),
+        quarter('E5'),
+        quarter('D5Sharp'),
+        quarter('E5'),
+        eighth(REST),
+        quarter('E5'),
+        quarter('D5'),
+        quarter('C5Sharp'),
+        quarter('D5'),
+        eighth(REST),
+        quarter('D5'),
+        quarter('C5Sharp'),
+        quarter('C5'),
+        quarter('C5Sharp'),
     ]
 }
 
 export const mainTheme: SongData = {
-    src: require('assets/songs/main-theme.mp3'),
+    src: 'main-theme',
     offset: 90.5,
     bpm: 130,
     notes: [
