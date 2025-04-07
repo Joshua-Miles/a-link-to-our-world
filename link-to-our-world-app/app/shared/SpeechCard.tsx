@@ -3,41 +3,48 @@ import { Image } from "react-native";
 import { Assets } from "./Assets";
 import { Speech } from "./Speech";
 import { useSequence } from "./useSequence";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowRightIcon } from "designer-m3/icons";
 
-export type SpeechCardProps = {
+export type SpeechCardProps = Parameters<typeof Row>[0] & {
     asset: string
     text: string[]
     hasStarted?: boolean
     onFinished?: () => any;
 }
 
-export function SpeechCard({ hasStarted = true, asset, text, onFinished }: SpeechCardProps) {
+export function SpeechCard({ hasStarted = true, asset, text, onFinished, ...props }: SpeechCardProps) {
     const { colors } = useDesignerTheme();
 
-     const sequence = useSequence({ hasStarted, onFinished: handleSequenceFinished }, [
-            'fadeIn',
-            'speechPlaying',
-            'nextDisplayed',
-            'fadeOut',
-        ])
-    
-        const [ currentIndex, setCurrentGroupIndex ] = useState(0);
-    
-        const lastIndex = text.length - 1;
-    
-        function handleSequenceFinished() {
-            if (currentIndex !== lastIndex) {
-                setCurrentGroupIndex(currentIndex + 1);
-                sequence.jumpTo('fadeIn');
-            } else {
-                onFinished?.();
-            }
+    const hasFinished = useRef(false);
+
+    const sequence = useSequence({ hasStarted, onFinished: handleSequenceFinished }, [
+        'fadeIn',
+        'speechPlaying',
+        'nextDisplayed',
+        'fadeOut',
+    ])
+
+    const [ currentIndex, setCurrentGroupIndex ] = useState(0);
+
+    const lastIndex = text.length - 1;
+
+    function handleSequenceFinished() {
+        if (currentIndex !== lastIndex) {
+            setCurrentGroupIndex(currentIndex + 1);
+            sequence.jumpTo('fadeIn');
+        } else {
+            hasFinished.current = true;
+            onFinished?.();
         }
+    }
+
+    if (!hasStarted || hasFinished.current) {
+        return null;
+    }
 
     return (
-        <Row p={16} gap={8} backgroundColor={colors.roles.surfaceContainerHighest} alignItems="center">
+        <Row marginTop="auto" p={16} gap={8} backgroundColor={colors.roles.surfaceContainerHighest} alignItems="center" {...props}>
             <Image style={{ height: 60, width: 60,  objectFit: 'cover' }} source={Assets[asset]}/>
             <Column
                 flex={1}

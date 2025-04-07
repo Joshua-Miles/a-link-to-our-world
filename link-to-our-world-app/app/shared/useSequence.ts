@@ -19,7 +19,7 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
 
     useEffect(() => {
         if (hasStarted && currentIndex === null) setCurrentIndex(0)
-    }, [ hasStarted ])
+    }, [ hasStarted, currentIndex ])
 
     useEffect(() => {
         if (currentIndex === numberOfSegments) onFinished?.();
@@ -29,7 +29,11 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
         currentIndex,
 
         hasStarted() {
-            return currentIndex !== null
+            return currentIndex !== null;
+        },
+
+        hasFinished() {
+            return currentIndex === numberOfSegments;
         },
 
         hasReached(segment: T) {
@@ -84,6 +88,10 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
             if (!currentIndex) return null;
             const segment = segments[currentIndex]
             return values[segment];
+        },
+
+        restart() {
+            setCurrentIndex(null)
         }
     }
 }

@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "designer-m3/icons";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Keyboard } from "react-native";
-import { Assets, Speech, SpeechGroup, SpeechStepper, SubjectImage, useSequence } from "../shared";
+import { Assets, Soundtrack, Speech, SpeechGroup, SpeechStepper, SubjectImage, useSequence } from "../shared";
 
 type UserForm = {
   name: string;
@@ -42,6 +42,10 @@ export default function SignUp() {
 
   return (
     <Page navTransitionOutDuration={transition.duration}>
+      <Soundtrack  
+          asset='luminas-theme' 
+          fadeDuration={2000} 
+      />
       <Column
         flex={1}
         opacity={1}

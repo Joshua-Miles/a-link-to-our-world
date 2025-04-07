@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Assets, Combat, dialog, Dialog, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared";
+import { Assets, Combat, dialog, Dialog, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared";
 import { usePlayerName } from "app/shared";
 import { Column, Label, timing } from "designer-m3";
 import { router } from "expo-router";
@@ -27,25 +27,17 @@ export default function() {
             <Soundtrack asset="gorruks-theme" />
             {sequence.hasNotReached('combat') &&
                 <>
-                    <Column flex={1} alignItems="center" justifyContent="center">
-                        <SubjectImage source={Assets['gorruk']} />
-                        <Label.Small opacity={0} _displayed={{ opacity: 1 }} transitions={{ opacity: timing(1000)}}>
-                            Gorruk
-                        </Label.Small>
-                    </Column>
-                    {sequence.isAt('luminasStats') &&
-                        <Column justifyContent="flex-end">
-                            <SpeechCard
-                                asset="lumina-avatar" 
-                                onFinished={sequence.next}
-                                text={[
-                                    `${playerName}, this is a Boarblin.`,
-                                    'These are some of the easiest foes to face in Hyrule.',
-                                    'I estimate a 98.6% chance that you will succeed in cutting down this opponent'
-                                ]
-                            }/>
-                        </Column>
-                    }
+                    <SceneFocus asset="gorruk" label="Gorruk" />                       
+                    <SpeechCard
+                        hasStarted={sequence.isAt('luminasStats')}
+                        asset="lumina-avatar" 
+                        onFinished={sequence.next}
+                        text={[
+                            `${playerName}, this is a Boarblin.`,
+                            'These are some of the easiest foes to face in Hyrule.',
+                            'I estimate a 98.6% chance that you will succeed in cutting down this opponent'
+                        ]
+                    }/>
                     {sequence.isAt('dialog') &&
                         <Dialog 
                             flex={1}
@@ -86,66 +78,57 @@ export default function() {
             }
             {sequence.has({ reached: 'exit', notReached: 'lumiasInstructions' }) && 
                 <>
-                    <Column flex={1} alignItems="center" justifyContent="center">
-                        <SubjectImage source={Assets['gorruk']} />
-                    </Column>
-                    <Column flex={1}>
-                        <SpeechStepper
-                            hasStarted={sequence.isAt('exit')}
-                            onFinished={sequence.next}
-                            groups={[
-                                [
-                                    'You...',
-                                    '*PANT*',
-                                    'beat me this time...',
-                                    '*PANT*',
-                                    'Hylian'
-                                ]
-                            ]}
-                        />
-                    </Column>
-                    {sequence.isAt('korokThanks') && 
-                        <SpeechCard
-                            asset="scribeleaf"
-                            onFinished={sequence.next}
-                            text={[
-                                'Thank you for protecting us, Mr Hero sir!'
-                            ]}
-                        />
-                    }
+                    <SceneFocus asset="gorruk" label="Gorruk" />
+                    <SpeechStepper
+                        hasStarted={sequence.isAt('exit')}
+                        onFinished={sequence.next}
+                        groups={[
+                            [
+                                'You...',
+                                '*PANT*',
+                                'beat me this time...',
+                                '*PANT*',
+                                'Hylian'
+                            ]
+                        ]}
+                    />
+                    <SpeechCard
+                        hasStarted={sequence.isAt('korokThanks')}
+                        asset="scribeleaf"
+                        onFinished={sequence.next}
+                        text={[
+                            'Thank you for protecting us, Mr Hero sir!'
+                        ]}
+                    />
                 </>
             }
             {sequence.isAt('lumiasInstructions') && 
                 <>
-                    <Column flex={1} alignItems="center" justifyContent="center">
-                        <SubjectImage source={Assets['lumina']} />
-                    </Column>
-                    <Column flex={1}>
-                        <SpeechStepper
-                            hasStarted={sequence.isAt('lumiasInstructions')}
-                            onFinished={sequence.next}
-                            groups={[
-                                [
-                                    `Well done, ${playerName}.`,
-                                    'You have protected the Korok seedlings!',
-                                ],
-                                [
-                                    'But there are many dangers left ahead.',
-                                    'Quickly, we should set out to plant the korok seeds.',
-                                    'There are four regions where the soil is fertile, from which the Koroks will have maximum impact in restoring Hyrule.'
-                                ],
-                                [
-                                    'Lurelin Beach',
-                                    'Faron Woods',
-                                    'Floria Springs',
-                                    'And Neculda Cliffs'
-                                ],
-                                [
-                                    'I have marked each of these locations on your map'
-                                ]
-                            ]}
-                        />
-                    </Column>
+                    <SceneFocus asset="lumina"/>
+                    <SpeechStepper
+                        hasStarted={sequence.isAt('lumiasInstructions')}
+                        onFinished={sequence.next}
+                        groups={[
+                            [
+                                `Well done, ${playerName}.`,
+                                'You have protected the Korok seedlings!',
+                            ],
+                            [
+                                'But there are many dangers left ahead.',
+                                'Quickly, we should set out to plant the korok seeds.',
+                                'There are four regions where the soil is fertile, from which the Koroks will have maximum impact in restoring Hyrule.'
+                            ],
+                            [
+                                'Lurelin Beach',
+                                'Faron Woods',
+                                'Floria Springs',
+                                'And Neculda Cliffs'
+                            ],
+                            [
+                                'I have marked each of these locations on your map'
+                            ]
+                        ]}
+                    />
                 </>
             }
         </Column>

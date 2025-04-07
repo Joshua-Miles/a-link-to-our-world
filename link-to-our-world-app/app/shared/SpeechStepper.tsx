@@ -29,15 +29,20 @@ export function SpeechStepper({ hasStarted, groups, onNext, onFinished, ...colum
     function handleSequenceFinished() {
         if (currentGroupIndex !== lastGroupIndex) {
             onNext?.()
-            sequence.jumpTo('fadeIn');
+            sequence.restart();
             setCurrentGroupIndex(currentGroupIndex + 1);
         } else {
             onFinished?.();
         }
     }
 
+    if (!hasStarted || sequence.hasFinished()) {
+        return null;
+    }
+
     return (
         <Column
+            flex={1}
             gap={spacing.sm}
             alignItems="center"
             {...columnProps}

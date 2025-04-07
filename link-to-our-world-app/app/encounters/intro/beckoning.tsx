@@ -1,24 +1,24 @@
 import { isLoading } from "@triframe/utils-react"
 import { resolveEncounter } from "api";
-import { Assets, ItemGet, SongPlayer, Soundtrack, SpeechStepper, useSequence } from "app/shared"
+import { Assets, ItemGet, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared"
 import { zeldasLullaby } from "app/shared/testSongs";
 import { usePlayerName } from "app/shared/usePlayerName"
 import { Column, timing, useDesignerTheme } from "designer-m3"
 import { router } from "expo-router";
-import { Image } from 'react-native';
 
 export default () => {
     const { spacing } = useDesignerTheme();
     const playerName = usePlayerName();
 
     const sequence = useSequence({ hasStarted: true }, [
-        'luminaEnters',
-        'speechRunning',
+        'impaEnters',
+        'impasSpeech',
         'fluteGet',
         'luminaPromptsSong',
         'playSong',
         'luminaReturns',
-        'seedsAwake'
+        'seedsAwake',
+        'impaSends'
     ])
 
     if (isLoading(playerName)) return null;
@@ -51,47 +51,29 @@ export default () => {
                 opacity={0}
                 _displayed={{ opacity: 1 }}
                 transitions={{
-                    opacity: timing(5000).then(sequence.next),
+                    opacity: timing(2000).then(sequence.next),
                 }}
             >
-                <Image style={{ width: 200, height: 200, objectFit: 'contain' }} source={Assets['lumina']} />
+                <SubjectImage source={Assets['impa']} />
             </Column>
             <Column flex={1} alignItems="center">
                 <SpeechStepper
-                    display={sequence.hasNotPassed('speechRunning') ? 'flex' : 'none'}
-                    hasStarted={sequence.hasReached('speechRunning')}
+                    display={sequence.hasNotPassed('impasSpeech') ? 'flex' : 'none'}
+                    hasStarted={sequence.hasReached('impasSpeech')}
                     onFinished={sequence.next}
                     groups={[
                         [
-                            `Welcome, ${playerName}.`,
-                            'Do not be afraid, I am a messenger left by the goddess from a time long past...',
-                            `Allow me to introduce myself: I am Lumia.`
+                            `Welcome, ${playerName}, to the Sacred Grove.`,
+                            'I am Impa, it\'s caretaker.',
                         ],
                         [
-                            `You have a great destiny, ${playerName}.`,
-                            'You have been brought here, to the very place where the goddess created the world on the notes of a song.',
-                            'Far too soon, the world decended into darkness...',
-                            'The goddess has chosen you as her chosen hero, to restore the once and future kingdom of Hyrule.'
+                            `You now stand where the goddess sung the world into existence.`,
+                            'And where, with a great demise descending, the goddess chose to hide her most precious creation: the Korok seedlings, which breathe life into Hyrule.',
                         ],
                         [
-                            '...',
-                            'I must admit I am confused...',
-                            'Your time does not seem to have much in common with the Hyrule I know...'
-                        ],
-                        [
-                            'But no matter, it is not my place to second guess the choices of the goddess.',
-                            'In order to help you with your task, I will enfuse your device, so that through it you may commune with the Hyrule that was.',
-                            'Then perhaps you might be able to usher the Hyrule that is to come.'
-                        ],
-                        [
-                            'The soil of this world is long dormant',
-                            'To renew the kingdom, you must plant 4 deku seedlings.',
-                            'In time they will grow; their roots will connect the vast regions of the world, and their steadfast wisdom will guide it on it\'s course.'
-                        ],
-                        [
-                            'But first you must awaken the deku seedlings.',
-                            'The goddess has left an instrument for this task.',
-                            'Here, take it...'
+                            'You have been chosen to summon the seedlings, and plant them across the land.',
+                            'The goddess has left a powerful tool to aid in this quest.',
+                            'Here take it...'
                         ]
                     ]}
                 />
@@ -103,28 +85,34 @@ export default () => {
                     asset="goddess-flute"
                     resumeParentTrack={false}
                 />
-                <SpeechStepper
+                <SpeechCard 
+                    asset="lumina-avatar"
                     display={sequence.isAt('luminaPromptsSong') ? 'flex' : 'none'}
                     hasStarted={sequence.hasReached('luminaPromptsSong')}
                     onFinished={sequence.next}
-                    groups={[
-                        [
-                            'Why dont you give it a try?'
-                        ]
+                    text={[
+                        'Why don\'t you try playing?'
+                    ]}
+                />
+                <SpeechCard 
+                    asset="lumina-avatar"
+                    display={sequence.isAt('seedsAwake') ? 'flex' : 'none'}
+                    hasStarted={sequence.hasReached('seedsAwake')}
+                    onFinished={sequence.next}
+                    text={[
+                        'I sense that your song has awakened the seedlings.'
                     ]}
                 />
                 <SpeechStepper
-                    display={sequence.isAt('seedsAwake') ? 'flex' : 'none'}
-                    hasStarted={sequence.hasReached('seedsAwake')}
+                    display={sequence.isAt('impaSends') ? 'flex' : 'none'}
+                    hasStarted={sequence.hasReached('impaSends')}
                     onFinished={async () => {
                         await resolveEncounter('intro/beckoning', {})
                         router.push('/map')
                     }}
                     groups={[
                         [
-                            'How remarkable!',
-                            'I sense you have awakened the korok seedlings...',
-                            'You should retrieve them, quickly, before they wander off!'
+                            'Quickly, you should gather them before they wander off! ',
                         ]
                     ]}
                 />

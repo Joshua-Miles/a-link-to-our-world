@@ -21,6 +21,8 @@ export const Assets: Record<string, any> = {
     // Characters
     'lumina': require('../../assets/characters/lumina.png'),
     'lumina-avatar': require('../../assets/characters/lumina-avatar.png'),
+    'impa': require('../../assets/characters/impa.png'),
+
 
     'scribeleaf': require('../../assets/characters/scribeleaf.png'),
     'tumblebreeze': require('../../assets/characters/tumblebreeze.png'),
@@ -49,6 +51,7 @@ export const Assets: Record<string, any> = {
     'ice-sword': require('../../assets/items/ice-sword.png'),
     'water-sword': require('../../assets/items/water-sword.png'),
     'goddess-flute': require('../../assets/items/goddess-flute.png'),
+    'thunderhelm': require('../../assets/items/thunderhelm.png'),
     'chest': require('../../assets/items/chest.png'),
 
     // Soundtrack

@@ -1,9 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Assets, MemoryMaker, SongPlayer, Speech, SpeechStepper, SubjectImage, useSequence } from "app/shared";
-import { Button, Column, Row } from "designer-m3";
-import { ArrowRightIcon } from "designer-m3/icons";
+import { MemoryMaker, Scene, SceneFocus, SpeechStepper, useSequence } from "app/shared";
 import { router } from "expo-router";
 
 export default function () {
@@ -36,29 +34,25 @@ export default function () {
     }
 
     return (
-        <Column flex={1}>
+        <Scene>
             {sequnece.isAt('intro') && <>
-                <Column alignItems="center" justifyContent="center" gap={8} flex={1}>
-                    <Speech text="Did you find the cache?" />
-                    <Button.Text onPress={sequnece.next}>
-                        Yes <ArrowRightIcon />
-                    </Button.Text>
-                </Column>
+                <SpeechStepper
+                    justifyContent="center"
+                    groups={[['Did you find the cache?']]}
+                    hasStarted={sequnece.hasReached('intro')}
+                    onFinished={sequnece.next}
+                />
             </>}
             {sequnece.isAt('iAmGoingToMissYou') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['grinroot']} />
-                </Row>
-                <Row justifyContent="center" flex={1}>
-                    <SpeechStepper
-                        onFinished={sequnece.next}
-                        hasStarted={sequnece.hasReached('iAmGoingToMissYou')}
-                        groups={[
-                            [ 'I am going to miss you...' ],
-                            [ 'Will you hold on to this memory with me?']
-                        ]}
-                    />
-                </Row>
+                <SceneFocus asset="grinroot" />
+                <SpeechStepper
+                    hasStarted={sequnece.hasReached('iAmGoingToMissYou')}
+                    groups={[
+                        [ 'I am going to miss you...' ],
+                        [ 'Will you hold on to this memory with me?']
+                    ]}
+                    onFinished={sequnece.next}
+                />
             </>}
             {sequnece.isAt('memory') && <>
                 <MemoryMaker
@@ -67,20 +61,19 @@ export default function () {
                 />
             </>}
             {sequnece.isAt('epilogue') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['lumina']} />
-                </Row>
-                <Row justifyContent="center">
-                    {thisIsLastCache 
-                     ? <Speech text="This is the last korok to plant. We should return the sacred grove to await further instructions from the goddess" />
-                     : <Speech text="Well done planting this Korok. Shall we set out to plant the next one?" />}
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
+                <SceneFocus asset="lumina" />
+                <SpeechStepper
+                    hasStarted={sequnece.hasReached('epilogue')}
+                    groups={[
+                        [ 
+                            thisIsLastCache 
+                                ? "Grinroot was the last seedling to plant. We should return the sacred grove, to report to Impa."
+                                : "Well done planting this Korok. Shall we set out to plant the next one?"
+                        ]
+                    ]}
+                    onFinished={sequnece.next}
+                />
             </>}
-        </Column>
+        </Scene>
     )
 }

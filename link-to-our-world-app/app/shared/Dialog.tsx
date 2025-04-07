@@ -1,5 +1,5 @@
 import { Button, Column, ListItemLeadingIcon, ListItemTitle, PressableListItem, RadioButton, RadioGroup, timing } from "designer-m3";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { wait } from "./wait";
 import { useSequence } from "./useSequence";
 import { Speech } from "./Speech";
@@ -9,23 +9,25 @@ export function dialog(text: string, responses: Record<string, DialogNode> = {})
     return { text, responses }
 }
 
-type DialogNode = {
+export type DialogNode = {
     text: string
     responses: Record<string, DialogNode>
 }
 
 type DialogProps = Parameters<typeof Column>[0] & {
     tree: DialogNode
+    hasStarted?: boolean
     onFinished?: (selections: string[]) => any
 }
 
-export function Dialog({ tree, onFinished, ...props }: DialogProps) {
+export function Dialog({ tree, hasStarted = true, onFinished, ...props }: DialogProps) {
     const [ node, setNode ] = useState<DialogNode>(tree);
     const [selections, setSelections] = useState<string[]>([])
+    const hasFinished = useRef(false);
 
     const [ value, setValue ] = useState<string | null>(null);
 
-    const sequence = useSequence({ hasStarted: true, onFinished: handleSequenceEnd }, [
+    const sequence = useSequence({ hasStarted, onFinished: handleSequenceEnd }, [
         'fadeIn',
         'speech',
         'optionsIn',
@@ -44,11 +46,20 @@ export function Dialog({ tree, onFinished, ...props }: DialogProps) {
     }
 
     function handleSequenceEnd() {
-        sequence.jumpTo('fadeIn')
+        if (!hasFinished.current) {
+            sequence.restart()
+        } else {
+            onFinished?.(selections)
+        }
+    }
+
+    if (!hasStarted || sequence.hasFinished()) {
+        return null;
     }
 
     return (
         <Column
+            flex={1}
             opacity={sequence.hasStarted() && sequence.hasNotReached('fadeOut') ? 1 : 0}
             alignItems="center"
             justifyContent="space-between"
@@ -73,7 +84,10 @@ export function Dialog({ tree, onFinished, ...props }: DialogProps) {
                         </RadioGroup>}
                     {!options.length && (
                         <Column alignItems="center">
-                            <Button.Text onPress={() => onFinished?.(selections)}>
+                            <Button.Text onPress={() => {
+                                hasFinished.current = true
+                                sequence.next()
+                            }}>
                                 Next <ArrowRightIcon />
                             </Button.Text>
                         </Column>

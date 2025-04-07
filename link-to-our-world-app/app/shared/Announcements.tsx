@@ -47,7 +47,7 @@ export function Announcements() {
         return (
             <AnnouncementBanner opacity={fade === 'in' ? 1 : 0}>
                 <Label.Small color="black">New Objective</Label.Small>
-                <Display.Medium color="black">{displayedObjective.title}</Display.Medium>
+                <Display.Medium color="black" textAlign="center">{displayedObjective.title}</Display.Medium>
                {displayedObjective.completed &&
                     <RowReverse width="100%">
                         <Label.Large color="black">

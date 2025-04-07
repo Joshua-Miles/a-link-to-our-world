@@ -51,6 +51,7 @@ export function ItemGet({ isOpen, title, description, asset, onFinished, resumeP
             </Row>
             <Row
                 {...columnProps}
+                display={isOpen ? 'flex' : 'none'}
                 opacity={sequence.has({ reached: 'fadeIn', notReached: 'fadeOut'}) ? 1 : 0}
                 position="fixed"
                 top="60%"

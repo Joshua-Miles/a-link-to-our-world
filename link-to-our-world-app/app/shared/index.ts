@@ -21,3 +21,6 @@ export * from './usePlayerName';
 export * from './SpeechCard';
 export * from './Soundtrack';
 export * from './usePersistedState';
+export * from './Scene';
+export * from './SceneFocus';
+export * from './useFirstKorok'

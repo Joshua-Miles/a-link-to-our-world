@@ -20,7 +20,7 @@ export function getEncounter(this: AmbassadorClient | void, slug: "intro/beckoni
 } & {
     slug: "intro/beckoning" | "intro/seeds" | "intro/sword-chest" | "intro/gorruk" | "lurelin/intro" | "lurelin/tidebane" | "lurelin/moldarach" | "lurelin/lullaby" | "lurelin/cache" | "faron/intro" | "faron/tavon" | "faron/skull-kid" | "faron/lullaby" | "faron/cache" | "floria/intro" | "floria/nimri" | "floria/bog-dobber" | "floria/lullaby" | "floria/cache" | "necluda/intro" | "necluda/kyllis" | "necluda/argorok" | "necluda/lullaby" | "necluda/cache";
 } & {
-    state: unknown;
+    state: {};
 })> {
     let api = AmbassadorClient.get(this, process.env.EXPO_PUBLIC_API_URL as string);
     return api.callRemoteObservableFunction("getEncounter", slug);
