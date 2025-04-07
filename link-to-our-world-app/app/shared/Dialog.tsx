@@ -61,14 +61,13 @@ export function Dialog({ tree, hasStarted = true, onFinished, ...props }: Dialog
         <Column
             flex={1}
             opacity={sequence.hasStarted() && sequence.hasNotReached('fadeOut') ? 1 : 0}
-            alignItems="center"
             justifyContent="space-between"
             transitions={{ opacity: timing(500).then(sequence.next) }}
             {...props}
         >
             <Speech hasStarted={sequence.hasReached('speech')} text={node.text} onFinished={sequence.next} />
-            <Column width="100%" gap={24} pb={32} opacity={sequence.has({ reached: 'optionsIn', notReached: 'fadeOut' }) ?  1 : 0} transitions={{ opacity: timing(500) }}>
-                <Column gap={4}>
+            <Column gap={24} pb={32} opacity={sequence.has({ reached: 'optionsIn', notReached: 'fadeOut' }) ?  1 : 0} transitions={{ opacity: timing(500) }}>
+                <Column gap={4} width="95%">
                     {options.length &&
                         <RadioGroup value={value} onChange={setValue}>
                             {options.map( option => (

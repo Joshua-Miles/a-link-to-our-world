@@ -15,7 +15,7 @@ export default function () {
         'thankYou',
         'thunderHelm',
         'thankYouGrinroot',
-        'willYouSingMeALullabye',
+        'willYouSingMeALullaby',
         'grinRootShouldBePlanted'
     ])
 
@@ -93,7 +93,7 @@ export default function () {
             </>}
             {sequnece.hasPassed('combat') && <>
                 <SceneFocus
-                    asset={sequnece.hasNotReached('willYouSingMeALullabye') ? 'tidebane' : 'grinroot'}
+                    asset={sequnece.hasNotReached('willYouSingMeALullaby') ? 'tidebane' : 'grinroot'}
                 />
                 <SpeechStepper
                     groups={[[ "I'd never have cut down that Moldarach on my own. Thank you for your help. Please take this as a token of my appreciation. It's been passed down in my family 8 generations."] ]}
@@ -117,7 +117,7 @@ export default function () {
                         "You're welcome!", 
                         `${playerName}, will you sing me a lullabye?`
                     ]]}
-                    hasStarted={sequnece.hasReached('willYouSingMeALullabye')}
+                    hasStarted={sequnece.hasReached('willYouSingMeALullaby')}
                     onFinished={sequnece.next}
                 />
                 <SpeechCard

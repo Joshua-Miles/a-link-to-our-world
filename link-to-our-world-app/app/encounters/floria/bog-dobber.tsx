@@ -1,14 +1,17 @@
-import { resolveEncounter } from "api";
-import { Assets, Combat, Speech, SubjectImage, useSequence } from "app/shared";
-import { Button, Column, Row } from "designer-m3";
-import { ArrowRightIcon } from "designer-m3/icons";
+import { isAnyFailure } from "@triframe/ambassador";
+import { isLoading, useResult } from "@triframe/utils-react";
+import { getEncounter, resolveEncounter } from "api";
+import { Combat, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "app/shared";
 import { router } from "expo-router";
+import { Answer1B } from "./intro";
 
 export default function () {
     const sequnece = useSequence({ hasStarted: true, onFinished: handleFinished }, [
-        'intro',
+        'sureIsScary',
         'combat',
-        'willYouSingMeALullabye'
+        'thankYouFayflutter',
+        'willYouSingMeALullaby',
+        'fayflutterShouldBePlanted'
     ])
 
     function handleFinished() {
@@ -16,20 +19,31 @@ export default function () {
         router.push('/map')
     }
 
+    const intro = useResult(getEncounter, 'floria/intro');
+
+    const playerName = usePlayerName();
+
+    if (isLoading(intro) || isAnyFailure(intro)) {
+        return null;
+    }
+
+    const answer1B = (intro.state as any).answer1B as Answer1B;   
+
+    const thankYouFayflutter: Record<Answer1B, string> = {
+        "We have a job to do": "And thank you, Fayflutter, for reminding me that I have a job to do",
+        "We should see if the Faries need help ": "And thank you, Fayflutter, for reminding me to always work hard to help others!",
+        "If we work a little more now, then we can rest ": "And thank you, Fayflutter, for reminding me to always do the hard-things first."
+    }
+
     return (
-        <Column flex={1}>
-            {sequnece.isAt('intro') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['lumina']} />
-                </Row>
-                <Row justifyContent="center">
-                    <Speech text="Oh no! The Bog Dobber!" />
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
+        <Scene>
+            {sequnece.hasNotReached('combat') && <>
+                <SceneFocus asset="nimri" />
+                <SpeechStepper
+                    hasStarted={sequnece.hasReached('sureIsScary')}
+                    groups={[[`That bog-dobber sure is scary up close! Let's fight it together, ${playerName}`]]}
+                    onFinished={sequnece.next}
+                />
             </>}
             {sequnece.isAt('combat') && <>
                 <Combat
@@ -40,19 +54,36 @@ export default function () {
                     onFinished={sequnece.next}
                 />
             </>}
-            {sequnece.isAt('willYouSingMeALullabye') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['fayflutter']} />
-                </Row>
-                <Row justifyContent="center">
-                    <Speech text="I'm tired- will you play me a lullabye?" />
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
+            {sequnece.hasPassed('combat') && <>
+                <SceneFocus
+                    asset={sequnece.hasNotReached('willYouSingMeALullaby') ? 'nimri' : 'fayflutter'}
+                />
+                <SpeechStepper
+                    groups={[
+                        [ "Thank you for fighting the bog-dobber with me!"],
+                        [ thankYouFayflutter[answer1B] ]
+                    ]}
+                    hasStarted={sequnece.hasReached('thankYouFayflutter')}
+                    onFinished={sequnece.next}
+                />
+                <SpeechStepper
+                    hasStarted={sequnece.hasReached('willYouSingMeALullaby')}
+                    groups={[[ 
+                        "You're welcome!", 
+                        `${playerName}, will you sing me a lullabye?`
+                    ]]}
+                    onFinished={sequnece.next}
+                />
+                <SpeechCard
+                    asset="lumina-avatar"
+                    text={[ 
+                        `${playerName}, I think that Fayflutter is tired is an indication that it is the appointed time for her to be planted.`,
+                        `Nearby is a good spot to play her a lullaby on the goddess flute; I have marked it on your map.`
+                     ]}
+                    hasStarted={sequnece.hasReached('fayflutterShouldBePlanted')}
+                    onFinished={sequnece.next}
+                />
             </>}
-        </Column>
+        </Scene>
     )
 }
