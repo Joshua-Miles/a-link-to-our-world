@@ -144,19 +144,35 @@ function handleFaronEncounters(event: EncounterResolvedEvent) {
             })    
         break;
         case 'faron/tavon':
-            createEncounter(event.playerId, 'faron/skull-kid', {
+            createEncounter(event.playerId, 'faron/skull-kid-1', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
                 lat: 29.553270, 
                 lng: -95.199190
             })
         break;
-        case 'faron/skull-kid':
+        case 'faron/skull-kid-1':
+            createEncounter(event.playerId, 'faron/skull-kid-2', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.5516, 
+                lng: -95.1977
+            })
+        break;
+        case 'faron/skull-kid-2':
+            createEncounter(event.playerId, 'faron/skull-kid-3', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.5530, 
+                lng: -95.1993
+            })
+        break;
+        case 'faron/skull-kid-3':
             createEncounter(event.playerId, 'faron/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.551661, 
-                lng: -95.196925
+                lat: 29.5522, 
+                lng: -95.1976
             })
         break;
         case 'faron/lullaby':
