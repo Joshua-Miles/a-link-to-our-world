@@ -11,6 +11,9 @@ export const Assets: Record<string, any> = {
     'ice-moblin': require('../../assets/enemies/ice-moblin.png'),
     'water-moblin': require('../../assets/enemies/water-moblin.png'),
 
+    'keese': require('../../assets/enemies/keese.png'),
+
+
     // Bosses
     'moldarach': require('../../assets/enemies/moldarach.png'),
     'skull-kid': require('../../assets/enemies/skull-kid.png'),

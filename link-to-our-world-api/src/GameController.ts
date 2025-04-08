@@ -147,32 +147,32 @@ function handleFaronEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'faron/skull-kid-1', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.553270, 
-                lng: -95.199190
+                lat: 29.5516, 
+                lng: -95.1977
             })
         break;
         case 'faron/skull-kid-1':
             createEncounter(event.playerId, 'faron/skull-kid-2', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.5516, 
-                lng: -95.1977
+                lat: 29.5522, 
+                lng: -95.1976
             })
         break;
         case 'faron/skull-kid-2':
             createEncounter(event.playerId, 'faron/skull-kid-3', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.5530, 
-                lng: -95.1993
+                lat: 29.553270, 
+                lng: -95.199190
             })
         break;
         case 'faron/skull-kid-3':
             createEncounter(event.playerId, 'faron/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.5522, 
-                lng: -95.1976
+                lat: 29.551674, 
+                lng: -95.196911
             })
         break;
         case 'faron/lullaby':
@@ -238,6 +238,14 @@ function handleNecludaEncounters(event: EncounterResolvedEvent) {
             })    
         break;
         case 'necluda/kyllis':
+            createEncounter(event.playerId, 'necluda/keese', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.588635, 
+                lng: -95.374737
+            })  
+        break;
+        case 'necluda/keese':
             createEncounter(event.playerId, 'necluda/argorok', {
                 label: 'Inspect...',
                 imageSlug: 'marker',

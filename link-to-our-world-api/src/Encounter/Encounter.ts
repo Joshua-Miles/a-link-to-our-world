@@ -24,6 +24,7 @@ export type EncounterSlug =
         | 'floria/cache'
     | 'necluda/intro'
         | 'necluda/kyllis'
+        | 'necluda/keese'
         | 'necluda/argorok'
         | 'necluda/lullaby'
         | 'necluda/cache'

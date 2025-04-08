@@ -18,7 +18,7 @@ export default function () {
         'iWillStayHere',
         'dontRun',
         'whyNot?',
-        'letsFindTidebane'
+        'letsFindNimri'
     ])
 
     function handleFinished() {
@@ -34,7 +34,7 @@ export default function () {
 
     return (
         <Scene>
-            <SceneFocus asset={sequence.has({ passed: 'welcome', notReached: 'letsFindTidebane' }) ? 'fayflutter' : 'lumina'} />
+            <SceneFocus asset={sequence.has({ passed: 'welcome', notReached: 'letsFindNimri' }) ? 'fayflutter' : 'lumina'} />
             <SpeechStepper
                 hasStarted={sequence.hasReached('welcome')}
                 onFinished={sequence.next}
@@ -64,7 +64,7 @@ export default function () {
                 tree={dialog('Why not?', answer1BOptions)}
             />
             <SpeechStepper
-                hasStarted={sequence.hasReached('letsFindTidebane')}
+                hasStarted={sequence.hasReached('letsFindNimri')}
                 onFinished={sequence.next}
                 groups={[[
                     `We should find Nimri- she is the most observant of the Faries, she will know where to safely plant a Korok seedling.`

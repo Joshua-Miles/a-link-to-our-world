@@ -67,7 +67,7 @@ export default function () {
                     groups={[
                         [ 
                             thisIsLastCache 
-                                ? "Fayflutter was the last seedling to plant. We should return the sacred grove, to report to Impa."
+                                ? "Fayflutter was the last seedling to plant. We should return to the sacred grove, to report to Impa."
                                 : "Well done planting this Korok. Shall we set out to plant the next one?"
                         ]
                     ]}

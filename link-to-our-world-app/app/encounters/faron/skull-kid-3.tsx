@@ -23,13 +23,13 @@ export default function () {
         router.push('/map')
     }
 
-    const intro = useResult(getEncounter, 'faron/intro');
+    const tavon = useResult(getEncounter, 'faron/tavon');
 
-    if (isLoading(intro) || isAnyFailure(intro)) {
+    if (isLoading(tavon) || isAnyFailure(tavon)) {
         return null;
     }
 
-    const answer1C = (intro.state as any).answer1B as Answer1C;   
+    const answer1C = (tavon.state as any).answer1C as Answer1C;   
     
     const imGlad: Record<Answer1C, string> = {
         "Something could happen to the Kokiri while you're reading": `I'm just glad that I read while we were walking- I'm glad we saved the Kokiri before any of them were hurt!`,
@@ -73,7 +73,7 @@ export default function () {
                             `They're safe!`
                         ],
                         [
-                            `Scribeleaf, thank you for reading about the flute to help us fight the piper. `
+                            `Scribeleaf, thank you for reading about the flute to help us fight the piper.`
                         ]
                     ]}
                     onFinished={sequnece.next}

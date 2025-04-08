@@ -1,10 +1,9 @@
 import { resolveEncounter } from "api";
-import { Assets, Speech, SubjectImage } from "app/shared";
-import { Button, Column, Row } from "designer-m3";
-import { ArrowRightIcon } from "designer-m3/icons";
+import { Scene, SceneFocus, SpeechStepper, usePlayerName } from "app/shared";
 import { router } from "expo-router";
 
 export default function () {
+    const playerName = usePlayerName();
 
     function handleFinished() {
         resolveEncounter('necluda/intro', {})
@@ -12,18 +11,17 @@ export default function () {
     }
 
     return (
-        <Column flex={1}>
-            <Row flex={1} alignItems="center" justifyContent="center">
-                <SubjectImage source={Assets['lumina']} />
-            </Row>
-            <Row justifyContent="center">
-                <Speech text="You should talk to Kyllis" />
-            </Row>
-            <Row flex={1} justifyContent="center">
-                <Button.Text onPress={handleFinished}>
-                    Next <ArrowRightIcon />
-                </Button.Text>
-            </Row>
-        </Column>
+        <Scene>
+            <SceneFocus asset="lumina" />
+            <SpeechStepper
+                hasStarted={true}
+                onFinished={handleFinished}
+                groups={[[
+                    `${playerName}, welcome to Necluda Cliffs.`,
+                    `This imposing cliff-side gives rise to the Hebra Mountains beyond, and is home to the vigilant Rito.`,
+                    `We should find Kyllis, the leader of the Rito, to see if he knows where we should plant a Korok seedling.`
+                ]]}
+            />
+        </Scene>
     )
 }

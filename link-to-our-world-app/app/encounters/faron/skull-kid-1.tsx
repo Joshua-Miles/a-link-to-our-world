@@ -32,7 +32,7 @@ export default function () {
                     onFinished={sequnece.next}
                 />
                 <SpeechCard
-                    hasStarted={sequnece.hasReached('whoIsThat')}
+                    hasStarted={sequnece.hasReached('iHaveNoIdea')}
                     asset="tavon-avatar"
                     text={[ 
                         `I have no idea! But I've read about that dark reed flute he is holding...`,
@@ -78,7 +78,7 @@ export default function () {
                 />
                  <SpeechCard
                     hasStarted={sequnece.hasReached('iWouldLoveTo')}
-                    asset="tavon-avatar"
+                    asset="scribeleaf"
                     text={[ 
                         `I would love to!`,
                     ]}

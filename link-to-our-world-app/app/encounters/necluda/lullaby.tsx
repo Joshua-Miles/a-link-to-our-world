@@ -1,8 +1,6 @@
 import { resolveEncounter } from "api";
-import { Assets, Combat, SongPlayer, Soundtrack, Speech, SubjectImage, useSequence } from "app/shared";
+import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "app/shared";
 import { skyTheme } from "app/shared/testSongs";
-import { Button, Column, Row } from "designer-m3";
-import { ArrowRightIcon } from "designer-m3/icons";
 import { router } from "expo-router";
 
 export default function () {
@@ -21,20 +19,15 @@ export default function () {
     const song = skyTheme;
 
     return (
-        <Column flex={1}>
-            <Soundtrack isPlaying={sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
+        <Scene>
+            <Soundtrack isPlaying={!sequnece.hasStarted() || sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
             {sequnece.isAt('intro') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['lumina']} />
-                </Row>
-                <Row justifyContent="center">
-                    <Speech text="Play a song of Hyrule" />
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
+                <SceneFocus asset="lumina" />
+                <SpeechStepper
+                    groups={[[ 'Are you ready to play?' ]]}
+                    hasStarted={sequnece.hasReached('intro')}
+                    onFinished={sequnece.next}
+                />
             </>}
             {sequnece.isAt('playing') && <>
                 <SongPlayer
@@ -42,32 +35,20 @@ export default function () {
                     onFinished={sequnece.next}
                 />
             </>}
-            {sequnece.isAt('thankYou') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['scribeleaf']} />
-                </Row>
-                <Row justifyContent="center">
-                    <Speech text="I think I can sleep now." />
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
+            {sequnece.hasPassed('playing') && <>
+                <SceneFocus asset="tumblebreeze" />
+                <SpeechStepper
+                    groups={[[ 'I think I can sleep now.' ]]}
+                    hasStarted={sequnece.hasReached('thankYou')}
+                    onFinished={sequnece.next}
+                />
+                <SpeechCard
+                    hasStarted={sequnece.hasReached('toTheSoil')}
+                    asset="lumina-avatar"
+                    text={[ "There is good soil to plant Tumblebreeze nearby, I've marked the location on your map." ]}
+                    onFinished={sequnece.next}
+                />
             </>}
-            {sequnece.isAt('toTheSoil') && <>
-                <Row flex={1} alignItems="center" justifyContent="center">
-                    <SubjectImage source={Assets['lumina']} />
-                </Row>
-                <Row justifyContent="center">
-                    <Speech text="There is good soil to plant Scribeleaf nearby, I've marked the location on your map" />
-                </Row>
-                <Row flex={1} justifyContent="center">
-                    <Button.Text onPress={sequnece.next}>
-                        Next <ArrowRightIcon />
-                    </Button.Text>
-                </Row>
-            </>}
-        </Column>
+        </Scene>
     )
 }
