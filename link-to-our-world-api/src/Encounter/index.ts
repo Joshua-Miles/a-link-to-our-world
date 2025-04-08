@@ -5,6 +5,7 @@ import { resolveEncounter } from './resolveEncounter';
 export { EncounterSlug } from './Encounter';
 export { createEncounter } from './createEncounter';
 export { resetEncounters } from './resetEncounters';
+export { getEncounterByPlayerIdAndSlug } from './getEncounterByPlayerIdAndSlug';
 
 export const PublicEncountersInterface = {
     listEncounters,

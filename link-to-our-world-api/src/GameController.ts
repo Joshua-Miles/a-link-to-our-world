@@ -1,4 +1,4 @@
-import { createEncounter } from "./Encounter";
+import { createEncounter, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
 import { createInventoryItem } from "./InventoryItem";
 import { completeObjective, createObjective } from "./Objective";
@@ -20,18 +20,19 @@ export const GameController = {
                 })
             break;
             case 'ENCOUNTER_RESOLVED':
-                handleIntroEncounters(event);
-                handleLurelinEncounters(event);
-                handleFaronEncounters(event);
-                handleFloriaEncounters(event);
-                handleNecludaEncounters(event);
+                await handleIntroEncounters(event);
+                await handleLurelinEncounters(event);
+                await handleFaronEncounters(event);
+                await handleFloriaEncounters(event);
+                await handleNecludaEncounters(event);
+                await handleInterludeEncounters(event);
             break;
         }
     }
 }
 
 
-function handleIntroEncounters(event: EncounterResolvedEvent) {
+async function handleIntroEncounters(event: EncounterResolvedEvent) {
     switch(event.slug) {
         case 'intro/beckoning':
             createEncounter(event.playerId, 'intro/seeds', {
@@ -94,7 +95,7 @@ function handleIntroEncounters(event: EncounterResolvedEvent) {
     }
 }
 
-function handleLurelinEncounters(event: EncounterResolvedEvent) {
+async function handleLurelinEncounters(event: EncounterResolvedEvent) {
     switch(event.slug) {
         case 'lurelin/intro':    
             createEncounter(event.playerId, 'lurelin/tidebane', {
@@ -129,11 +130,12 @@ function handleLurelinEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'lurelin/cache':
+            await createInterludeIfAllSeedsPlanted(event.playerId);
         break;
     }
 }
 
-function handleFaronEncounters(event: EncounterResolvedEvent) {
+async function handleFaronEncounters(event: EncounterResolvedEvent) {
      switch(event.slug) {
         case 'faron/intro':
             createEncounter(event.playerId, 'faron/tavon', {
@@ -184,11 +186,12 @@ function handleFaronEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'faron/cache':
+            await createInterludeIfAllSeedsPlanted(event.playerId);
         break;
     }
 }
 
-function handleFloriaEncounters(event: EncounterResolvedEvent) {
+async function handleFloriaEncounters(event: EncounterResolvedEvent) {
      switch(event.slug) {
         case 'floria/intro':  
             createEncounter(event.playerId, 'floria/nimri', {
@@ -223,11 +226,12 @@ function handleFloriaEncounters(event: EncounterResolvedEvent) {
             })  
         break;
         case 'floria/cache':
+            await createInterludeIfAllSeedsPlanted(event.playerId);
         break;
     }
 }
 
-function handleNecludaEncounters(event: EncounterResolvedEvent) {
+async function handleNecludaEncounters(event: EncounterResolvedEvent) {
      switch(event.slug) {
         case 'necluda/intro':  
             createEncounter(event.playerId, 'necluda/kyllis', {
@@ -270,6 +274,58 @@ function handleNecludaEncounters(event: EncounterResolvedEvent) {
             })  
         break;
         case 'necluda/cache':
+            await createInterludeIfAllSeedsPlanted(event.playerId);
         break;
     }
+}
+
+async function handleInterludeEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'interlude/intro':
+            createEncounter(event.playerId, 'interlude/gorruk', {
+                label: 'Engage',
+                imageSlug: 'gorruk',
+                lat: 29.539340,
+                lng: -95.362554
+            })
+        break;
+        case 'interlude/gorruk':
+            createEncounter(event.playerId, 'interlude/vials', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.539805,
+                lng: -95.363028
+            })
+        break;
+        case 'interlude/vials':
+            // TODO: trigger phase 2 level intros
+        break;
+    }
+}
+
+
+async function createInterludeIfAllSeedsPlanted(playerId: number) {
+    if (await allSeedsPlanted(playerId)) createInterlude(playerId);
+}
+
+async function allSeedsPlanted(playerId: number){
+    const lurelin = await getEncounterByPlayerIdAndSlug(playerId, 'lurelin/cache');
+    const floria = await getEncounterByPlayerIdAndSlug(playerId, 'floria/cache');
+    const faron = await getEncounterByPlayerIdAndSlug(playerId, 'faron/cache');
+    const necluda = await getEncounterByPlayerIdAndSlug(playerId, 'necluda/cache');
+    return (
+        lurelin && lurelin.resolved
+        && floria && floria.resolved
+        && faron && faron.resolved
+        && necluda && necluda.resolved
+    )
+}
+
+function createInterlude(playerId: number) {
+    createEncounter(playerId, 'interlude/intro', {
+        label: 'Inspect',
+        imageSlug: 'marker',
+        lat: 29.539490,
+        lng: -95.363127
+    })
 }

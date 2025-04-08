@@ -25,6 +25,8 @@ export const Assets: Record<string, any> = {
     'lumina': require('../../assets/characters/lumina.png'),
     'lumina-avatar': require('../../assets/characters/lumina-avatar.png'),
     'impa': require('../../assets/characters/impa.png'),
+    'impa-avatar': require('../../assets/characters/impa-avatar.png'),
+
 
 
     'scribeleaf': require('../../assets/characters/scribeleaf.png'),

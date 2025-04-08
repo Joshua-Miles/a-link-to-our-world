@@ -28,6 +28,9 @@ export type EncounterSlug =
         | 'necluda/argorok'
         | 'necluda/lullaby'
         | 'necluda/cache'
+    | 'interlude/intro'
+        | 'interlude/gorruk'
+        | 'interlude/vials'
 
 export type Encounter = {
     id: Serial
