@@ -4,6 +4,7 @@ export const Assets: Record<string, any> = {
     'marker': require('../../assets/marker.png'),
     'health': require('../../assets/health.png'),
     'locked-door': require('../../assets/locked-door.png'),
+    'mines': require('../../assets/mines.png'),
 
 
     // Enemies
@@ -60,6 +61,15 @@ export const Assets: Record<string, any> = {
     'khenna-avatar': require('../../assets/characters/khenna-avatar.png'),
     'robot': require('../../assets/characters/robot.png'),
 
+    'bouldan': require('../../assets/characters/bouldan.png'),
+    'bouldan-avatar': require('../../assets/characters/bouldan-avatar.png'),
+    'kragan': require('../../assets/characters/kragan.png'),
+    'darvok': require('../../assets/characters/darvok.png'),
+    'darvok-avatar': require('../../assets/characters/darvok-avatar.png'),
+    'lodron': require('../../assets/characters/lodron.png'),
+    'lodron-avatar': require('../../assets/characters/lodron-avatar.png'),
+    'gronak': require('../../assets/characters/gronak.png'),
+
 
     // Items
     'sword': require('../../assets/items/sword.png'),
@@ -70,6 +80,9 @@ export const Assets: Record<string, any> = {
     'goddess-flute': require('../../assets/items/goddess-flute.png'),
     'thunderhelm': require('../../assets/items/thunderhelm.png'),
     'chest': require('../../assets/items/chest.png'),
+    'milk': require('../../assets/items/milk.png'),
+    'key': require('../../assets/items/key.png'),
+
 
     // Soundtrack
     'item-get': require('../../assets/soundtrack/item-get.mp3'),

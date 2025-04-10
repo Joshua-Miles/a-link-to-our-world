@@ -1,7 +1,7 @@
 import { createEncounter, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
-import { createInventoryItem } from "./InventoryItem";
+import { createInventoryItem, removeInventoryItem } from "./InventoryItem";
 import { completeObjective, createObjective } from "./Objective";
 
 export const GameController = {
@@ -400,6 +400,9 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lng: -95.192433
             })
         case 'gerudo/cache':
+            createInventoryItem(event.playerId, 'electric-sword', {
+                name: 'Lightning Sword'
+            })
             // TODO: if all resolved
         break;
     }
@@ -408,7 +411,79 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
 async function handleEldinEncounters(event: EncounterResolvedEvent) {
     switch (event.slug) {
         case 'eldin/intro':
-            
+            createEncounter(event.playerId, 'eldin/bouldan', {
+                label: 'Talk',
+                imageSlug: 'bouldan-avatar',
+                lat: 29.508465, 
+                lng: -95.136107
+            })
+            createEncounter(event.playerId, 'eldin/mines', {
+                label: 'Enter',
+                imageSlug: 'mines',
+                lat: 29.508331,
+                lng: -95.137542
+            })
+            createEncounter(event.playerId, 'eldin/temple', {
+                label: 'Enter',
+                imageSlug: 'locked-door',
+                lat: 29.5092, 
+                lng: -95.1395
+            })
+            createEncounter(event.playerId, 'eldin/lodron', {
+                label: 'Talk',
+                imageSlug: 'lodron-avatar',
+                lat: 29.5093, 
+                lng: -95.1396
+            })
+        break;
+        case 'eldin/bouldan':
+            createInventoryItem(event.playerId, 'milk', {
+                name: 'Milk'
+            })
+            createEncounter(event.playerId, 'eldin/bouldan-2', {
+                label: 'Talk',
+                imageSlug: 'bouldan-avatar',
+                lat: 29.508465, 
+                lng: -95.136107
+            })
+        break;
+        case 'eldin/mines':
+            createEncounter(event.playerId, 'eldin/darvok', {
+                label: 'Talk',
+                imageSlug: 'darvok-avatar',
+                lat: 29.506907, 
+                lng: -95.137956
+            })
+        break;
+        case 'eldin/darvok':
+            removeInventoryItem(event.playerId, 'milk')
+            markEncounterResolved(event.playerId, 'eldin/bouldan-2', {})
+            createEncounter(event.playerId, 'eldin/fyrus', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.507874, 
+                lng: -95.137889
+            })
+        break;
+        case 'eldin/fyrus':
+            markEncounterResolved(event.playerId, 'eldin/lodron', {})
+            createInventoryItem(event.playerId, 'key', {
+                name: 'Key'
+            })
+        break;
+        case 'eldin/temple':
+            createEncounter(event.playerId, 'eldin/cache', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.507617,
+                lng: -95.141983
+            })
+        break;
+        case 'eldin/cache':
+            createInventoryItem(event.playerId, 'fire-sword', {
+                name: 'Fire Sword'
+            })
+            // TODO: if all resolved
         break;
     }
 }
@@ -416,7 +491,19 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
 async function handleZorasEncounters(event: EncounterResolvedEvent) {
     switch (event.slug) {
         case 'zoras/intro':
-            
+            case 'zoras/temple':
+            createEncounter(event.playerId, 'zoras/cache', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.507617,
+                lng: -95.141983
+            })
+        break;
+        case 'zoras/cache':
+            createInventoryItem(event.playerId, 'water-sword', {
+                name: 'Water Sword'
+            })
+            // TODO: if all resolved
         break;
     }
 }

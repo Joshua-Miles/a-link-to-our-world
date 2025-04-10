@@ -8,6 +8,8 @@ export type InventoryItemSlug =
     | 'ice-sword'
     | 'electric-sword'
     | 'water-sword'
+    | 'key'
+    | 'milk'
 
 export type InventoryItem = {
     id: Serial
