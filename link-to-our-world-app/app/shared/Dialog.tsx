@@ -1,4 +1,4 @@
-import { Button, Column, ListItemLeadingIcon, ListItemTitle, PressableListItem, RadioButton, RadioGroup, timing } from "designer-m3";
+import { Body, Button, Column, ListItemLeadingIcon, ListItemTitle, PressableListItem, RadioButton, RadioGroup, timing } from "designer-m3";
 import { useEffect, useRef, useState } from "react";
 import { wait } from "./wait";
 import { useSequence } from "./useSequence";
@@ -67,7 +67,7 @@ export function Dialog({ tree, hasStarted = true, onFinished, ...props }: Dialog
         >
             <Speech hasStarted={sequence.hasReached('speech')} text={node.text} onFinished={sequence.next} />
             <Column gap={24} pb={32} opacity={sequence.has({ reached: 'optionsIn', notReached: 'fadeOut' }) ?  1 : 0} transitions={{ opacity: timing(500) }}>
-                <Column gap={4} width="95%">
+                <Column gap={4} width="94%">
                     {options.length &&
                         <RadioGroup value={value} onChange={setValue}>
                             {options.map( option => (
@@ -75,9 +75,9 @@ export function Dialog({ tree, hasStarted = true, onFinished, ...props }: Dialog
                                     <ListItemLeadingIcon>
                                         <RadioButton value={option} />
                                     </ListItemLeadingIcon>
-                                    <ListItemTitle>
+                                    <Body.Medium>
                                         {option}
-                                    </ListItemTitle>
+                                    </Body.Medium>
                                 </PressableListItem>
                             ))}
                         </RadioGroup>}

@@ -45,7 +45,7 @@ export default function Map() {
   const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
   return (
     <Column flex={1}>
-      <Soundtrack asset="hyrule-theme" fadeDuration={4000} />
+      {/* <Soundtrack asset="hyrule-theme" fadeDuration={4000} /> */}
       <Column flex={1}>
         <Announcements />
         <MapView

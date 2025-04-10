@@ -3,6 +3,7 @@ import { persist, Serial } from "@triframe/scribe";
 export type ObjectiveSlug = 
     | 'beckoning'
     | 'plant-seeds'
+    | 'visit-temples'
 
 export type Objective = {
     id: Serial

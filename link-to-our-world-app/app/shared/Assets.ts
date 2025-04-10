@@ -3,6 +3,8 @@ export const Assets: Record<string, any> = {
     // Misc
     'marker': require('../../assets/marker.png'),
     'health': require('../../assets/health.png'),
+    'locked-door': require('../../assets/locked-door.png'),
+
 
     // Enemies
     'moblin': require('../../assets/enemies/moblin.png'),
@@ -19,6 +21,10 @@ export const Assets: Record<string, any> = {
     'skull-kid': require('../../assets/enemies/skull-kid.png'),
     'argorok': require('../../assets/enemies/argorok.png'),
     'bog-dobber': require('../../assets/enemies/bog-dobber.png'),
+    'scervus': require('../../assets/enemies/scervus.png'),
+    'fyrus': require('../../assets/enemies/fyrus.png'),
+    'tentalus': require('../../assets/enemies/tentalus.png'),
+    'frostus': require('../../assets/enemies/frostus.png'),
 
 
     // Characters
@@ -26,8 +32,6 @@ export const Assets: Record<string, any> = {
     'lumina-avatar': require('../../assets/characters/lumina-avatar.png'),
     'impa': require('../../assets/characters/impa.png'),
     'impa-avatar': require('../../assets/characters/impa-avatar.png'),
-
-
 
     'scribeleaf': require('../../assets/characters/scribeleaf.png'),
     'tumblebreeze': require('../../assets/characters/tumblebreeze.png'),
@@ -48,11 +52,19 @@ export const Assets: Record<string, any> = {
     'kyllis': require('../../assets/characters/kyllis.png'),
     'kyllis-avatar': require('../../assets/characters/kyllis-avatar.png'),
 
+    'ravia': require('../../assets/characters/ravia.png'),
+    'ravia-avatar': require('../../assets/characters/ravia-avatar.png'),
+    'eshara': require('../../assets/characters/eshara.png'),
+    'eshara-avatar': require('../../assets/characters/eshara-avatar.png'),
+    'khenna': require('../../assets/characters/khenna.png'),
+    'khenna-avatar': require('../../assets/characters/khenna-avatar.png'),
+    'robot': require('../../assets/characters/robot.png'),
+
 
     // Items
     'sword': require('../../assets/items/sword.png'),
     'fire-sword': require('../../assets/items/fire-sword.png'),
-    'electric-sword': require('../../assets/items/electric-sword.png'),
+    'lightning-sword': require('../../assets/items/electric-sword.png'),
     'ice-sword': require('../../assets/items/ice-sword.png'),
     'water-sword': require('../../assets/items/water-sword.png'),
     'goddess-flute': require('../../assets/items/goddess-flute.png'),

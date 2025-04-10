@@ -1,4 +1,5 @@
 import { createEncounter, getEncounterByPlayerIdAndSlug } from "./Encounter";
+import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
 import { createInventoryItem } from "./InventoryItem";
 import { completeObjective, createObjective } from "./Objective";
@@ -26,6 +27,11 @@ export const GameController = {
                 await handleFloriaEncounters(event);
                 await handleNecludaEncounters(event);
                 await handleInterludeEncounters(event);
+                await handleGerudoEncounters(event);
+                await handleEldinEncounters(event);
+                await handleZorasEncounters(event);
+                await handleHebraEncounters(event);
+
             break;
         }
     }
@@ -298,14 +304,137 @@ async function handleInterludeEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'interlude/vials':
-            // TODO: trigger phase 2 level intros
+            createObjective(event.playerId, {
+                slug: 'visit-temples',
+                title: 'Visit the Temples'
+            })
+            createEncounter(event.playerId, 'gerudo/intro', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.517403,
+                lng:  -95.194691
+            })
+            createEncounter(event.playerId, 'eldin/intro', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.509009, 
+                lng: -95.132756
+            })
+            createEncounter(event.playerId, 'zoras/intro', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.640995, 
+                lng: -95.219378
+            })
+            createEncounter(event.playerId, 'hebra/intro', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.581416, 
+                lng: -95.415877
+            })
+        break;
+    }
+}
+
+async function handleGerudoEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'gerudo/intro':
+            createEncounter(event.playerId, 'gerudo/tidebane', {
+                label: 'Talk',
+                imageSlug: 'tidebane-avatar',
+                lat: 29.517568, 
+                lng: -95.194463
+            })
+
+            createEncounter(event.playerId, 'gerudo/robot', {
+                label: 'Talk',
+                imageSlug: 'robot',
+                lat: 29.518330, 
+                lng: -95.193699
+            })
+
+            createEncounter(event.playerId, 'gerudo/eshara', {
+                label: 'Talk',
+                imageSlug: 'eshara-avatar',
+                lat: 29.520850, 
+                lng: -95.191939
+            })
+
+            createEncounter(event.playerId, 'gerudo/temple', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.520791, 
+                lng: -95.192024
+            })
+            
+            createEncounter(event.playerId, 'gerudo/ravia', {
+                label: 'Talk',
+                imageSlug: 'ravia-avatar',
+                lat: 29.521745,
+                lng:  -95.193940,
+            })
+        break;
+        case 'gerudo/tidebane':
+            createEncounter(event.playerId, 'gerudo/tidebane-2', {
+                label: 'Talk',
+                imageSlug: 'tidebane-avatar',
+                lat: 29.517568, 
+                lng: -95.194463
+            })
+        break;
+        case 'gerudo/ravia':
+            markEncounterResolved(event.playerId, 'gerudo/tidebane-2', {})
+            markEncounterResolved(event.playerId, 'gerudo/robot', {})
+            markEncounterResolved(event.playerId, 'gerudo/eshara', {})
+            createEncounter(event.playerId, 'gerudo/scervus', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.521146, 
+                lng: -95.192802
+            })
+        case 'gerudo/temple':
+            createEncounter(event.playerId, 'gerudo/cache', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.520817, 
+                lng: -95.192433
+            })
+        case 'gerudo/cache':
+            // TODO: if all resolved
+        break;
+    }
+}
+
+async function handleEldinEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'eldin/intro':
+            
+        break;
+    }
+}
+
+async function handleZorasEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'zoras/intro':
+            
+        break;
+    }
+}
+
+async function handleHebraEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'hebra/intro':
+            
         break;
     }
 }
 
 
 async function createInterludeIfAllSeedsPlanted(playerId: number) {
-    if (await allSeedsPlanted(playerId)) createInterlude(playerId);
+    if (await allSeedsPlanted(playerId)) {
+        completeObjective(playerId, 'plant-seeds');
+        createInterlude(playerId);
+    }
 }
 
 async function allSeedsPlanted(playerId: number){

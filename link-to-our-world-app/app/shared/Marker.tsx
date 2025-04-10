@@ -34,6 +34,13 @@ export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
             setState(_ + 1)
           }, 500)
         }}
+        onLayout={() => {
+          pointAnnotation.current?.refresh()
+          setTimeout(() => {
+            pointAnnotation.current?.refresh()
+            setState(_ + 1)
+          }, 500)
+        }}
       />
     </Mapbox.PointAnnotation>
   );
