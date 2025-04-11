@@ -362,7 +362,7 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
 
             createEncounter(event.playerId, 'gerudo/temple', {
                 label: 'Inspect...',
-                imageSlug: 'marker',
+                imageSlug: 'locked-door',
                 lat: 29.520791, 
                 lng: -95.192024
             })
@@ -472,6 +472,7 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'eldin/temple':
+            removeInventoryItem(event.playerId, 'key');
             createEncounter(event.playerId, 'eldin/cache', {
                 label: 'Inspect',
                 imageSlug: 'marker',
@@ -491,12 +492,59 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
 async function handleZorasEncounters(event: EncounterResolvedEvent) {
     switch (event.slug) {
         case 'zoras/intro':
-            case 'zoras/temple':
+            createEncounter(event.playerId, 'zoras/temple', {
+                label: 'Inspect...',
+                imageSlug: 'locked-door',
+                lat: 29.641918, 
+                lng: -95.219221
+            })
+            createEncounter(event.playerId, 'zoras/zaylen', {
+                label: 'Talk',
+                imageSlug: 'zaylen-avatar',
+                lat: 29.641910, 
+                lng: -95.218973
+            })
+            createEncounter(event.playerId, 'zoras/addison', {
+                label: 'Talk',
+                imageSlug: 'addison-avatar',
+                lat: 29.640884, 
+                lng: -95.219226
+            })
+            createEncounter(event.playerId, 'zoras/nerali', {
+                label: 'Talk',
+                imageSlug: 'nerali-avatar',
+                lat: 29.641209, 
+                lng: -95.219009
+            })
+        break;
+        case 'zoras/nerali':
+            createEncounter(event.playerId, 'zoras/throne-room', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.641214, 
+                lng: -95.217876
+            })
+        break;
+        case 'zoras/throne-room':
+            createEncounter(event.playerId, 'zoras/tentalus', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.641113,
+                lng: -95.220478
+            })
+        break;
+        case 'zoras/tentalus':
+            markEncounterResolved(event.playerId, 'zoras/zaylen', {})
+            createInventoryItem(event.playerId, 'key', {
+                name: 'Key'
+            })
+        break;
+        case 'zoras/temple':
             createEncounter(event.playerId, 'zoras/cache', {
                 label: 'Inspect',
                 imageSlug: 'marker',
-                lat: 29.507617,
-                lng: -95.141983
+                lat: 29.64205,
+                lng: -95.2185
             })
         break;
         case 'zoras/cache':

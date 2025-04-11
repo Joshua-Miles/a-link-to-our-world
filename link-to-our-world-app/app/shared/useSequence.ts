@@ -85,7 +85,7 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
         },
 
         select<R>(values: Record<T, R>): R | null{
-            if (!currentIndex) return null;
+            if (currentIndex === null) return null;
             const segment = segments[currentIndex]
             return values[segment];
         },

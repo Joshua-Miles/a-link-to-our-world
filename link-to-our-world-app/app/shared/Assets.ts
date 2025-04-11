@@ -70,6 +70,17 @@ export const Assets: Record<string, any> = {
     'lodron-avatar': require('../../assets/characters/lodron-avatar.png'),
     'gronak': require('../../assets/characters/gronak.png'),
 
+    'zaylen': require('../../assets/characters/zaylen.png'),
+    'zaylen-avatar': require('../../assets/characters/zaylen-avatar.png'),
+    'addison': require('../../assets/characters/addison.png'),
+    'addison-avatar': require('../../assets/characters/addison-avatar.png'),
+    'nerali': require('../../assets/characters/nerali.png'),
+    'nerali-avatar': require('../../assets/characters/nerali-avatar.png'),   
+    'emerson': require('../../assets/characters/emerson.png'),
+    'auronis': require('../../assets/characters/auronis.png'),
+    'sorai': require('../../assets/characters/sorai.png'),
+    'sorai-avatar': require('../../assets/characters/sorai-avatar.png'),
+
 
     // Items
     'sword': require('../../assets/items/sword.png'),
@@ -82,6 +93,7 @@ export const Assets: Record<string, any> = {
     'chest': require('../../assets/items/chest.png'),
     'milk': require('../../assets/items/milk.png'),
     'key': require('../../assets/items/key.png'),
+    'book': require('../../assets/items/book.png'),
 
 
     // Soundtrack
