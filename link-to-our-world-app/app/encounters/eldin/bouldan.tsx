@@ -42,7 +42,7 @@ export default function () {
     }
 
     const responses: Record<string, DialogNode> = {};
-    responses['Where is everybody?'] = dialog(`Everyone is is down at the mines delving. ${chiefDarvok}`, {
+    responses['Where is everybody?'] = dialog(`Everyone is down at the mines delving. ${chiefDarvok}`, {
         'Why?': dialog(imWorried[answer1A], {
             "I'll try!": dialog('Thank you.')
         })

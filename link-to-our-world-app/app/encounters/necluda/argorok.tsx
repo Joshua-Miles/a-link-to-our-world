@@ -88,7 +88,7 @@ export default function () {
                     groups={[
                         dontThinkLessOfPeopleWhoAreDifferent[answer1D], 
                         [
-                            `I'm a little tired- will you sing me a lullabye?`
+                            `I'm a little tired- will you sing me a lullaby?`
                         ]
                     ]}
                     onFinished={sequnece.next}

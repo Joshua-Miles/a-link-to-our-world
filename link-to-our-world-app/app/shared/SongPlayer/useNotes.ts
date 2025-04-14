@@ -4,7 +4,7 @@ import { NotePitch } from './Song';
 setAudioModeAsync({
     interruptionMode: 'mixWithOthers'
 }).then( s => {
-    console.log(s)
+   
 })
 
 const Sources = {

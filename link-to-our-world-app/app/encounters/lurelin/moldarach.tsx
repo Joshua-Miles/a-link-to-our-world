@@ -115,7 +115,7 @@ export default function () {
                 <SpeechStepper
                     groups={[[ 
                         "You're welcome!", 
-                        `${playerName}, will you sing me a lullabye?`
+                        `${playerName}, will you sing me a lullaby?`
                     ]]}
                     hasStarted={sequnece.hasReached('willYouSingMeALullaby')}
                     onFinished={sequnece.next}

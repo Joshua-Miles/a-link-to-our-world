@@ -41,6 +41,11 @@ export const Assets: Record<string, any> = {
     'fayflutter': require('../../assets/characters/fayflutter.png'),
 
     'gorruk': require('../../assets/enemies/boarblin.png'),
+    'fire-gorruk': require('../../assets/enemies/fire-boarblin.png'),
+    'electric-gorruk': require('../../assets/enemies/electric-boarblin.png'),
+    'water-gorruk': require('../../assets/enemies/water-boarblin.png'),
+    'ice-gorruk': require('../../assets/enemies/ice-boarblin.png'),
+
 
     'tidebane': require('../../assets/characters/tidebane.png'),
     'tidebane-avatar': require('../../assets/characters/tidebane-avatar.png'),
@@ -95,7 +100,7 @@ export const Assets: Record<string, any> = {
     // Items
     'sword': require('../../assets/items/sword.png'),
     'fire-sword': require('../../assets/items/fire-sword.png'),
-    'lightning-sword': require('../../assets/items/electric-sword.png'),
+    'electric-sword': require('../../assets/items/electric-sword.png'),
     'ice-sword': require('../../assets/items/ice-sword.png'),
     'water-sword': require('../../assets/items/water-sword.png'),
     'goddess-flute': require('../../assets/items/goddess-flute.png'),

@@ -165,16 +165,17 @@ async function handleFaronEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'faron/skull-kid-2', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.5522, 
-                lng: -95.1976
+                lat: 29.553270, 
+                lng: -95.199190
+                
             })
         break;
         case 'faron/skull-kid-2':
             createEncounter(event.playerId, 'faron/skull-kid-3', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.553270, 
-                lng: -95.199190
+                lat: 29.5522, 
+                lng: -95.1976
             })
         break;
         case 'faron/skull-kid-3':
@@ -407,9 +408,12 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.521146, 
                 lng: -95.192802
             })
+        break;
+        case 'gerudo/scervus':
             createInventoryItem(event.playerId, 'key', {
                 name: 'Key'
             })
+        break;
         case 'gerudo/temple':
             removeInventoryItem(event.playerId, 'key')
             createEncounter(event.playerId, 'gerudo/cache', {
@@ -418,6 +422,7 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.520817, 
                 lng: -95.192433
             })
+        break;
         case 'gerudo/cache':
             createInventoryItem(event.playerId, 'electric-sword', {
                 name: 'Lightning Sword'

@@ -6,7 +6,6 @@ import { Assets, Nav } from "./shared";
 
 export default function () {
     const items = useResult(listInventoryItems);
-    console.log(items)
     return (
         <>
             <Row flex={1} flexWrap="wrap">

@@ -1,7 +1,7 @@
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getHealthMeter, listInventoryItems, setHealth } from "api";
 import { Column, useDesignerTheme, timing, Row, RowReverse } from "designer-m3";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Image } from "react-native";
 import { Assets, useLatestCallback, wait } from "..";
 import { isAnyFailure } from "@triframe/ambassador";
@@ -10,23 +10,33 @@ import { WeaponTile } from "./WeaponTile";
 import { HitScrim } from "./HitScrim";
 import { GameOverAlert } from "./GameOverAlert";
 
+export type Force = 'fire' | 'electric' | 'ice' | 'water'
+
 export type CombatProps = {
     asset: string;
     fortitude: number;
     damage: number;
     speed: number;
     onFinished?: () => any;
+    forces?: Force[]
 }
 
 export type InventoryItemSlug = Awaited<ReturnType<typeof listInventoryItems>>[number]['slug']
 
-export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatProps) {
+export function Combat({ asset, fortitude, damage, speed, forces, onFinished }: CombatProps) {
     const [ enemyHealth, setEnemyHealth ] = useState(100)
     const { spacing, colors } = useDesignerTheme()
     const [ selectedWeapon, setSelectedWeapon ] = useState<string | null>(null);
     const [ showHitScrim, setShowHitScrim ] = useState(false);
+    const [ force, setForce ] = useState(getRandomForce());
     const inventoryItems = useResult(listInventoryItems)
     const playerHealthMeter = useResult(getHealthMeter);
+    const hasFinished = useRef(false);
+
+    function getRandomForce() {
+        if (!forces) return null;
+        return forces[Math.floor(Math.random()*forces.length)];
+    }
 
     const weaponGroup1: InventoryItemSlug[] = [
         'sword',
@@ -41,7 +51,14 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
     ]
 
     const swipe = useOnSwipe(() => {
-        setEnemyHealth(enemyHealth - (100 / fortitude))
+        if (forces && forces.length > 0) {
+            setForce(getRandomForce())
+        }
+        let damage = 1;
+        if (selectedWeapon && force && selectedWeapon.includes(force)) {
+            damage = 10;
+        }
+        setEnemyHealth(enemyHealth - (100 / fortitude * damage))
     });
 
     const dealPlayerDamage = useLatestCallback(async () => {
@@ -54,7 +71,10 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
     })
 
     useEffect(() => {
-        if (enemyHealth === 0) onFinished?.()
+        if (enemyHealth === 0 && !hasFinished.current) {
+            hasFinished.current = true;
+            onFinished?.()
+        }
     }, [ enemyHealth])
 
     useEffect(() => {
@@ -71,6 +91,9 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
     const itemSlugs = inventoryItems.map( item => item.slug);
 
     const swipeHandlers = selectedWeapon !== null ? {...swipe.panHandlers} : {};
+
+    const assetWithForce = force ? `${force}-${asset}` : asset;
+
     return (
         <Column flex={1} alignItems="center">
             <HitScrim gap={4} width="100%" px={16} showHit={showHitScrim}>
@@ -94,7 +117,7 @@ export function Combat({ asset, fortitude, damage, speed, onFinished }: CombatPr
                     transform: [ { scale: timing(250) }]
                 }}
             >
-                <Image style={{ width: 200, height: 200, objectFit: 'contain' }} source={Assets[asset]} {...swipeHandlers} />
+                <Image style={{ width: 200, height: 200, objectFit: 'contain' }} source={Assets[assetWithForce]} {...swipeHandlers} />
             </Column>
             <Row width="50%" height={spacing.md} backgroundColor={colors.roles.surfaceContainerHighest}>
                 <Row backgroundColor={colors.roles.error} height={spacing.md} width={`${enemyHealth}%`} transitions={{

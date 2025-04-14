@@ -39,9 +39,9 @@ export default function () {
     }
 
     const youreRight: Record<Answer1B, string> = {
-        "We have a job to do": "You're right, Fayflutter.  Let's go see what we can do!",
-        "We should see if the Faries need help ": "That would be terrible! You're right, Fayflutter. Let's go see what we can do!",
-        "If we work a little more now, then we can rest ": "You're right Fayflutter, we should take care of the bog-dobber first. Let's go see what we can do!"
+        "We have a job to do": "You're right, Fayflutter.",
+        "We should see if the Faries need help ": "That would be terrible! You're right, Fayflutter.",
+        "If we work a little more now, then we can rest ": "You're right Fayflutter, we should take care of the bog-dobber first."
     }
 
     return (

@@ -1,7 +1,6 @@
 import { resolveEncounter } from "api";
-import { Combat, dialog, Dialog, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared";
+import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared";
 import { usePlayerName } from "app/shared";
-import { Column, } from "designer-m3";
 import { router } from "expo-router";
 import { useState } from "react";
 
@@ -23,7 +22,7 @@ export default function() {
     }
 
     return (
-        <Column flex={1}>
+        <Scene>
             <Soundtrack asset="gorruks-theme" />
             {sequence.hasNotReached('combat') &&
                 <>
@@ -131,6 +130,6 @@ export default function() {
                     />
                 </>
             }
-        </Column>
+        </Scene>
     )
 }

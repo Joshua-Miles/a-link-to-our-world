@@ -6,11 +6,12 @@ import { PhaseMidpoint } from "./PhaseMidpoint";
 import { PhaseFinale } from "./PhaseFinale";
 
 export type PhaseEventsProps = {
+    currentForce: string;
     hasStarted: boolean
     onFinished: () => any
 }
 
-export function PhaseEvents({ hasStarted, onFinished }: PhaseEventsProps) {
+export function PhaseEvents({ hasStarted, onFinished, currentForce }: PhaseEventsProps) {
     const templesWatered = useResult(getTemplesWatered)
 
     const [ event, setEvent ] = useState<null | 'midpoint' | 'finale'>(null);
@@ -29,7 +30,7 @@ export function PhaseEvents({ hasStarted, onFinished }: PhaseEventsProps) {
 
     return (
         <>
-            <PhaseMidpoint hasStarted={event === 'midpoint'} onFinished={onFinished} />
+            <PhaseMidpoint hasStarted={event === 'midpoint'} currentForce={currentForce} onFinished={onFinished} />
             <PhaseFinale hasStarted={event === 'finale'} onFinished={onFinished} />
         </>
     )

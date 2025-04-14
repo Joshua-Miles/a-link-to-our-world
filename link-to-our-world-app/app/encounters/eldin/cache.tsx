@@ -29,7 +29,7 @@ export default function () {
                 groups={[['Did you find the cache?']]}
                 onFinished={sequence.next}
             />
-            {sequence.hasPassed('intro') && <SceneFocus asset={sequence.isAt('wellDone') ? 'lumina' : 'darvok'} />}
+            {sequence.has({ passed: 'intro', notReached: 'phaseEvents' })  && <SceneFocus asset={sequence.isAt('wellDone') ? 'lumina' : 'darvok'} />}
             <SpeechStepper
                 hasStarted={sequence.hasReached('wellDone')}
                 groups={[
@@ -58,7 +58,11 @@ export default function () {
                 ]}
                 onFinished={sequence.next}
             />
-            <PhaseEvents hasStarted={sequence.hasReached('phaseEvents')} onFinished={sequence.next} />
+            <PhaseEvents 
+                hasStarted={sequence.hasReached('phaseEvents')} 
+                currentForce="Fire"
+                onFinished={sequence.next} 
+            />
         </Scene>
     )
 }

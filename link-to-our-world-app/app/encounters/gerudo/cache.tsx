@@ -29,7 +29,7 @@ export default function () {
                 groups={[['Did you find the cache?']]}
                 onFinished={sequence.next}
             />
-            {sequence.hasPassed('intro') && <SceneFocus asset={sequence.isAt('wellDone') ? 'lumina' : 'ravia'} />}
+            {sequence.has({ passed: 'intro', notReached: 'phaseEvents' }) && <SceneFocus asset={sequence.isAt('wellDone') ? 'lumina' : 'ravia'} />}
             <SpeechStepper
                 hasStarted={sequence.hasReached('wellDone')}
                 groups={[
@@ -46,7 +46,7 @@ export default function () {
             />
             <ItemGet
                 isOpen={sequence.isAt('itemGet')}
-                asset="lightning-sword"
+                asset="electric-sword"
                 title="Lightning Sword"
                 description="Deals extra damage to lightning foes"
                 onFinished={sequence.next}
@@ -58,7 +58,11 @@ export default function () {
                 ]}
                 onFinished={sequence.next}
             />
-            <PhaseEvents hasStarted={sequence.hasReached('phaseEvents')} onFinished={sequence.next} />
+            <PhaseEvents 
+                hasStarted={sequence.hasReached('phaseEvents')} 
+                currentForce="Lightning"
+                onFinished={sequence.next} 
+            />
         </Scene>
     )
 }

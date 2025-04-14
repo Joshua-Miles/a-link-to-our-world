@@ -1,6 +1,6 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading } from "@triframe/utils-react";
-import { Scene, SceneFocus, usePlayerName, useSequence } from "app/shared";
+import { Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "app/shared";
 
 export type PhaseFinaleProps = {
     hasStarted: boolean
@@ -11,7 +11,16 @@ export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
     const playerName = usePlayerName();
 
     const sequence = useSequence({ hasStarted, onFinished }, [
-        'intro'
+        'iSense',
+        'finally',
+        'combat',
+        'glitch',
+        'soIShallPlayMyOwn',
+        'skullKidsTheme',
+        'itAppears',
+        'skullKidsTheme2',
+        'leadingTheKoroksAstray',
+        'outro'
     ])
 
     if (isLoading(playerName) || isAnyFailure(playerName)) {
@@ -19,10 +28,15 @@ export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
     }
 
     return (
-        <Scene>
-            <SceneFocus asset="x" />
-            {/*  */}
-        </Scene>
+        <>
+            {/* <SceneFocus asset="x" /> */}
+            <SpeechCard
+                hasStarted={sequence.hasReached('iSense')}
+                asset="lumina-avatar"
+                text={[`I sense an enemy rapidly approaching `]}
+                onFinished={sequence.next}
+            />
+        </>
     )
 }
 

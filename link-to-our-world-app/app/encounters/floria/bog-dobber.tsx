@@ -70,7 +70,7 @@ export default function () {
                     hasStarted={sequnece.hasReached('willYouSingMeALullaby')}
                     groups={[[ 
                         "You're welcome!", 
-                        `${playerName}, will you sing me a lullabye?`
+                        `${playerName}, will you sing me a lullaby?`
                     ]]}
                     onFinished={sequnece.next}
                 />

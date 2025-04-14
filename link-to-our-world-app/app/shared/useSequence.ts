@@ -26,6 +26,8 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
     }, [ currentIndex, numberOfSegments ])
 
     return {
+        segments,
+        
         currentIndex,
 
         hasStarted() {

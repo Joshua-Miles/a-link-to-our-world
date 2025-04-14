@@ -190,7 +190,6 @@ function useTransition(propertyName: string, transition: Transition, currentValu
         const currentTransition = sharedTransitionState.value.currentTransition;
 
         if (currentTransition === null) {
-            // console.log('aborting', propertyName, currentValue)
             return currentValue;
         }
 
@@ -209,7 +208,6 @@ function useTransition(propertyName: string, transition: Transition, currentValu
         }
 
         let result =  interpolateByType(currentTransition.interpolationType, sharedValue.value, currentTransition.fromValue, currentTransition.toValue)
-        // console.log('interpolating', sharedValue.value, propertyName, result)
         return result
     })
 }
