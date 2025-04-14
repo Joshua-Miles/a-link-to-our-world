@@ -2,6 +2,7 @@ import { useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
 import { dialog, Dialog, ItemGet, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "app/shared";
 import { router } from "expo-router";
+import { PhaseEvents } from "../_shared";
 
 export default function () {
     const playerName = usePlayerName();
@@ -11,7 +12,8 @@ export default function () {
         'wellDone',
         'thankYouAgain',
         'itemGet',
-        'hopeToSeeYouAround'
+        'hopeToSeeYouAround',
+        'phaseEvents'
     ])
 
     function handleFinished() {
@@ -56,6 +58,7 @@ export default function () {
                 ]}
                 onFinished={sequence.next}
             />
+            <PhaseEvents hasStarted={sequence.hasReached('phaseEvents')} onFinished={sequence.next} />
         </Scene>
     )
 }

@@ -1,6 +1,8 @@
 import { createEncounter, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
+import { getSeedsPlantedByUserId } from "./getSeedsPlanted";
+import { getTemplesWateredByUserId } from "./getTemplesWatered";
 import { createInventoryItem, removeInventoryItem } from "./InventoryItem";
 import { completeObjective, createObjective } from "./Objective";
 
@@ -285,6 +287,19 @@ async function handleNecludaEncounters(event: EncounterResolvedEvent) {
     }
 }
 
+async function createInterludeIfAllSeedsPlanted(playerId: number) {
+    const seedsPlanted = await getSeedsPlantedByUserId(playerId)
+    if (seedsPlanted.totalComplete === 4) {
+        completeObjective(playerId, 'plant-seeds');
+        createEncounter(playerId, 'interlude/intro', {
+            label: 'Inspect',
+            imageSlug: 'marker',
+            lat: 29.539490,
+            lng: -95.363127
+        })
+    }
+}
+
 async function handleInterludeEncounters(event: EncounterResolvedEvent) {
     switch (event.slug) {
         case 'interlude/intro':
@@ -407,7 +422,7 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
             createInventoryItem(event.playerId, 'electric-sword', {
                 name: 'Lightning Sword'
             })
-            // TODO: if all resolved
+            await createFinaleIfAllTemplesWatered(event.playerId)
         break;
     }
 }
@@ -488,7 +503,7 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
             createInventoryItem(event.playerId, 'fire-sword', {
                 name: 'Fire Sword'
             })
-            // TODO: if all resolved
+            await createFinaleIfAllTemplesWatered(event.playerId);
         break;
     }
 }
@@ -556,7 +571,7 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
             createInventoryItem(event.playerId, 'water-sword', {
                 name: 'Water Sword'
             })
-            // TODO: if all resolved
+            await createFinaleIfAllTemplesWatered(event.playerId);
         break;
     }
 }
@@ -618,35 +633,19 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lng: -95.411933,
             })
         break;
+        case 'hebra/cache':
+            createInventoryItem(event.playerId, 'ice-sword', {
+                name: 'Ice Sword'
+            })
+            await createFinaleIfAllTemplesWatered(event.playerId);
+        break;
     }
 }
 
-
-async function createInterludeIfAllSeedsPlanted(playerId: number) {
-    if (await allSeedsPlanted(playerId)) {
-        completeObjective(playerId, 'plant-seeds');
-        createInterlude(playerId);
+async function createFinaleIfAllTemplesWatered(playerId: number) {
+    const templesWatered = await getTemplesWateredByUserId(playerId);
+    if (templesWatered.totalComplete === 4) {
+        completeObjective(playerId, 'visit-temples');
+        // TODO: create finale
     }
-}
-
-async function allSeedsPlanted(playerId: number){
-    const lurelin = await getEncounterByPlayerIdAndSlug(playerId, 'lurelin/cache');
-    const floria = await getEncounterByPlayerIdAndSlug(playerId, 'floria/cache');
-    const faron = await getEncounterByPlayerIdAndSlug(playerId, 'faron/cache');
-    const necluda = await getEncounterByPlayerIdAndSlug(playerId, 'necluda/cache');
-    return (
-        lurelin && lurelin.resolved
-        && floria && floria.resolved
-        && faron && faron.resolved
-        && necluda && necluda.resolved
-    )
-}
-
-function createInterlude(playerId: number) {
-    createEncounter(playerId, 'interlude/intro', {
-        label: 'Inspect',
-        imageSlug: 'marker',
-        lat: 29.539490,
-        lng: -95.363127
-    })
 }

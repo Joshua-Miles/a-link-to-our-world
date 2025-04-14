@@ -38,4 +38,8 @@ export * from "./getHealthMeter";
 
 export * from "./setHealth";
 
+export * from "./getTemplesWatered";
+
+export * from "./getSeedsPlanted";
+
 export * from "./resetGame";
