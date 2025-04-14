@@ -5,6 +5,8 @@ export const Assets: Record<string, any> = {
     'health': require('../../assets/health.png'),
     'locked-door': require('../../assets/locked-door.png'),
     'mines': require('../../assets/mines.png'),
+    'snowball': require('../../assets/snowball.png'),
+    'lloron-den': require('../../assets/lloron-den.png'),
 
 
     // Enemies
@@ -33,7 +35,6 @@ export const Assets: Record<string, any> = {
     'lumina-avatar': require('../../assets/characters/lumina-avatar.png'),
     'impa': require('../../assets/characters/impa.png'),
     'impa-avatar': require('../../assets/characters/impa-avatar.png'),
-
     'scribeleaf': require('../../assets/characters/scribeleaf.png'),
     'tumblebreeze': require('../../assets/characters/tumblebreeze.png'),
     'grinroot': require('../../assets/characters/grinroot.png'),
@@ -81,6 +82,15 @@ export const Assets: Record<string, any> = {
     'sorai': require('../../assets/characters/sorai.png'),
     'sorai-avatar': require('../../assets/characters/sorai-avatar.png'),
 
+    'wolf': require('../../assets/characters/wolf.png'),
+    'thurnok': require('../../assets/characters/thurnok.png'),
+    'thurnok-avatar': require('../../assets/characters/thurnok-avatar.png'),
+    'eskra': require('../../assets/characters/eskra.png'),
+    'eskra-avatar': require('../../assets/characters/eskra-avatar.png'),
+    'yulma': require('../../assets/characters/yulma.png'),
+    'yulma-avatar': require('../../assets/characters/yulma-avatar.png'),
+    'korvunn': require('../../assets/characters/korvunn.png'),
+    'korvunn-avatar': require('../../assets/characters/korvunn-avatar.png'),
 
     // Items
     'sword': require('../../assets/items/sword.png'),

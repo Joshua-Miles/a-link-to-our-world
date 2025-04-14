@@ -40,7 +40,7 @@ export default function Map() {
     setSpoofLocation({ lat, lng })
   }
 
-  console.log(encounters.map(encounter => encounter.slug))
+  console.log(encounters.map(encounter => encounter))
 
   const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
   return (

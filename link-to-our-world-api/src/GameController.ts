@@ -329,8 +329,8 @@ async function handleInterludeEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'hebra/intro', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.581416, 
-                lng: -95.415877
+                lat: 29.581406, 
+                lng: -95.416814
             })
         break;
     }
@@ -392,7 +392,11 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.521146, 
                 lng: -95.192802
             })
+            createInventoryItem(event.playerId, 'key', {
+                name: 'Key'
+            })
         case 'gerudo/temple':
+            removeInventoryItem(event.playerId, 'key')
             createEncounter(event.playerId, 'gerudo/cache', {
                 label: 'Inspect',
                 imageSlug: 'marker',
@@ -540,6 +544,7 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'zoras/temple':
+            removeInventoryItem(event.playerId, 'key')
             createEncounter(event.playerId, 'zoras/cache', {
                 label: 'Inspect',
                 imageSlug: 'marker',
@@ -559,7 +564,59 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
 async function handleHebraEncounters(event: EncounterResolvedEvent) {
     switch (event.slug) {
         case 'hebra/intro':
-            
+            createEncounter(event.playerId, 'hebra/kyllis', {
+                label: 'Talk',
+                imageSlug: 'kyllis-avatar',
+                lat: 29.582168, 
+                lng: -95.416507
+            })
+            createEncounter(event.playerId, 'hebra/wolf', {
+                label: 'Talk',
+                imageSlug: 'wolf',
+                lat: 29.581471, 
+                lng: -95.416594
+            })
+        break;
+        case 'hebra/kyllis':
+            createEncounter(event.playerId, 'hebra/temple-1', {
+                label: 'Inspect...',
+                imageSlug: 'locked-door',
+                lat: 29.582217, 
+                lng: -95.411933
+            })
+            createEncounter(event.playerId, 'hebra/lloron-den', {
+                label: 'Enter',
+                imageSlug: 'lloron-den',
+                lat: 29.582166, 
+                lng: -95.409761
+            })
+        break;
+        case 'hebra/temple-1':
+            createEncounter(event.playerId, 'hebra/temple-2', {
+                label: 'Inspect...',
+                imageSlug: 'locked-door',
+                lat: 29.582217, 
+                lng: -95.411933
+            })
+        break;
+        case 'hebra/lloron-den':
+            createEncounter(event.playerId, 'hebra/frostus', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.582169, 
+                lng: -95.409038
+            })
+        break;
+        case 'hebra/frostus':
+            markEncounterResolved(event.playerId, 'hebra/wolf', {});
+        break;
+        case 'hebra/temple-2':
+            createEncounter(event.playerId, 'hebra/cache', {
+                label: 'Inspect...',
+                imageSlug: 'marker',
+                lat: 29.582217,
+                lng: -95.411933,
+            })
         break;
     }
 }
