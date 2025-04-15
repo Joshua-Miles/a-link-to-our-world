@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Combat, SceneFocus, SpeechCard, usePlayerName, useSequence } from "app/shared";
+import { Combat, SceneFocus, SpeechCard, usePlayerName, useSequence } from "shared";
 import { Column } from "designer-m3";
 import { router } from "expo-router";
 

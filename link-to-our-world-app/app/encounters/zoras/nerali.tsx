@@ -1,8 +1,8 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { dialog, Dialog, DialogNode, ItemGet, Scene, SceneFocus, Song, SongData, SongPlayer, Speech, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "app/shared";
-import { dragonRootTheme, fairyTheme, skyTheme, wildsTheme } from "app/shared/testSongs";
+import { dialog, Dialog, DialogNode, ItemGet, Scene, SceneFocus, Song, SongData, SongPlayer, Speech, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { dragonRootTheme, fairyTheme, skyTheme, wildsTheme } from "shared";
 import { router } from "expo-router";
 import { useState } from "react";
 

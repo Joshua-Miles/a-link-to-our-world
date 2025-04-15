@@ -2,7 +2,7 @@ import { isLoading, useResult } from "@triframe/utils-react";
 import { listMemories } from "api";
 import { Column, Label, Row } from "designer-m3";
 import { Image } from "react-native";
-import { Nav } from "./shared";
+import { Nav } from "shared";
 
 export default function () {
     const memories = useResult(listMemories);

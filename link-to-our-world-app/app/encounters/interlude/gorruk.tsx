@@ -1,8 +1,8 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "app/shared";
-import { usePlayerName } from "app/shared";
+import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "shared";
+import { usePlayerName } from "shared";
 import { router } from "expo-router";
 import { useState } from "react";
 

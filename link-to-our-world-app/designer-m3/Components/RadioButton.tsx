@@ -1,8 +1,9 @@
 import Color from "color";
-import { Theme, useDesignerTheme } from "designer-m3";
+import { Theme, useDesignerTheme } from "../Theme";
 import { createContext, ReactNode, useContext } from "react"
 import { StyledView } from "ui-core";
-import { Label, Row } from ".";
+import { Row } from "./Layout";
+import { Label } from "./Typography";
 
 type RadioGroupState<T> = {
     value: T

@@ -1,7 +1,10 @@
 import { Button, Column, Headline, Label, Row, useDesignerTheme, timing } from "designer-m3"
 import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";
-import { Assets, Soundtrack, useSequence } from ".";
+import { Assets } from "./Assets";
+import { Soundtrack } from "./Soundtrack";
+import { useSequence } from "./useSequence";
+
 
 export type ItemGetProps = Parameters<typeof Column>[0] & {
     isOpen: boolean

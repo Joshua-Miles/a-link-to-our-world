@@ -1,6 +1,6 @@
 import { resolveEncounter } from "api";
-import { dialog, Dialog, Scene, SceneFocus, SpeechCard, useSequence } from "app/shared";
-import { useFirstKorok } from "app/shared";
+import { dialog, Dialog, Scene, SceneFocus, SpeechCard, useSequence } from "shared";
+import { useFirstKorok } from "shared";
 import { router } from "expo-router";
 
 export default function () {

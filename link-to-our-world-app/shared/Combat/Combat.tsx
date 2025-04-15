@@ -1,10 +1,12 @@
 import { isLoading, useResult } from "@triframe/utils-react";
+import { isAnyFailure } from "@triframe/ambassador";
 import { getHealthMeter, listInventoryItems, setHealth } from "api";
 import { Column, useDesignerTheme, timing, Row, RowReverse } from "designer-m3";
 import { useEffect, useRef, useState } from "react";
 import { Image } from "react-native";
-import { Assets, useLatestCallback, wait } from "..";
-import { isAnyFailure } from "@triframe/ambassador";
+import { Assets } from "../Assets"
+import { useLatestCallback } from "../useLatestCallback"
+import { wait } from "../wait"
 import { useOnSwipe } from "./useOnSwipe";
 import { WeaponTile } from "./WeaponTile";
 import { HitScrim } from "./HitScrim";

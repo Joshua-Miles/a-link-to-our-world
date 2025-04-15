@@ -1,7 +1,6 @@
 import { isLoading } from "@triframe/utils-react"
 import { resolveEncounter } from "api";
-import { Assets, Soundtrack, Speech, SpeechStepper, useSequence } from "app/shared"
-import { usePlayerName } from "app/shared/usePlayerName"
+import { Assets, Soundtrack, Speech, SpeechStepper, useSequence, usePlayerName } from "shared"
 import { Button, Column, Label, Row, timing, useDesignerTheme } from "designer-m3"
 import { ArrowRightIcon } from "designer-m3/icons";
 import { router } from "expo-router";

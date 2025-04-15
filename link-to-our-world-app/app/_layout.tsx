@@ -10,10 +10,9 @@ import {
 } from "designer-m3";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Globals } from "@triframe/ambassador";
-import { Nav } from "./shared/Nav";
 import { StatusBar } from "react-native";
 import { useFonts } from 'expo-font'
-import { SoundtrackProvider } from "./shared";
+import { SoundtrackProvider } from "shared";
 
 
 Globals.storage = AsyncStorage;

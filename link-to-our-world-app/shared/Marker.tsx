@@ -1,7 +1,7 @@
 import Mapbox from "@rnmapbox/maps";
 import { useRef, useState } from "react";
 import { Image } from "react-native";
-import { Assets } from ".";
+import { Assets } from "./Assets";
 
 export type MarkerProps = {
   id: string;

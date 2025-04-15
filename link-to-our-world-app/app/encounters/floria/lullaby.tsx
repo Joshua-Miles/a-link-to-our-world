@@ -1,6 +1,6 @@
 import { resolveEncounter } from "api";
-import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "app/shared";
-import { fairyTheme } from "app/shared/testSongs";
+import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "shared";
+import { fairyTheme } from "shared";
 import { router } from "expo-router";
 
 export default function () {

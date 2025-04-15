@@ -23,4 +23,6 @@ export * from './Soundtrack';
 export * from './usePersistedState';
 export * from './Scene';
 export * from './SceneFocus';
-export * from './useFirstKorok'
+export * from './useFirstKorok';
+export * from './testSongs';
+export * from './useLocation';

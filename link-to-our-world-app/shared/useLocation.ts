@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { IndeterminateValue, indeterminateValue } from '@triframe/utils-react'
 import { Failure, makeFailure } from '@triframe/ambassador';
 import * as Location from 'expo-location';
-import { Coordinate } from './shared';
+import { Coordinate } from 'shared';
 
 export type UseLocationResult =
     | IndeterminateValue

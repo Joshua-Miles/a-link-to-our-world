@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { SongPlayer, Soundtrack } from "./shared";
-import { mainTheme, dragonRootTheme, skyTheme, wildsTheme, fairyTheme } from "./shared/testSongs";
+import { SongPlayer, Soundtrack } from "shared";
+import { mainTheme, dragonRootTheme, skyTheme, wildsTheme, fairyTheme } from "shared";
 
 export default function () {
     const [ hasWon, setHasWon ] = useState(false);

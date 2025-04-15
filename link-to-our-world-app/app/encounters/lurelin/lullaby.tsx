@@ -1,6 +1,6 @@
 import { resolveEncounter } from "api";
-import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "app/shared";
-import { dragonRootTheme } from "app/shared/testSongs";
+import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "shared";
+import { dragonRootTheme } from "shared";
 import { router } from "expo-router";
 
 export default function () {

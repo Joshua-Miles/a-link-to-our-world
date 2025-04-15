@@ -1,11 +1,11 @@
 import { isFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon, useDesignerTheme } from "designer-m3";
-import { useLocation } from "./useLocation";
+import { useLocation } from "../shared/useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
 import { listEncounters } from "api";
-import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack, usePersistedState } from "./shared";
+import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack, usePersistedState } from "shared";
 import { Href } from "expo-router";
 import { ArrowRightIcon } from "designer-m3/icons";
 import { Image } from "react-native";

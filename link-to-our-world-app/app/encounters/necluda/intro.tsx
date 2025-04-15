@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Scene, SceneFocus, SpeechStepper, usePlayerName } from "app/shared";
+import { Scene, SceneFocus, SpeechStepper, usePlayerName } from "shared";
 import { router } from "expo-router";
 
 export default function () {

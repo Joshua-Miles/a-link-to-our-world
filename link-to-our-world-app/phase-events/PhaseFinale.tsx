@@ -1,6 +1,6 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading } from "@triframe/utils-react";
-import { Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "app/shared";
+import { Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "shared";
 
 export type PhaseFinaleProps = {
     hasStarted: boolean
@@ -33,7 +33,7 @@ export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
             <SpeechCard
                 hasStarted={sequence.hasReached('iSense')}
                 asset="lumina-avatar"
-                text={[`I sense an enemy rapidly approaching `]}
+                text={[`I sense an enemy rapidly approaching.`]}
                 onFinished={sequence.next}
             />
         </>

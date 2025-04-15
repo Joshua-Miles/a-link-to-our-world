@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { dialog, Dialog, DialogNode, Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "app/shared";
+import { dialog, Dialog, DialogNode, Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "shared";
 import { router } from "expo-router";
 import { useState } from "react";
 

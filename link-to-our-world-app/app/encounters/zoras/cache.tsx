@@ -1,8 +1,8 @@
 import { useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { dialog, Dialog, ItemGet, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "app/shared";
+import { dialog, Dialog, ItemGet, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
-import { PhaseEvents } from "../_shared";
+import { PhaseEvents } from "phase-events";
 
 export default function () {
     const playerName = usePlayerName();

@@ -7,7 +7,7 @@ import {
 } from "designer-m3";
 import { BackwardIcon, LockIcon } from "designer-m3/icons";
 import { useRouter } from "expo-router";
-import { Nav } from "./shared/Nav";
+import { Nav } from "shared";
 
 export default function More() {
   const router = useRouter();

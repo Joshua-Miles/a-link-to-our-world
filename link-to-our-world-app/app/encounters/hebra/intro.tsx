@@ -1,6 +1,6 @@
 import { useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "app/shared";
+import { dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {
@@ -21,7 +21,7 @@ export default function () {
             <SpeechStepper
                 hasStarted={sequence.hasReached('intro')}
                 groups={[
-                    [`${playerName}, before you are the formidable Hebra Peaks. These grand mountains glisten with a the slippery sheen of ice.`],
+                    [`${playerName}, before you are the formidable Hebra Peaks. These grand mountains glisten with the slippery sheen of ice.`],
                     [`Unfortunately, it is impossible for us to scale the steep cliffs before us on foot.`]
                 ]}
                 onFinished={sequence.next}

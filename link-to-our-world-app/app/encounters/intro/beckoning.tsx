@@ -1,8 +1,7 @@
 import { isLoading } from "@triframe/utils-react"
 import { resolveEncounter } from "api";
-import { Assets, ItemGet, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "app/shared"
-import { zeldasLullaby } from "app/shared/testSongs";
-import { usePlayerName } from "app/shared/usePlayerName"
+import { Assets, ItemGet, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, SubjectImage, useSequence } from "shared"
+import { zeldasLullaby, usePlayerName } from "shared";
 import { Column, timing, useDesignerTheme } from "designer-m3"
 import { router } from "expo-router";
 

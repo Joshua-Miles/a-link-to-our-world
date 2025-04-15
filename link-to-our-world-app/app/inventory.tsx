@@ -2,7 +2,7 @@ import { isLoading, useResult } from "@triframe/utils-react";
 import { listInventoryItems, listMemories } from "api";
 import { Column, Label, Row } from "designer-m3";
 import { Image } from "react-native";
-import { Assets, Nav } from "./shared";
+import { Assets, Nav } from "shared";
 
 export default function () {
     const items = useResult(listInventoryItems);

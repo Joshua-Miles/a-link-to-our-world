@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { MemoryMaker, Scene, SceneFocus, SpeechStepper, useSequence } from "app/shared";
+import { MemoryMaker, Scene, SceneFocus, SpeechStepper, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {

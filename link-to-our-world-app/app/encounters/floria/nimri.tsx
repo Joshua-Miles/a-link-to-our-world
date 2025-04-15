@@ -1,5 +1,5 @@
 import { getEncounter, resolveEncounter } from "api";
-import { dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "app/shared";
+import { dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1B } from "./intro";
 import { isLoading, useResult } from "@triframe/utils-react";

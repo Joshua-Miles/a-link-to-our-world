@@ -2,7 +2,7 @@ import { REST, SongData, whole } from "./SongPlayer";
 import { dotted, eighth, half, Note, quarter } from "./SongPlayer";
 
 export const zeldasLullaby: SongData = {
-    src: require('assets/songs/zeldas-lullabye.mp3'),
+    src: require('../assets/songs/zeldas-lullabye.mp3'),
     offset: 28,
     bpm: 104,
     notes: [

@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "app/shared";
+import { Combat, Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {

@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "app/shared";
+import { Scene, SceneFocus, SpeechCard, SpeechStepper, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1D } from "./kyllis";
 

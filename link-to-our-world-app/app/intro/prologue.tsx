@@ -12,7 +12,7 @@ import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useRef, useState } from "react";
 import { useAudioPlayer } from "expo-audio";
 import { ArrowRightIcon } from "designer-m3/icons";
-import { fadeOut, Coordinate, Speech, Marker } from "../shared";
+import { fadeOut, Coordinate, Speech, Marker } from "shared";
 
 Mapbox.setAccessToken(
   "pk.eyJ1IjoiY2hyaXN0Zmlyc3Rjb2RlciIsImEiOiJjbTZod3h3ajUwMjl6Mmtwa3hvYzR0Nm9hIn0.BZK9rdHBOzIyP6H3xPfUFA"

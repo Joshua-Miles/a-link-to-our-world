@@ -1,4 +1,4 @@
-import { fadeIn } from "app/shared";
+import { fadeIn } from "shared";
 import { Column, Row, timing, useDesignerTheme } from "designer-m3";
 import { AudioPlayer, useAudioPlayer } from "expo-audio";
 import { useEffect, useState } from "react";

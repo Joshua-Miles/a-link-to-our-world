@@ -1,5 +1,5 @@
 import { Theme } from "designer-m3";
-import { Column } from ".";
+import { Column } from "./Layout";
 
 export const Card = Column.style((theme: Theme) => ({
     shadow: {

@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Assets, ItemGet, SubjectImage, useSequence } from "app/shared";
+import { Assets, ItemGet, SubjectImage, useSequence } from "shared";
 import { Button, Column, Row, timing } from "designer-m3";
 import { router } from "expo-router";
 
