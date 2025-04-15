@@ -18,6 +18,8 @@ export const Assets: Record<string, any> = {
 
     'keese': require('../assets/enemies/keese.png'),
 
+    'ganon': require('../assets/enemies/ganon.png'),
+
 
     // Bosses
     'moldarach': require('../assets/enemies/moldarach.png'),
@@ -119,6 +121,11 @@ export const Assets: Record<string, any> = {
     'luminas-theme': require('../assets/soundtrack/luminas-theme.mp3'),
     'koroks-theme': require('../assets/soundtrack/koroks-theme.mp3'),
     'gorruks-theme': require('../assets/soundtrack/gorruks-theme.mp3'),
+
+    'ganon-theme': require('../assets/soundtrack/ganon.mp3'),
+    'skull-kids-theme-clipped': require('../assets/soundtrack/skull-kids-theme-clipped.mp3'),
+    'skull-kids-theme-clipped-reverb': require('../assets/soundtrack/skull-kids-theme-clipped-reverb.mp3'),
+    'remember-us': require('../assets/soundtrack/remember-us.mp3'),
 
     // Songs
     'zeldas-lullabye': require('../assets/songs/zeldas-lullabye.mp3'),

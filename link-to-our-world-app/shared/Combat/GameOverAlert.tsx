@@ -20,7 +20,7 @@ export function GameOverAlert({ isOpen, onContinue }: GameOverScrimProps) {
 
     useEffect(() => {
        if (isOpen) {
-        wait(1500).then( () => setCanContinue(true) )
+        wait(3000).then( () => setCanContinue(true) )
        } 
     }, [ isOpen ])
 
@@ -30,7 +30,7 @@ export function GameOverAlert({ isOpen, onContinue }: GameOverScrimProps) {
             <Headline.Large fontFamily="TriForce" color={theme.colors.roles.error}>
                 Game Over
             </Headline.Large>
-            <Button.Text onPress={handleContinue} disabled={!canContinue}>
+            <Button.Text onPress={handleContinue} disabled={!canContinue} opacity={canContinue ? 1 : 0}>
                 Continue <ArrowRightIcon />
             </Button.Text>
         </GameOverScrim>

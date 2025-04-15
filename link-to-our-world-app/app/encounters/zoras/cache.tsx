@@ -17,8 +17,8 @@ export default function () {
     ])
 
     function handleFinished() {
-        resolveEncounter('zoras/cache', {});
-        router.push('/map');
+        // resolveEncounter('zoras/cache', {});
+        // router.push('/map');
     }
 
     return (

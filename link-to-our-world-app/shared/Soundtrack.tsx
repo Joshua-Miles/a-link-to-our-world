@@ -88,7 +88,7 @@ class SoundtrackPlayer {
             const newPlayer = createAudioPlayer(source);
             this.players.set(source, newPlayer)
             newPlayer.addListener('playbackStatusUpdate', ({ didJustFinish }) => {
-                if (didJustFinish && this.currentPlayer === newPlayer) {
+                if ((didJustFinish || newPlayer.paused) && (this.currentPlayer === newPlayer || this.currentPlayer === null)) {
                     this.currentPlayer = null;
                     this.stack.pop();
                     const cursor = this.cursor;
