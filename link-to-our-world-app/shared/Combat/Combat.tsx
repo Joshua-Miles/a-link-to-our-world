@@ -14,6 +14,9 @@ import { GameOverAlert } from "./GameOverAlert";
 
 export type Force = 'fire' | 'electric' | 'ice' | 'water'
 
+export type InventoryItemSlug = Awaited<ReturnType<typeof listInventoryItems>>[number]['slug']
+
+
 export type CombatProps = {
     asset: string;
     fortitude: number;
@@ -21,11 +24,10 @@ export type CombatProps = {
     speed: number;
     onFinished?: () => any;
     forces?: Force[]
+    extraItems?: InventoryItemSlug[]
 }
 
-export type InventoryItemSlug = Awaited<ReturnType<typeof listInventoryItems>>[number]['slug']
-
-export function Combat({ asset, fortitude, damage, speed, forces, onFinished }: CombatProps) {
+export function Combat({ asset, fortitude, damage, speed, forces, onFinished, extraItems }: CombatProps) {
     const [ enemyHealth, setEnemyHealth ] = useState(100)
     const { spacing, colors } = useDesignerTheme()
     const [ selectedWeapon, setSelectedWeapon ] = useState<string | null>(null);
@@ -91,6 +93,12 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished }: 
     const playerPiecesOfHealth = new Array(playerHealth).fill(1)
 
     const itemSlugs = inventoryItems.map( item => item.slug);
+
+    for (let extraItem of extraItems ?? []) {
+        if (!itemSlugs.includes(extraItem)) {
+            itemSlugs.push(extraItem)
+        }
+    }
 
     const swipeHandlers = selectedWeapon !== null ? {...swipe.panHandlers} : {};
 

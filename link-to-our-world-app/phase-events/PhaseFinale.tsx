@@ -4,14 +4,15 @@ import { listMemories } from "api";
 import { Column, Row, timing, useDesignerTheme } from "designer-m3";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
-import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechGroup, SpeechStepper, usePlayerName, useSequence, wait } from "shared";
+import { Combat, Force, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechGroup, SpeechStepper, usePlayerName, useSequence, wait } from "shared";
 
 export type PhaseFinaleProps = {
+    currentForce: Force
     hasStarted: boolean
     onFinished: () => any
 }
 
-export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
+export function PhaseFinale({ hasStarted, currentForce, onFinished }: PhaseFinaleProps) {
     const playerName = usePlayerName();
 
     const sequence = useSequence({ hasStarted, onFinished }, [
@@ -78,6 +79,9 @@ export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
                     fortitude={50}
                     forces={[ 'electric', 'fire', 'ice', 'water' ]}
                     onFinished={sequence.next}
+                    // The player has been gifted sword for the current force, but it won't reflect
+                    //  in their inventory until the end of the encounter
+                    extraItems={[ `${currentForce}-sword` ]}
                 />
             }
             <Glitchy hasStarted={sequence.hasReached('glitch')} onFinished={sequence.next} />
@@ -117,7 +121,7 @@ export function PhaseFinale({ hasStarted, onFinished }: PhaseFinaleProps) {
                 hasStarted={sequence.hasReached('leadingTheKoroksAstray')}
                 groups={[
                     [ 
-                        `${playerName}! Gorruck is leading the Koroks astray, like the Kokiri in Faron Woods!` 
+                        `${playerName}! Gorruk is leading the Koroks astray, like the Kokiri in Faron Woods!` 
                     ],
                     [
                         `Without the Korok seeds, I fear that Hyrule can never be restored...`,
@@ -315,9 +319,9 @@ function FadingMemories({ hasStarted, onFinished }: FadingMemoriesProps) {
     return (
         <Row flex={1} flexWrap="wrap">
             {!isLoading(memories) && memories.map( (memory, index) => (
-                <Column width="25%" key={memory.slug} opacity={index <= fadeIndex ? 0 : 1} transitions={{ opacity: timing(1000).then(() => setFadeIndex(fadeIndex+1)) }}>
+                <Column width="50%" key={memory.slug} opacity={index <= fadeIndex ? 0 : 1} transitions={{ opacity: timing(2000).then(() => setFadeIndex(fadeIndex+1)) }} justifyContent="center">
                     <Image
-                        style={{ width: 100, height: 100, objectFit: 'cover' }}
+                        style={{ width: 200, height: 200, objectFit: 'cover' }}
                         source={{ uri: memory.imageUrl.toString() }}
                     />
                 </Column>

@@ -10,13 +10,56 @@ export const Assets: Record<string, any> = {
 
 
     // Enemies
+    'chu': require('../assets/enemies/chu.png'),
+    'fire-chu': require('../assets/enemies/fire-chu.png'),
+    'electric-chu': require('../assets/enemies/electric-chu.png'),
+    'ice-chu': require('../assets/enemies/ice-chu.png'),
+    'water-chu': require('../assets/enemies/water-chu.png'),
+
+    'deku-baba': require('../assets/enemies/deku-baba.png'),
+    'fire-deku-baba': require('../assets/enemies/fire-deku-baba.png'),
+    'electric-deku-baba': require('../assets/enemies/electric-deku-baba.png'),
+    'ice-deku-baba': require('../assets/enemies/ice-deku-baba.png'),
+    'water-deku-baba': require('../assets/enemies/deku-baba.png'),
+    
+    'keese': require('../assets/enemies/keese.png'),
+    'fire-keese': require('../assets/enemies/fire-keese.png'),
+    'electric-keese': require('../assets/enemies/electric-keese.png'),
+    'ice-keese': require('../assets/enemies/ice-keese.png'),
+    'water-keese': require('../assets/enemies/water-keese.png'),
+
+
     'moblin': require('../assets/enemies/moblin.png'),
     'fire-moblin': require('../assets/enemies/fire-moblin.png'),
     'electric-moblin': require('../assets/enemies/electric-moblin.png'),
     'ice-moblin': require('../assets/enemies/ice-moblin.png'),
     'water-moblin': require('../assets/enemies/water-moblin.png'),
 
-    'keese': require('../assets/enemies/keese.png'),
+    'lizalfos': require('../assets/enemies/lizalfos.png'),
+    'fire-lizalfos': require('../assets/enemies/fire-lizalfos.png'),
+    'electric-lizalfos': require('../assets/enemies/electric-lizalfos.png'),
+    'ice-lizalfos': require('../assets/enemies/ice-lizalfos.png'),
+    'water-lizalfos': require('../assets/enemies/water-lizalfos.png'),
+
+    'gibdo': require('../assets/enemies/gibdo.png'),
+    'fire-gibdo': require('../assets/enemies/fire-gibdo.png'),
+    'electric-gibdo': require('../assets/enemies/electric-gibdo.png'),
+    'ice-gibdo': require('../assets/enemies/ice-gibdo.png'),
+    'water-gibdo': require('../assets/enemies/water-gibdo.png'),
+
+    'darknut': require('../assets/enemies/darknut.png'),
+    'fire-darknut': require('../assets/enemies/fire-darknut.png'),
+    'electric-darknut': require('../assets/enemies/electric-darknut.png'),
+    'ice-darknut': require('../assets/enemies/ice-darknut.png'),
+    'water-darknut': require('../assets/enemies/water-darknut.png'),
+
+    'talus': require('../assets/enemies/talus.png'),
+    'fire-talus': require('../assets/enemies/fire-talus.png'),
+    'electric-talus': require('../assets/enemies/electric-talus.png'),
+    'ice-talus': require('../assets/enemies/ice-talus.png'),
+    'water-talus': require('../assets/enemies/water-talus.png'),
+
+    'lynel': require('../assets/enemies/lynel.png'),
 
     'ganon': require('../assets/enemies/ganon.png'),
 
@@ -41,6 +84,7 @@ export const Assets: Record<string, any> = {
     'tumblebreeze': require('../assets/characters/tumblebreeze.png'),
     'grinroot': require('../assets/characters/grinroot.png'),
     'fayflutter': require('../assets/characters/fayflutter.png'),
+    'korok-seedlings': require('../assets/characters/korok-seedlings.png'),
 
     'gorruk': require('../assets/enemies/boarblin.png'),
     'fire-gorruk': require('../assets/enemies/fire-boarblin.png'),
@@ -126,6 +170,11 @@ export const Assets: Record<string, any> = {
     'skull-kids-theme-clipped': require('../assets/soundtrack/skull-kids-theme-clipped.mp3'),
     'skull-kids-theme-clipped-reverb': require('../assets/soundtrack/skull-kids-theme-clipped-reverb.mp3'),
     'remember-us': require('../assets/soundtrack/remember-us.mp3'),
+
+    'eclipse-of-the-world': require('../assets/soundtrack/eclipse-of-the-world.mp3'),
+    'last-catch': require('../assets/soundtrack/last-catch.mp3'),
+    'staff-roll': require('../assets/soundtrack/staff-roll.mp3'),
+
 
     // Songs
     'zeldas-lullabye': require('../assets/songs/zeldas-lullabye.mp3'),

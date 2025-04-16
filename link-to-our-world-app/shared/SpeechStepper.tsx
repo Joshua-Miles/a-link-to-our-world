@@ -7,12 +7,13 @@ import { ArrowRightIcon } from "designer-m3/icons";
 export type SpeechStepperProps = Parameters<typeof Column>[0] & {
     hasStarted: boolean
     groups: string[][]
+    durations?: number[][]
     onNext?: () => any
     onFinished?: () => any
 }
 
 
-export function SpeechStepper({ hasStarted, groups, onNext, onFinished, ...columnProps }: SpeechStepperProps) {
+export function SpeechStepper({ hasStarted, groups, durations, onNext, onFinished, ...columnProps }: SpeechStepperProps) {
     const { spacing } = useDesignerTheme();
 
     const sequence = useSequence({ hasStarted, onFinished: handleSequenceFinished }, [
@@ -53,6 +54,7 @@ export function SpeechStepper({ hasStarted, groups, onNext, onFinished, ...colum
                 key={`speech.${currentGroupIndex}`}
                 hasStarted={sequence.hasReached('speechPlaying')}
                 text={groups[currentGroupIndex]}
+                durations={durations?.[currentGroupIndex]}
                 onFinished={sequence.next}
             />
             <Button.Text key={`next.${currentGroupIndex}`} opacity={sequence.hasReached('nextDisplayed') ? 1 : 0} transitions={{ opacity: timing(500) }} onPress={sequence.next}>

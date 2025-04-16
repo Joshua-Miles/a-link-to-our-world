@@ -60,7 +60,7 @@ export default function () {
             />
             <PhaseEvents 
                 hasStarted={sequence.hasReached('phaseEvents')} 
-                currentForce="Lightning"
+                currentForce="electric"
                 onFinished={sequence.next} 
             />
         </Scene>

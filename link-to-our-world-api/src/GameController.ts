@@ -33,7 +33,7 @@ export const GameController = {
                 await handleEldinEncounters(event);
                 await handleZorasEncounters(event);
                 await handleHebraEncounters(event);
-
+                await handleFinaleEncounters(event);
             break;
         }
     }
@@ -550,6 +550,7 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'zoras/throne-room':
+            markEncounterResolved(event.playerId, 'zoras/addison', {})
             createEncounter(event.playerId, 'zoras/tentalus', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -651,6 +652,88 @@ async function createFinaleIfAllTemplesWatered(playerId: number) {
     const templesWatered = await getTemplesWateredByUserId(playerId);
     if (templesWatered.totalComplete === 4) {
         completeObjective(playerId, 'visit-temples');
-        // TODO: create finale
+        createEncounter(playerId, 'finale/intro', {
+            label: 'Inspect',
+            imageSlug: 'marker',
+            lat: 29.539490,
+            lng: -95.363127
+        })
+    }
+}
+
+async function handleFinaleEncounters(event: EncounterResolvedEvent) {
+    switch (event.slug) {
+        case 'finale/intro':
+            createEncounter(event.playerId, 'finale/moblin-fight', {
+                label: 'Engage',
+                imageSlug: 'moblin',
+                lat: 29.539472, 
+                lng: -95.363074
+            })
+        break;
+        case 'finale/moblin-fight':
+            createEncounter(event.playerId, 'finale/lizalfos-fight', {
+                label: 'Engage',
+                imageSlug: 'lizalfos',
+                lat: 29.539445, 
+                lng: -95.363031
+            })
+        break;
+        case 'finale/lizalfos-fight':
+            createEncounter(event.playerId, 'finale/gibdo-fight', {
+                label: 'Engage',
+                imageSlug: 'gibdo',
+                lat: 29.539418, 
+                lng: -95.362980
+            })
+        break;
+        case 'finale/gibdo-fight':
+            createEncounter(event.playerId, 'finale/darknut-fight', {
+                label: 'Engage',
+                imageSlug: 'darknut',
+                lat: 29.539367, 
+                lng: -95.362916
+            })
+        break;
+        case 'finale/darknut-fight':
+            createEncounter(event.playerId, 'finale/talus-fight', {
+                label: 'Engage',
+                imageSlug: 'talus',
+                lat: 29.539337, 
+                lng: -95.362885
+            })
+        break;
+        case 'finale/talus-fight':
+            createEncounter(event.playerId, 'finale/lynel-fight', {
+                label: 'Engage',
+                imageSlug: 'lynel',
+                lat: 29.539306, 
+                lng: -95.362674
+            })
+        break;
+        case 'finale/lynel-fight':
+            createEncounter(event.playerId, 'finale/hyrule-united', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.539306, 
+                lng: -95.362674
+            })
+        break;
+        case 'finale/hyrule-united':
+            createEncounter(event.playerId, 'finale/songs', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.539341, 
+                lng: -95.362537
+            })
+        break;
+        case 'finale/songs':
+            createEncounter(event.playerId, 'finale/epilogue', {
+                label: 'Inspect',
+                imageSlug: 'marker',
+                lat: 29.539817,
+                lng:  -95.363001
+            })
+        break;
     }
 }

@@ -4,10 +4,11 @@ import { Speech } from "./Speech";
 export type SpeechGroupProps = {
     hasStarted: boolean
     text: string[]
+    durations?: number[]
     onFinished?: () => any
 }
 
-export function SpeechGroup({ hasStarted, text, onFinished }: SpeechGroupProps) {
+export function SpeechGroup({ hasStarted, text, durations, onFinished }: SpeechGroupProps) {
     const [ currentIndex, setCurrentIndex ] = useState<null | number>(null);
     const lastIndex = text.length -1
 
@@ -23,6 +24,7 @@ export function SpeechGroup({ hasStarted, text, onFinished }: SpeechGroupProps) 
                     hasStarted={currentIndex !== null && currentIndex >= i}
                     onFinished={i !== lastIndex ? () => setCurrentIndex(i + 1) : onFinished}
                     text={text}
+                    duration={durations?.[i]}
                 />
             ))}
         </>

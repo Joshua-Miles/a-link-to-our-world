@@ -34,7 +34,7 @@ export default function () {
                     groups={[
                         [ 
                             'These are potions I have mixed to nurture the Koroks as they grow.' ,
-                            `As Gorruck visits each temple, and attempts to master each force, I fear he will stir up chaos in his wake.`,
+                            `As Gorruk visits each temple, and attempts to master each force, I fear he will stir up chaos in his wake.`,
                             `But if you water the earth at each temple with these potions, the koroks will grow to restore and protect the area.`
                         ]
                     ]}

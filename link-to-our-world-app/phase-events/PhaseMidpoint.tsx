@@ -4,7 +4,7 @@ import { getTemplesWatered } from "api";
 import { Combat, Force, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 
 export type PhaseMidpointProps = {
-    currentForce: string;
+    currentForce: Force;
     hasStarted: boolean
     onFinished: () => any
 }
@@ -25,42 +25,35 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
         return null;
     }
 
-    const masteredForces = [];
-    const remainingForces = [];
+    const allForces: Force[] = [ 'fire', 'ice', 'water', 'electric' ]
+    const masteredForces: Force[] = [];
 
     if (templesWatered.gerudo?.resolved) {
-        masteredForces.push('Lightning')
-    } else if (currentForce !== 'Lightning') {
-        remainingForces.push('Lightning')
-    }
+        masteredForces.push('electric')
+    } 
 
     if (templesWatered.eldin?.resolved) {
-        masteredForces.push('Fire')
-    } else if (currentForce !== 'Fire') {
-        remainingForces.push('Fire')
-    }
+        masteredForces.push('fire')
+    } 
 
     if (templesWatered.zoras?.resolved) {
-        masteredForces.push('Water')
-    } else if (currentForce !== 'Water') {
-        remainingForces.push('Water')
+        masteredForces.push('water')
     }
 
     if (templesWatered.hebra?.resolved) {
-        masteredForces.push('Ice')
-    } else if (currentForce !== 'Ice') {
-        remainingForces.push('Ice')
+        masteredForces.push('ice')
+    } 
+
+    masteredForces.push(currentForce);
+
+    const remainingForces = allForces.filter( force => !masteredForces.includes(force));
+
+    const forceLabels = {
+        fire: 'Fire',
+        water: 'Water',
+        ice: 'Ice',
+        electric: 'Lightning'
     }
-
-    masteredForces.push(currentForce)
-
-    const combatForces = masteredForces.map( force => (
-        force === 'Lightning' ? 'electric'
-        : force === 'Fire' ? 'fire'
-        : force === 'Water'? 'water'
-        : force === 'Ice' ? 'ice'
-        : null
-    )) as Force[]
 
     return (
         <>
@@ -74,7 +67,7 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
             />
             <SpeechStepper
                 hasStarted={sequence.hasReached('behold')}
-                groups={[ [`Behold, ${playerName}. I have mastered ${masteredForces[0]} and ${masteredForces[1]}. Face me now!`] ]}
+                groups={[ [`Behold, ${playerName}. I have mastered ${forceLabels[masteredForces[0]]} and ${forceLabels[masteredForces[1]]}. Face me now!`] ]}
                 onFinished={sequence.next}
             />
             {sequence.isAt('combat') && 
@@ -83,8 +76,11 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
                     speed={6000}
                     damage={1}
                     fortitude={50}
-                    forces={combatForces}
+                    forces={masteredForces}
                     onFinished={sequence.next}
+                    // The player has been gifted sword for the current force, but it won't reflect
+                    //  in their inventory until the end of the encounter
+                    extraItems={[ `${currentForce}-sword` ]}
                 />
             }
             <SpeechStepper
@@ -96,7 +92,7 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
                     ],
                     [
                         `No mattter.`,
-                        `If I can master ${masteredForces[0]} and ${masteredForces[1]}, I can master ${remainingForces[0]} and ${remainingForces[1]} as well!`,
+                        `If I can master ${forceLabels[masteredForces[0]]} and ${forceLabels[masteredForces[1]]}, I can master ${forceLabels[remainingForces[0]]} and ${forceLabels[remainingForces[1]]} as well!`,
                         `I will return stronger still...`
                     ]
                 ]}
@@ -105,31 +101,3 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
         </>
     )
 }
-
-/**
-
-useResult(getEncounter, 'x/x')
-
-<Dialog 
-    hasStarted={sequence.hasReached('intro')}
-    tree={dialog(`x`)}
-    onFinished={sequence.next}
-/>
-
-<SpeechStepper
-    hasStarted={sequence.hasReached('intro')}
-    groups={[
-        [ `x` ]
-    ]}
-    onFinished={sequence.next}
-/>
-
-<SpeechCard
-    hasStarted={sequence.hasReached('intro')}
-    text={[ 
-        `x`
-    ]}
-    onFinished={sequence.next}
-/>
-
-*/

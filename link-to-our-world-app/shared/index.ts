@@ -26,3 +26,4 @@ export * from './SceneFocus';
 export * from './useFirstKorok';
 export * from './testSongs';
 export * from './useLocation';
+export * from './Friends';

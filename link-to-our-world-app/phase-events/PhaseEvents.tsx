@@ -4,9 +4,10 @@ import { getTemplesWatered } from "api";
 import { useEffect, useState } from "react";
 import { PhaseMidpoint } from "./PhaseMidpoint";
 import { PhaseFinale } from "./PhaseFinale";
+import { Force } from "shared";
 
 export type PhaseEventsProps = {
-    currentForce: string;
+    currentForce: Force;
     hasStarted: boolean
     onFinished: () => any
 }
@@ -31,7 +32,7 @@ export function PhaseEvents({ hasStarted, onFinished, currentForce }: PhaseEvent
     return (
         <>
             <PhaseMidpoint hasStarted={event === 'midpoint'} currentForce={currentForce} onFinished={onFinished} />
-            <PhaseFinale hasStarted={event === 'finale'} onFinished={onFinished} />
+            <PhaseFinale hasStarted={event === 'finale'} currentForce={currentForce} onFinished={onFinished} />
         </>
     )
 }

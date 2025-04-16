@@ -17,8 +17,8 @@ export default function () {
     ])
 
     function handleFinished() {
-        // resolveEncounter('zoras/cache', {});
-        // router.push('/map');
+        resolveEncounter('zoras/cache', {});
+        router.push('/map');
     }
 
     return (
@@ -60,7 +60,7 @@ export default function () {
             />
             <PhaseEvents 
                 hasStarted={sequence.hasReached('phaseEvents')} 
-                currentForce="Water"
+                currentForce="water"
                 onFinished={sequence.next} 
             />
         </Scene>
