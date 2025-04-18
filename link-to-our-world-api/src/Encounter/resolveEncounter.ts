@@ -13,7 +13,8 @@ export const resolveEncounter = async (client: Client<Session>, slug: EncounterS
     GameController.handle({
         type: 'ENCOUNTER_RESOLVED',
         playerId: loggedInUserId,
-        slug
+        slug,
+        state
     })
 }
 

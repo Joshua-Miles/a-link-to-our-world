@@ -1,7 +1,7 @@
 import { isLoading, useResult } from "@triframe/utils-react";
 import { isAnyFailure } from "@triframe/ambassador";
-import { getHealthMeter, listInventoryItems, setHealth } from "api";
-import { Column, useDesignerTheme, timing, Row, RowReverse } from "designer-m3";
+import { getPlayerMeters, listInventoryItems, continueGame, dealDamage } from "api";
+import { Column, useDesignerTheme, timing, Row } from "designer-m3";
 import { useEffect, useRef, useState } from "react";
 import { Image } from "react-native";
 import { Assets } from "../Assets"
@@ -34,7 +34,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
     const [ showHitScrim, setShowHitScrim ] = useState(false);
     const [ force, setForce ] = useState(getRandomForce());
     const inventoryItems = useResult(listInventoryItems)
-    const playerHealthMeter = useResult(getHealthMeter);
+    const playerMeter = useResult(getPlayerMeters);
     const hasFinished = useRef(false);
 
     function getRandomForce() {
@@ -68,7 +68,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
     const dealPlayerDamage = useLatestCallback(async () => {
         if (enemyHealth > 0 && playerHealth > 0) {
             setShowHitScrim(true)
-            setHealth(playerHealth - damage)
+            dealDamage(damage)
             await wait(500)
             setShowHitScrim(false)
         }
@@ -86,9 +86,9 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
         return () => clearInterval(interval)
     }, [])
 
-    if (isLoading(inventoryItems) || isLoading(playerHealthMeter) || isAnyFailure(playerHealthMeter)) return null;
+    if (isLoading(inventoryItems) || isLoading(playerMeter) || isAnyFailure(playerMeter)) return null;
 
-    const playerHealth = playerHealthMeter.health;
+    const playerHealth = playerMeter.health;
 
     const playerPiecesOfHealth = new Array(playerHealth).fill(1)
 
@@ -145,7 +145,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
                 ))}
             </Row>
             <GameOverAlert isOpen={playerHealth <= 0} onContinue={() => {
-                setHealth(3)
+                continueGame()
                 setEnemyHealth(100)
             }}/>
         </Column>

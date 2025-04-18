@@ -17,4 +17,16 @@ export async function resetGame(client: Client<Session>) {
         type: 'NEW_GAME',
         playerId: loggedInUserId
     })
+    await GameController.handle({
+        type: 'ENCOUNTER_RESOLVED',
+        playerId: loggedInUserId,
+        slug: 'intro/seeds',
+        state: {}
+    })
+    await GameController.handle({
+        type: 'ENCOUNTER_RESOLVED',
+        playerId: loggedInUserId,
+        slug: 'intro/gorruk',
+        state: {}
+    })
 }

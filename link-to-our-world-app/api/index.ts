@@ -34,9 +34,13 @@ export * from "./listMemories";
 
 export * from "./downloadMemoryImage";
 
-export * from "./getHealthMeter";
+export * from "./getPlayerMeters";
 
-export * from "./setHealth";
+export * from "./continueGame";
+
+export * from "./dealDamage";
+
+export * from "./cook";
 
 export * from "./getTemplesWatered";
 

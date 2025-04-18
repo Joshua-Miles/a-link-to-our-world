@@ -15,7 +15,7 @@ export function Announcements() {
 
     async function handleObjective() {
         if (isLoading(objectives)) return;
-
+        
         const unacknowledgedObjectives = objectives.filter( objective => (
             objective.acknowledged === false
              ||
@@ -32,7 +32,7 @@ export function Announcements() {
         setFade('out')
         await wait(1000)
         setDisplayedObjective(null)
-        if (!objective.completed) {
+        if (!objective.acknowledged) {
             await acknowledgeObjective(objective.slug)
         } else {
             await acknowledgeObjectiveCompleted(objective.slug);

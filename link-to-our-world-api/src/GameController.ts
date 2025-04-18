@@ -23,6 +23,7 @@ export const GameController = {
                 })
             break;
             case 'ENCOUNTER_RESOLVED':
+                await handleEncounterDrops(event);
                 await handleIntroEncounters(event);
                 await handleLurelinEncounters(event);
                 await handleFaronEncounters(event);
@@ -39,10 +40,19 @@ export const GameController = {
     }
 }
 
+async function handleEncounterDrops(event: EncounterResolvedEvent) {
+    if (event.state.drops) {
+        await createInventoryItem(event.playerId, event.state.drops.slug, event.state.drops)
+    }
+}
 
 async function handleIntroEncounters(event: EncounterResolvedEvent) {
     switch(event.slug) {
         case 'intro/beckoning':
+            createInventoryItem(event.playerId, 'goddess-flute', {
+                type: 'quest-item',
+                name: 'Goddess Flute',
+            })
             createEncounter(event.playerId, 'intro/seeds', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -63,10 +73,35 @@ async function handleIntroEncounters(event: EncounterResolvedEvent) {
                 lat: 29.539490,
                 lng: -95.363127
             })
+            createEncounter(event.playerId, 'intro/shrub-1', {
+                label: 'Pick',
+                imageSlug: 'shrub',
+                lat: 29.539852, 
+                lng: -95.363038
+            })
+            createEncounter(event.playerId, 'intro/shrub-2', {
+                label: 'Pick',
+                imageSlug: 'shrub',
+                lat: 29.539564,
+                lng:  -95.363255
+            })
+            createEncounter(event.playerId, 'intro/cow', {
+                label: 'Engage',
+                imageSlug: 'cow',
+                lat: 29.539564,
+                lng:  -95.363255
+            })
+            createEncounter(event.playerId, 'intro/truffle-chest', {
+                label: 'Open',
+                imageSlug: 'chest',
+                lat: 29.539564,
+                lng:  -95.363255
+            })
         break;
         case 'intro/sword-chest':
             createInventoryItem(event.playerId, 'sword', {
-                name: 'Sword'
+                name: 'Sword',
+                type: 'weapon'
             })
         break;
         case 'intro/gorruk':
@@ -74,6 +109,12 @@ async function handleIntroEncounters(event: EncounterResolvedEvent) {
             createObjective(event.playerId, {
                 title: 'Plant the Korok Seeds',
                 slug: 'plant-seeds'
+            })
+            createEncounter(event.playerId, 'bazaar/beedle', {
+                label: 'Talk',
+                imageSlug: 'beedle-avatar',
+                lat: 29.574138,
+                lng: -95.361177
             })
             createEncounter(event.playerId, 'lurelin/intro', {
                 label: 'Inspect...',
@@ -411,7 +452,8 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
         break;
         case 'gerudo/scervus':
             createInventoryItem(event.playerId, 'key', {
-                name: 'Key'
+                name: 'Key',
+                type: 'quest-item'
             })
         break;
         case 'gerudo/temple':
@@ -425,7 +467,8 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
         break;
         case 'gerudo/cache':
             createInventoryItem(event.playerId, 'electric-sword', {
-                name: 'Lightning Sword'
+                name: 'Lightning Sword',
+                type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId)
         break;
@@ -462,7 +505,8 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
         break;
         case 'eldin/bouldan':
             createInventoryItem(event.playerId, 'milk', {
-                name: 'Milk'
+                name: 'Milk',
+                type: 'quest-item'
             })
             createEncounter(event.playerId, 'eldin/bouldan-2', {
                 label: 'Talk',
@@ -492,7 +536,8 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
         case 'eldin/fyrus':
             markEncounterResolved(event.playerId, 'eldin/lodron', {})
             createInventoryItem(event.playerId, 'key', {
-                name: 'Key'
+                name: 'Key',
+                type: 'quest-item'
             })
         break;
         case 'eldin/temple':
@@ -506,7 +551,8 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
         break;
         case 'eldin/cache':
             createInventoryItem(event.playerId, 'fire-sword', {
-                name: 'Fire Sword'
+                name: 'Fire Sword',
+                type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
         break;
@@ -561,7 +607,8 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
         case 'zoras/tentalus':
             markEncounterResolved(event.playerId, 'zoras/zaylen', {})
             createInventoryItem(event.playerId, 'key', {
-                name: 'Key'
+                name: 'Key',
+                type: 'quest-item'
             })
         break;
         case 'zoras/temple':
@@ -575,7 +622,8 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
         break;
         case 'zoras/cache':
             createInventoryItem(event.playerId, 'water-sword', {
-                name: 'Water Sword'
+                name: 'Water Sword',
+                type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
         break;
@@ -641,7 +689,8 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
         break;
         case 'hebra/cache':
             createInventoryItem(event.playerId, 'ice-sword', {
-                name: 'Ice Sword'
+                name: 'Ice Sword',
+                type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
         break;

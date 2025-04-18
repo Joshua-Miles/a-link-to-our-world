@@ -27,3 +27,5 @@ export * from './useFirstKorok';
 export * from './testSongs';
 export * from './useLocation';
 export * from './Friends';
+export * from './Shrub';
+export * from './Cow';

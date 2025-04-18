@@ -34,6 +34,13 @@ export function Dialog({ tree, hasStarted = true, onFinished, ...props }: Dialog
         'fadeOut',
     ])
 
+    useEffect(() => {
+        if (!hasStarted && node !== tree) {
+            hasFinished.current = false;
+            setNode(tree);
+        }
+    }, [ hasStarted ])
+
     const options = Object.keys(node.responses)
 
     async function handleRespond() {

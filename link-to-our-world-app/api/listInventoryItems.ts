@@ -9,7 +9,11 @@ export function listInventoryItems(this: AmbassadorClient | void): Observable<ne
         __serial__?: undefined | true;
     };
 } & {
-    slug: "key" | "sword" | "master-sword" | "fire-sword" | "ice-sword" | "electric-sword" | "water-sword" | "milk";
+    slug: "key" | "sword" | "master-sword" | "fire-sword" | "ice-sword" | "electric-sword" | "water-sword" | "milk" | "goddess-flute" | "rice" | "truffle" | "cream" | "truffle-risotto" | "dubious-food";
+} & {
+    type: "weapon" | "ingredient" | "food" | "quest-item";
+} & {
+    quantity: number;
 } & {
     name: string;
 } & {

@@ -9,6 +9,7 @@ export type EncounterResolvedEvent = {
     type: 'ENCOUNTER_RESOLVED'
     slug: EncounterSlug
     playerId: number;
+    state: any
 }
 
 export type GameEvent = NewGameEvent | EncounterResolvedEvent;

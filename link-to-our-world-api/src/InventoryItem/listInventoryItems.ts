@@ -10,6 +10,8 @@ export const listInventoryItems = observer(async ({ observe }: ObserverContext, 
         select: from(InventoryItems.type)
             .id()
             .slug()
+            .type()
+            .quantity()
             .name()
             .imageSlug()
             .acknowledged()

@@ -7,7 +7,9 @@ export const Assets: Record<string, any> = {
     'mines': require('../assets/mines.png'),
     'snowball': require('../assets/snowball.png'),
     'lloron-den': require('../assets/lloron-den.png'),
-
+    'tree': require('../assets/tree.png'),
+    'shrub': require('../assets/shrub.png'),
+    'cow': require('../assets/cow.png'),
 
     // Enemies
     'chu': require('../assets/enemies/chu.png'),
@@ -91,6 +93,9 @@ export const Assets: Record<string, any> = {
     'electric-gorruk': require('../assets/enemies/electric-boarblin.png'),
     'water-gorruk': require('../assets/enemies/water-boarblin.png'),
     'ice-gorruk': require('../assets/enemies/ice-boarblin.png'),
+
+    'beedle': require('../assets/characters/beedle.png'),
+    'beedle-avatar': require('../assets/characters/beedle-avatar.png'),
 
 
     'tidebane': require('../assets/characters/tidebane.png'),
@@ -189,11 +194,20 @@ export const Assets: Record<string, any> = {
 
     // Songs
     'zeldas-lullabye': require('../assets/songs/zeldas-lullabye.mp3'),
-
     'dragon-roost-theme': require('../assets/songs/dragon-roost-theme.mp3'),
     'sky-theme': require('../assets/songs/sky-theme.mp3'),
     'botw-theme': require('../assets/songs/botw-theme.mp3'),
     'fairy-theme': require('../assets/songs/fairy-theme.mp3'),
+    'main-theme': require('../assets/songs/main-theme.mp3'),
 
-    'main-theme': require('../assets/songs/main-theme.mp3')
+    // Ingredients
+    'rice': require('../assets/ingredients/rice.png'),
+    'cream': require('../assets/ingredients/cream.png'),
+    'truffle': require('../assets/ingredients/truffle.png'),
+
+
+    // Food
+    'dubious-food': require('../assets/food/dubious-food.png'),
+    'truffle-risotto': require('../assets/food/truffle-risotto.png'),
+
 }

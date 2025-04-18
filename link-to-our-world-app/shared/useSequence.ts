@@ -19,6 +19,7 @@ export function useSequence<T extends string>({ hasStarted, onFinished }: Option
 
     useEffect(() => {
         if (hasStarted && currentIndex === null) setCurrentIndex(0)
+        if (!hasStarted && currentIndex !== null) setCurrentIndex(null)
     }, [ hasStarted, currentIndex ])
 
     useEffect(() => {
