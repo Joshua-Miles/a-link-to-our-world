@@ -1,6 +1,6 @@
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 import { Answer1A } from "../lurelin/intro";
@@ -36,6 +36,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="eldin-battle" />
+            <Soundtrack isPlaying={sequence.hasReached('thankYou')} asset="eldin" />
             {!sequence.isAt('combat') && <SceneFocus asset={sequence.hasReached('thankYou') ? 'darvok' : 'fyrus'} label={sequence.hasReached('thankYou') ? undefined: "Fyrus"} /> }
             <SpeechCard
                 hasStarted={sequence.hasReached('letsFightHimTogether')}

@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1B } from "./intro";
 
@@ -37,6 +37,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="floria-battle" />
+            <Soundtrack isPlaying={sequnece.hasReached('thankYouFayflutter')} asset="floria" />
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus asset="nimri" />
                 <SpeechStepper

@@ -1,6 +1,6 @@
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { isAnyFailure } from "@triframe/ambassador";
 
@@ -35,6 +35,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="hebra-battle" />
+            <Soundtrack isPlaying={sequence.hasReached('thankYou')} asset="hebra" />            
             {focus && <SceneFocus asset={focus} label={label ?? undefined} /> }
             <SpeechCard
                 hasStarted={sequence.hasReached('intro')}

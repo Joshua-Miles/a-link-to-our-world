@@ -1,10 +1,10 @@
-import { isFailure } from "@triframe/ambassador";
+import { isAnyFailure, isFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon, useDesignerTheme } from "designer-m3";
 import { useLocation } from "../shared/useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
-import { listEncounters } from "api";
+import { getEncounter, getSeedsPlanted, getTemplesWatered, listEncounters } from "api";
 import { Assets, Coordinate, Marker, Nav, feetBetween, Announcements, Soundtrack, usePersistedState } from "shared";
 import { Href } from "expo-router";
 import { ArrowRightIcon } from "designer-m3/icons";
@@ -21,6 +21,14 @@ export default function Map() {
 
   const { colors } = useDesignerTheme();
 
+  const seedsPlanted = useResult(getSeedsPlanted);
+
+  const templesWatered = useResult(getTemplesWatered);
+
+  const finaleIntro = useResult(getEncounter, 'finale/intro')
+
+  const finaleSongs = useResult(getEncounter, 'finale/songs')
+
   const [ spoofLocation, setSpoofLocation ] = usePersistedState<Coordinate | null>('persisted-state', null);
 
   const location = spoofLocation === null ? realLocation : spoofLocation;
@@ -29,7 +37,7 @@ export default function Map() {
 
   const [ mapLoaded, setMapLoaded ] = useState(false);
 
-  if (isLoading(location) || isLoading(encounters)) return <><Column flex={1}/><Nav /></>;
+  if (isLoading(location) || isLoading(encounters) || isLoading(seedsPlanted) || isLoading(templesWatered) || isAnyFailure(seedsPlanted) || isAnyFailure(templesWatered) || isLoading(finaleIntro) || isAnyFailure(finaleIntro) || isLoading(finaleSongs) || isAnyFailure(finaleSongs)) return <><Column flex={1}/><Nav /></>;
 
   if (isFailure(location, "permissionDenied"))
     return <Label.Small>Location Unavailable</Label.Small>;
@@ -41,9 +49,26 @@ export default function Map() {
   }
 
   const nearbyEncounters = encounters.filter(encounter => feetBetween(encounter, location) < MAX_FEET_FOR_NEARBY_ENCOUNTER)
+
+  const provinces = seedsPlanted.totalComplete === 4 ? phase2Provinces : phase1Provinces;
+
+  const sortedProvinces = [ ...provinces ].sort( (a, b) => feetBetween(a, location) - feetBetween(b, location))
+
+  const [ closestProvince ] = sortedProvinces;
+
+  let track = closestProvince.name;
+
+  if (finaleSongs?.resolved) {
+    track = 'last-catch';
+  } else if (finaleIntro?.resolved) {
+    track = 'eclipse-of-the-world';
+  } else if (seedsPlanted.totalComplete === 4) {
+    track = 'eclipse-of-the-moon';
+  }
+
   return (
     <Column flex={1}>
-      {/* <Soundtrack asset="hyrule-theme" fadeDuration={4000} /> */}
+      <Soundtrack asset={track} fadeDuration={4000} />
       <Column flex={1}>
         <Announcements />
         <MapView
@@ -96,48 +121,63 @@ export default function Map() {
   );
 }
 
-const Locations = {
-  ShadowCreek: {
-    lat: 29.582217,
-    lng: -95.411933,
-  },
-  TomBass: {
-    lat: 29.588333,
-    lng: -95.37445,
-  },
-  StellaRoberts: {
-    lat: 29.54195,
-    lng: -95.306933,
-  },
-  Wilson: {
-    lat: 29.64205,
-    lng: -95.2185,
-  },
-  FrankieCarter: {
-    lat: 29.550533, 
-    lng: -95.195267
-  },
-  Stevenson: {
-    lat: 29.520817,
-    lng: -95.199233,
-  },
-  Centennial: {
-    lat: 29.496667,
-    lng: -95.183217,
-  },
-  ChallengerSeven: {
-    lat: 29.507617,
-    lng: -95.141983,
-  },
-  Portsmouth: {
+const phase1Provinces = [
+  {
+    name: 'luminas-theme',
     lat: 29.574452,
     lng: -95.363353,
   },
-  // Centroid: {
-  //   lat: 29.54195,
-  //   lng: -95.266933,
-  // },
-};
+  {
+    name: 'lurelin',
+    lat: 29.54195,
+    lng: -95.306933,
+  },
+  {
+    name: 'floria',
+    lat: 29.496667,
+    lng: -95.183217,
+  },
+  {
+    name: 'faron',
+    lat: 29.550533, 
+    lng: -95.195267
+  },
+  {
+    name: 'necluda',
+    lat: 29.588333,
+    lng: -95.37445,
+  },
+]
+
+const phase2Provinces = [
+  {
+    name: 'luminas-theme',
+    lat: 29.574452,
+    lng: -95.363353,
+  },
+  {
+    name: 'gerudo',
+    lat: 29.520817,
+    lng: -95.199233,
+  },
+  {
+    name: 'eldin',
+    lat: 29.507617,
+    lng: -95.141983,
+  },
+  {
+    name: 'zoras',
+    lat: 29.64205,
+    lng: -95.2185,
+  },
+  {
+    name: 'hebra',
+    lat: 29.582217,
+    lng: -95.411933,
+  },
+];
+
+
 
 /**
  *

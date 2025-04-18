@@ -162,15 +162,26 @@ export const Assets: Record<string, any> = {
     'game-over': require('../assets/soundtrack/game-over.mp3'),
 
     'hyrule-theme': require('../assets/soundtrack/hyrule-theme-trimmed.m4a'),
+
     'luminas-theme': require('../assets/soundtrack/luminas-theme.mp3'),
     'koroks-theme': require('../assets/soundtrack/koroks-theme.mp3'),
     'gorruks-theme': require('../assets/soundtrack/gorruks-theme.mp3'),
+
+    'lurelin': require('../assets/soundtrack/lurelin.mp3'),
+    'floria': require('../assets/soundtrack/floria.mp3'),
+    'faron': require('../assets/soundtrack/faron.mp3'),
+    'necluda': require('../assets/soundtrack/necluda.mp3'),
+    'gerudo': require('../assets/soundtrack/gerudo.mp3'),
+    'eldin': require('../assets/soundtrack/eldin.mp3'),
+    'zoras': require('../assets/soundtrack/zoras.mp3'),
+    'hebra': require('../assets/soundtrack/hebra.mp3'),
 
     'ganon-theme': require('../assets/soundtrack/ganon.mp3'),
     'skull-kids-theme-clipped': require('../assets/soundtrack/skull-kids-theme-clipped.mp3'),
     'skull-kids-theme-clipped-reverb': require('../assets/soundtrack/skull-kids-theme-clipped-reverb.mp3'),
     'remember-us': require('../assets/soundtrack/remember-us.mp3'),
 
+    'eclipse-of-the-moon': require('../assets/soundtrack/eclipse-of-the-moon.mp3'),
     'eclipse-of-the-world': require('../assets/soundtrack/eclipse-of-the-world.mp3'),
     'last-catch': require('../assets/soundtrack/last-catch.mp3'),
     'staff-roll': require('../assets/soundtrack/staff-roll.mp3'),

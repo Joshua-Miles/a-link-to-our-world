@@ -1,5 +1,5 @@
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1C } from "./tavon";
 import { isLoading, useResult } from "@triframe/utils-react";
@@ -39,6 +39,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="faron-battle" />
+            <Soundtrack isPlaying={sequnece.hasReached('thankYouScribeleaf')} asset="faron" />
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus asset="skull-kid" />
                 <SpeechCard

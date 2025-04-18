@@ -167,7 +167,7 @@ export function Soundtrack({ asset, push = false, isPlaying = true, fadeDuration
         } else if (wasPlaying.current) {
             player.pause(Assets[asset], fadeDuration)
         }
-    }, [ isPlaying ])
+    }, [ isPlaying, asset ])
 
     return null;
 }

@@ -1,6 +1,6 @@
 import { useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, dialog, Dialog, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {
@@ -20,6 +20,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="gerudo-battle" />
+            <Soundtrack isPlaying={sequence.hasReached('thankYou')} asset="gerudo" />
             {!sequence.isAt('combat') && <SceneFocus asset={sequence.hasReached('thankYou') ? 'ravia' : 'scervus'} label={sequence.hasReached('thankYou') ? undefined: "Scervus"} /> }
             <SpeechCard
                 hasStarted={sequence.hasReached('thereHeBe')}

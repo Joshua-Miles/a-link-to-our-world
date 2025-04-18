@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, ItemGet, Scene, SceneFocus, SpeechCard, SpeechStepper, useFirstKorok, usePlayerName, useSequence } from "shared";
+import { Combat, ItemGet, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, useFirstKorok, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1A } from "./intro";
 
@@ -56,6 +56,8 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="lurelin-battle" />
+            <Soundtrack isPlaying={sequnece.hasReached('thankYou')} asset="lurelin" />        
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus
                     asset={sequnece.isAt('groundIsShaking') ? remainingKorok : 'tidebane'}
