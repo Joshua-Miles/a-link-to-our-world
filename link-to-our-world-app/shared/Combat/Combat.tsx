@@ -1,9 +1,9 @@
 import { isLoading, useResult } from "@triframe/utils-react";
 import { isAnyFailure } from "@triframe/ambassador";
-import { getPlayerMeters, listInventoryItems, continueGame, dealDamage } from "api";
-import { Column, useDesignerTheme, timing, Row } from "designer-m3";
+import { getPlayerMeters, listInventoryItems, continueGame, dealDamage, eat } from "api";
+import { Column, useDesignerTheme, timing, Row, RowReverse, Button, Label } from "designer-m3";
 import { useEffect, useRef, useState } from "react";
-import { Image } from "react-native";
+import { Image, ScrollView } from "react-native";
 import { Assets } from "../Assets"
 import { useLatestCallback } from "../useLatestCallback"
 import { wait } from "../wait"
@@ -11,11 +11,11 @@ import { useOnSwipe } from "./useOnSwipe";
 import { WeaponTile } from "./WeaponTile";
 import { HitScrim } from "./HitScrim";
 import { GameOverAlert } from "./GameOverAlert";
+import { ItemTile } from "../ItemTile";
 
 export type Force = 'fire' | 'electric' | 'ice' | 'water'
 
 export type InventoryItemSlug = Awaited<ReturnType<typeof listInventoryItems>>[number]['slug']
-
 
 export type CombatProps = {
     asset: string;
@@ -33,6 +33,8 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
     const [ selectedWeapon, setSelectedWeapon ] = useState<string | null>(null);
     const [ showHitScrim, setShowHitScrim ] = useState(false);
     const [ force, setForce ] = useState(getRandomForce());
+    const [ selectedItemSlug, setSelectedItemSlug ] = useState<InventoryItemSlug | null>(null)
+
     const inventoryItems = useResult(listInventoryItems)
     const playerMeter = useResult(getPlayerMeters);
     const hasFinished = useRef(false);
@@ -104,6 +106,25 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
 
     const assetWithForce = force ? `${force}-${asset}` : asset;
 
+
+    function toggleSelected(slug: InventoryItemSlug) {
+        if (selectedItemSlug === slug) {
+            setSelectedItemSlug(null)
+        } else {
+            setSelectedItemSlug(slug)
+        }
+    }
+
+    async function handleEat() {
+        const foodSlug = selectedItemSlug;
+        if (!foodSlug) return;
+        setSelectedItemSlug(null)
+        await eat(foodSlug);
+    }
+    const foods = inventoryItems.filter(item => item.type === 'food')
+
+    const selectedItem = inventoryItems.find(item => item.slug === selectedItemSlug)
+
     return (
         <Column flex={1} alignItems="center">
             <HitScrim gap={4} width="100%" px={16} showHit={showHitScrim}>
@@ -134,20 +155,44 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
                     width: timing(100)
                 }}/>
             </Row>
-            <Row mt={spacing.lg} width="100%">
-                {weaponGroup1.filter(slug => itemSlugs.includes(slug)).map( slug => (
-                   <WeaponTile key={slug} slug={slug} isSelected={selectedWeapon === slug} onPress={() => setSelectedWeapon(slug)} />
-                ))}
-            </Row>
-            <Row width="100%">
-                {weaponGroup2.filter(slug => itemSlugs.includes(slug)).map( slug => (
+            <ScrollView>
+                {weaponGroup1.length > 0 || weaponGroup2.length > 0 && <Label.Medium>Weapons</Label.Medium>}
+                <Row mt={spacing.lg} width="100%">
+                    {weaponGroup1.filter(slug => itemSlugs.includes(slug)).map( slug => (
                     <WeaponTile key={slug} slug={slug} isSelected={selectedWeapon === slug} onPress={() => setSelectedWeapon(slug)} />
-                ))}
-            </Row>
+                    ))}
+                </Row>
+                <Row width="100%">
+                    {weaponGroup2.filter(slug => itemSlugs.includes(slug)).map( slug => (
+                        <WeaponTile key={slug} slug={slug} isSelected={selectedWeapon === slug} onPress={() => setSelectedWeapon(slug)} />
+                    ))}
+                </Row>
+                {foods.length > 0 && <Label.Medium>Food</Label.Medium>}
+                <Row flexWrap="wrap">
+                    {foods.map(item => (
+                        <ItemTile key={item.id} item={item} isSelected={item.slug === selectedItemSlug} onPress={() => toggleSelected(item.slug)}/>
+                    ))}
+                </Row>
+            </ScrollView>
             <GameOverAlert isOpen={playerHealth <= 0} onContinue={() => {
                 continueGame()
                 setEnemyHealth(100)
             }}/>
+            {selectedItem && (
+                <Row backgroundColor={colors.roles.surfaceContainerHighest} alignItems="center" px={spacing.sm}>
+                    <Image source={Assets[selectedItem.imageSlug]}/>
+                    <RowReverse flex={1} gap={spacing.xs}>
+                        <Button.Filled onPress={handleEat}>
+                            Eat
+                        </Button.Filled>
+                        <Button.Text onPress={() => setSelectedItemSlug(null)}>
+                            Cancel
+                        </Button.Text>
+                    </RowReverse>
+                </Row>
+            )}
         </Column>
     );
 }
+
+

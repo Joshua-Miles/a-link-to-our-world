@@ -42,6 +42,8 @@ export * from "./dealDamage";
 
 export * from "./cook";
 
+export * from "./eat";
+
 export * from "./getTemplesWatered";
 
 export * from "./getSeedsPlanted";

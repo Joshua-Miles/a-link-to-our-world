@@ -1,4 +1,4 @@
-import { createEncounter, getEncounterByPlayerIdAndSlug } from "./Encounter";
+import { createChest, createChicken, createCow, createEncounter, createGrass, createPot, createTree, createWell, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
 import { getSeedsPlantedByUserId } from "./getSeedsPlanted";
@@ -73,48 +73,12 @@ async function handleIntroEncounters(event: EncounterResolvedEvent) {
                 lat: 29.539490,
                 lng: -95.363127
             })
-            createEncounter(event.playerId, 'intro/shrub-1', {
-                label: 'Pick',
-                imageSlug: 'shrub',
-                lat: 29.539852, 
-                lng: -95.363038
-            })
-            createEncounter(event.playerId, 'intro/shrub-2', {
-                label: 'Pick',
-                imageSlug: 'shrub',
-                lat: 29.539564,
-                lng:  -95.363255
-            })
-            createEncounter(event.playerId, 'intro/cow', {
-                label: 'Engage',
-                imageSlug: 'cow',
-                lat: 29.539564,
-                lng:  -95.363255
-            })
-            createEncounter(event.playerId, 'intro/truffle-chest', {
-                label: 'Open',
-                imageSlug: 'chest',
-                lat: 29.539564,
-                lng:  -95.363255
-            })
-        break;
-        case 'intro/sword-chest':
-            createInventoryItem(event.playerId, 'sword', {
-                name: 'Sword',
-                type: 'weapon'
-            })
         break;
         case 'intro/gorruk':
             completeObjective(event.playerId, 'beckoning')
             createObjective(event.playerId, {
                 title: 'Plant the Korok Seeds',
                 slug: 'plant-seeds'
-            })
-            createEncounter(event.playerId, 'bazaar/beedle', {
-                label: 'Talk',
-                imageSlug: 'beedle-avatar',
-                lat: 29.574138,
-                lng: -95.361177
             })
             createEncounter(event.playerId, 'lurelin/intro', {
                 label: 'Inspect...',
@@ -137,8 +101,58 @@ async function handleIntroEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'necluda/intro', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.588201,
-                lng: -95.373022
+                lat: 29.590862, 
+                lng: -95.377728
+            })
+            createEncounter(event.playerId, 'bazaar/beedle', {
+                label: 'Talk',
+                imageSlug: 'beedle-avatar',
+                lat: 29.574138,
+                lng: -95.361177
+            })
+            createChest(event.playerId, 'common/chest/bazaar/1', {
+                lat: 29.573744, 
+                lng: -95.360779
+            })
+            createChicken(event.playerId, 'common/chicken/bazaar/1', {
+                lat: 29.574298, 
+                lng: -95.360841
+            })
+            createChicken(event.playerId, 'common/chicken/bazaar/2', {
+                lat: 29.574088, 
+                lng: -95.360852
+            })
+            createPot(event.playerId, 'common/pot/bazaar/1', {
+                lat: 29.574271, 
+                lng: -95.361178
+            })
+            createPot(event.playerId, 'common/pot/bazaar/2', {
+                lat: 29.574185, 
+                lng: -95.361207
+            })
+            createGrass(event.playerId, 'common/grass/bazaar/1', {
+                lat: 29.574110, 
+                lng: -95.360729
+            })
+            createGrass(event.playerId, 'common/grass/bazaar/2', {
+                lat: 29.573852,
+                lng:  -95.360851
+            })
+            createGrass(event.playerId, 'common/grass/bazaar/3', {
+                lat: 29.573625, 
+                lng: -95.360727
+            })
+            createTree(event.playerId, 'common/tree/bazaar/4', {
+                lat: 29.573900, 
+                lng: -95.360727
+            })
+            createTree(event.playerId, 'common/tree/bazaar/1', {
+                lat: 29.574350, 
+                lng: -95.360840
+            })
+            createTree(event.playerId, 'common/tree/bazaar/2', {
+                lat: 29.573664, 
+                lng: -95.360916
             })
         break;
     }
@@ -152,6 +166,58 @@ async function handleLurelinEncounters(event: EncounterResolvedEvent) {
                 imageSlug: 'tidebane-avatar',
                 lat: 29.545435, 
                 lng: -95.308331
+            })
+            createChest(event.playerId, 'common/chest/lurelin/1', {
+                lat: 29.544085, 
+                lng: -95.309045
+            })
+            createChest(event.playerId, 'common/chest/lurelin/2', {
+                lat: 29.543237, 
+                lng: -95.313137
+            })
+            createChicken(event.playerId, 'common/chicken/lurelin/1', {
+                lat: 29.545141, 
+                lng: -95.308680
+            })
+            createChicken(event.playerId, 'common/chicken/lurelin/2', {
+                lat: 29.543672, 
+                lng: -95.310411
+            })
+            createPot(event.playerId, 'common/pot/lurelin/1', {
+                lat: 29.545248, 
+                lng: -95.308634
+            })
+            createPot(event.playerId, 'common/pot/lurelin/2', {
+                lat: 29.545715, 
+                lng:-95.307918
+            })
+            createPot(event.playerId, 'common/pot/lurelin/3', {
+                lat: 29.544548, 
+                lng: -95.306993
+            })
+            createPot(event.playerId, 'common/pot/lurelin/4', {
+                lat: 29.542206, 
+                lng: -95.310393
+            })
+            createPot(event.playerId, 'common/pot/lurelin/5', {
+                lat: 29.543866, 
+                lng: -95.311840
+            })
+            createGrass(event.playerId, 'common/grass/lurelin/1', {
+                lat: 29.541810,
+                lng: -95.308119
+            })
+            createGrass(event.playerId, 'common/grass/lurelin/2', {
+                lat: 29.544424, 
+                lng: -95.310088
+            })
+            createGrass(event.playerId, 'common/grass/lurelin/3', {
+                lat: 29.542206, 
+                lng: -95.306613
+            })
+            createTree(event.playerId, 'common/tree/lurelin/1', {
+                lat: 29.543840, 
+                lng: -95.312481
             })
         break;
         case 'lurelin/tidebane':
@@ -193,6 +259,62 @@ async function handleFaronEncounters(event: EncounterResolvedEvent) {
                 lat: 29.548375, 
                 lng: -95.195959
             })    
+            createChest(event.playerId, 'common/chest/faron/1', {
+                lat: 29.546284, 
+                lng: -95.196669
+            })
+            createChest(event.playerId, 'common/chest/faron/2', {
+                lat: 29.544004, 
+                lng: -95.198265
+            })
+            createWell(event.playerId, 'common/well/faron/1', {
+                lat: 29.553133, 
+                lng: -95.199251
+            })
+            createPot(event.playerId, 'common/pot/faron/1', {
+                lat: 29.547624, 
+                lng: -95.195991
+            })
+            createGrass(event.playerId, 'common/grass/faron/1', {
+                lat: 29.5485, 
+                lng: -95.1959
+            })
+            createGrass(event.playerId, 'common/grass/faron/2', {
+                lat: 29.550908, 
+                lng: -95.197812
+            })
+            createGrass(event.playerId, 'common/grass/faron/3', {
+                lat: 29.5498, 
+                lng: -95.1949
+            })
+            createGrass(event.playerId, 'common/grass/faron/4', {
+                lat: 29.546556, 
+                lng: -95.196854
+            })
+            createGrass(event.playerId, 'common/grass/faron/5', {
+                lat: 29.544318, 
+                lng: -95.198495
+            })
+            createTree(event.playerId, 'common/tree/faron/1', {
+                lat: 29.5498, 
+                lng: -95.1970
+            })
+            createTree(event.playerId, 'common/tree/faron/2', {
+                lat: 29.5518, 
+                lng: -95.1987
+            })
+            createTree(event.playerId, 'common/tree/faron/3', {
+                lat: 29.5587, 
+                lng: -95.1924
+            })
+            createTree(event.playerId, 'common/tree/faron/4', {
+                lat: 29.5506, 
+                lng: -95.1965
+            })
+            createTree(event.playerId, 'common/tree/faron/5', {
+                lat: 29.5489, 
+                lng: -95.1949
+            })
         break;
         case 'faron/tavon':
             createEncounter(event.playerId, 'faron/skull-kid-1', {
@@ -249,7 +371,67 @@ async function handleFloriaEncounters(event: EncounterResolvedEvent) {
                 imageSlug: 'nimri-avatar',
                 lat: 29.498131, 
                 lng: -95.182841
-            })  
+            })
+            createChest(event.playerId, 'common/chest/floria/1', {
+                lat: 29.497585, 
+                lng: -95.182361
+            })
+            createChest(event.playerId, 'common/chest/floria/2', {
+                lat: 29.4988, 
+                lng: -95.1813
+            })
+            createCow(event.playerId, 'common/cow/floria/1', {
+                lat: 29.496141, 
+                lng: -95.182429
+            })
+            createCow(event.playerId, 'common/cow/floria/2', {
+                lat: 29.496627, 
+                lng: -95.183358
+            })
+            createCow(event.playerId, 'common/cow/floria/3', {
+                lat: 29.497738, 
+                lng: -95.183156
+            })
+            createCow(event.playerId, 'common/cow/floria/4', {
+                lat: 29.496257, 
+                lng: -95.183560
+            })
+            createWell(event.playerId, 'common/well/floria/1', {
+                lat: 29.497955, 
+                lng: -95.183027
+            })
+            createWell(event.playerId, 'common/well/floria/2', {
+                lat: 29.496815, 
+                lng: -95.182842
+            })
+            createWell(event.playerId, 'common/well/floria/3', {
+                lat: 29.497218, 
+                lng: -95.182240
+            })
+            createGrass(event.playerId, 'common/grass/floria/1', {
+                lat: 29.497828, 
+                lng: -95.183276
+            })
+            createGrass(event.playerId, 'common/grass/floria/2', {
+                lat: 29.4980, 
+                lng: -95.1818
+            })
+            createGrass(event.playerId, 'common/grass/floria/3', {
+                lat: 29.496450, 
+                lng: -95.182891
+            })
+            createTree(event.playerId, 'common/tree/floria/1', {
+                lat: 29.4981, 
+                lng: -95.1816
+            })
+            createTree(event.playerId, 'common/tree/floria/2', {
+                lat: 29.4982, 
+                lng: -95.1819
+            })
+            createTree(event.playerId, 'common/tree/floria/3', {
+                lat: 29.4982,
+                lng: -95.1825
+            })
         break;
         case 'floria/nimri':
             createEncounter(event.playerId, 'floria/bog-dobber', {
@@ -287,16 +469,72 @@ async function handleNecludaEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'necluda/kyllis', {
                 label: 'Talk',
                 imageSlug: 'kyllis-avatar',
-                lat: 29.589597, 
-                lng: -95.374739
+                lat: 29.588857, 
+                lng: -95.376982
             })    
+            createChest(event.playerId, 'common/chest/necluda/1', {
+                lat: 29.587970, 
+                lng: -95.373807
+            })
+            createChest(event.playerId, 'common/chest/necluda/2', {
+                lat: 29.588633, 
+                lng: -95.376649
+            })
+            createWell(event.playerId, 'common/well/necluda/1', {
+                lat: 29.591356, 
+                lng: -95.377364
+            })
+            createChicken(event.playerId, 'common/chicken/necluda/1', {
+                lat: 29.590346, 
+                lng: -95.377802
+            })
+            createChicken(event.playerId, 'common/chicken/necluda/2', {
+                lat: 29.589473, 
+                lng: -95.377768
+            })
+            createChicken(event.playerId, 'common/chicken/necluda/3', {
+                lat: 29.588767, 
+                lng: -95.376353
+            })
+            createChicken(event.playerId, 'common/chicken/necluda/4', {
+                lat: 29.588460, 
+                lng: -95.373894
+            })
+            createPot(event.playerId, 'common/pot/necluda/1', {
+                lat: 29.588063, 
+                lng: -95.374063
+            })
+            createPot(event.playerId, 'common/pot/necluda/2', {
+                lat: 29.588513, 
+                lng: -95.373625
+            })
+            createPot(event.playerId, 'common/pot/necluda/3', {
+                lat: 29.588500, 
+                lng: -95.373717
+            })
+            createGrass(event.playerId, 'common/grass/necluda/1', {
+                lat: 29.5485, 
+                lng: -95.1959
+            })
+            createGrass(event.playerId, 'common/grass/necluda/2', {
+                lat: 29.589215, 
+                lng: -95.374838
+            })
+            createGrass(event.playerId, 'common/grass/necluda/3', {
+                lat: 29.588297, 
+                lng:-95.374953
+            })
+            createTree(event.playerId, 'common/tree/necluda/1', {
+                lat: 29.590021, 
+                lng: -95.377536
+            })
         break;
         case 'necluda/kyllis':
             createEncounter(event.playerId, 'necluda/keese', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
-                lat: 29.588635, 
-                lng: -95.374737
+                lat: 29.589604, 
+                lng: -95.374315
             })  
         break;
         case 'necluda/keese':

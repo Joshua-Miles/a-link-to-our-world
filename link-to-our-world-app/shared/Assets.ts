@@ -3,6 +3,7 @@ export const Assets: Record<string, any> = {
     // Misc
     'marker': require('../assets/marker.png'),
     'health': require('../assets/health.png'),
+    'health-slot': require('../assets/health-slot.png'),
     'locked-door': require('../assets/locked-door.png'),
     'mines': require('../assets/mines.png'),
     'snowball': require('../assets/snowball.png'),
@@ -10,6 +11,10 @@ export const Assets: Record<string, any> = {
     'tree': require('../assets/tree.png'),
     'shrub': require('../assets/shrub.png'),
     'cow': require('../assets/cow.png'),
+    'cucco': require('../assets/cucco.png'),
+    'pot': require('../assets/pot.png'),
+    'well': require('../assets/well.png'),
+
 
     // Enemies
     'chu': require('../assets/enemies/chu.png'),
@@ -172,6 +177,8 @@ export const Assets: Record<string, any> = {
     'koroks-theme': require('../assets/soundtrack/koroks-theme.mp3'),
     'gorruks-theme': require('../assets/soundtrack/gorruks-theme.mp3'),
 
+    'bazaar-theme': require('../assets/soundtrack/bazaar.mp3'),
+
     'lurelin': require('../assets/soundtrack/lurelin.mp3'),
     'floria': require('../assets/soundtrack/floria.mp3'),
     'faron': require('../assets/soundtrack/faron.mp3'),
@@ -202,12 +209,80 @@ export const Assets: Record<string, any> = {
 
     // Ingredients
     'rice': require('../assets/ingredients/rice.png'),
+    'wheat': require('../assets/ingredients/wheat.png'),
+    'yeast': require('../assets/ingredients/yeast.png'),
+    'water': require('../assets/ingredients/water.png'),
+    'oil': require('../assets/ingredients/oil.png'),
+
+    'chicken': require('../assets/ingredients/chicken.png'),
+    'meat': require('../assets/ingredients/meat.png'),
+    'fish': require('../assets/ingredients/fish.png'),
     'cream': require('../assets/ingredients/cream.png'),
+    'butter': require('../assets/ingredients/butter.png'),
+    'cheese': require('../assets/ingredients/cheese.png'),
+    'egg': require('../assets/ingredients/egg.png'),
+    'honey': require('../assets/ingredients/honey.png'),
+    'pineapple': require('../assets/ingredients/pineapple.png'),
+    'apple': require('../assets/ingredients/apple.png'),
+    'banana': require('../assets/ingredients/banana.png'),
+    'carrot': require('../assets/ingredients/carrot.png'),
+    'peas': require('../assets/ingredients/peas.png'),
+    'tomato': require('../assets/ingredients/tomato.png'),
     'truffle': require('../assets/ingredients/truffle.png'),
+    'pickles': require('../assets/ingredients/pickles.png'),
+    'fried-chicken': require('../assets/ingredients/fried-filet.png'),
+    'fried-steak': require('../assets/ingredients/fried-filet.png'),
+    'fried-fish': require('../assets/ingredients/fried-filet.png'),
+    'bread': require('../assets/ingredients/bread.png'),
+    'noodles': require('../assets/ingredients/noodles.png'),
 
 
     // Food
-    'dubious-food': require('../assets/food/dubious-food.png'),
-    'truffle-risotto': require('../assets/food/truffle-risotto.png'),
+    'truffle-soup': require('../assets/food/truffle-soup.png'),
+    'chicken-soup': require('../assets/food/cream-of-meat-soup.png'),
+    'steak-soup': require('../assets/food/cream-of-meat-soup.png'),
+    'veggie-soup': require('../assets/food/veggie-soup.png'),
 
+    'pineapple-pie': require('../assets/food/pineapple-pie.png'),
+    'banana-pie': require('../assets/food/pineapple-pie.png'),
+    'apple-pie': require('../assets/food/apple-pie.png'),
+    'chicken-pie': require('../assets/food/meat-pie.png'),
+    'steak-pie': require('../assets/food/meat-pie.png'),
+    'seafood-pie': require('../assets/food/seafood-pie.png'),
+
+
+    'chicken-omelet': require('../assets/food/omelet.png'),
+    'steak-omelet': require('../assets/food/omelet.png'),
+    'truffle-omelet': require('../assets/food/truffle-omelet.png'),
+    'veggie-omelet': require('../assets/food/veggie-omelet.png'),
+
+    'steak-fried-rice': require('../assets/food/steak-fried-rice.png'),
+    'seafood-fried-rice': require('../assets/food/seafood-fried-rice.png'),
+    'chicken-fried-rice': require('../assets/food/chicken-fried-rice.png'),
+    'egg-fried-rice': require('../assets/food/egg-fried-rice.png'),
+    'veggie-fried-rice': require('../assets/food/veggie-fried-rice.png'),
+
+    'truffle-risotto': require('../assets/food/truffle-risotto.png'),
+    'salmon-risotto': require('../assets/food/salmon-risotto.png'),
+
+    'tomato-pasta': require('../assets/food/tomato-pasta.png'),
+    'alfredo-pasta': require('../assets/food/alfredo-pasta.png'),
+
+    'pizza': require('../assets/food/pizza.png'),
+
+    'fried-chicken-sandwich': require('../assets/food/sandwich.png'),
+    'fried-steak-sandwich': require('../assets/food/sandwich.png'),
+    'fried-fish-sandwich': require('../assets/food/sandwich.png'),
+
+    'steamed-fruit': require('../assets/food/steamed-fruit.png'),
+    'steamed-veggies': require('../assets/food/steamed-veggies.png'),
+    'fried-fruit': require('../assets/food/fried-fruit.png'),
+    'fried-veggies': require('../assets/food/fried-veggies.png'),
+    'roasted-fruit': require('../assets/food/roasted-fruit.png'),
+    'roasted-veggies': require('../assets/food/roasted-veggies.png'),
+
+    'cake': require('../assets/food/cake.png'),
+    'quiche': require('../assets/food/quiche.png'),
+    'hawaiian-haystack': require('../assets/food/hawaiian-haystack.png'),
+    'dubious-food': require('../assets/food/dubious-food.png'),
 }

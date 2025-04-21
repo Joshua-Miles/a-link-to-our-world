@@ -27,5 +27,14 @@ export * from './useFirstKorok';
 export * from './testSongs';
 export * from './useLocation';
 export * from './Friends';
-export * from './Shrub';
+export * from './HealthMeter';
+export * from './ItemTile';
+export * from './ItemDropper';
+
+export * from './Chicken';
 export * from './Cow';
+export * from './Pot';
+export * from './Tree';
+export * from './Grass';
+export * from './Well';
+export * from './Chest';

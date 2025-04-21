@@ -16,6 +16,9 @@ export const getPlayerMeters = observer(async ({ observe }: ObserverContext, cli
         select: from(PlayerMeters.type)
             .playerId()
             .health()
+            .heartContainers()
+            .continues()
+            .rupees()
     }))
     if (healthMeter) {
         return healthMeter;

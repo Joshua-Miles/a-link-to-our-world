@@ -42,7 +42,7 @@ export function ItemGet({ isOpen, title, description, asset, onFinished, resumeP
                     opacity: timing(1000).then(sequence.next)
                 }}
             >
-                <Image source={Assets[asset]} style={{ width: 120, height: 120 }} />
+                <Image source={Assets[asset]} style={{ width: 120, height: 120, objectFit: 'contain' }} />
                 <Column>
                     <Headline.Small color={colors.roles.onPrimary}>
                         {title}

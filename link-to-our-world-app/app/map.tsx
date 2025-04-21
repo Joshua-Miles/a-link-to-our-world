@@ -128,6 +128,11 @@ const phase1Provinces = [
     lng: -95.363353,
   },
   {
+    name: 'bazaar-theme',
+    lat: 29.574138,
+    lng: -95.361177
+  },
+  {
     name: 'lurelin',
     lat: 29.54195,
     lng: -95.306933,
@@ -154,6 +159,11 @@ const phase2Provinces = [
     name: 'luminas-theme',
     lat: 29.574452,
     lng: -95.363353,
+  },
+  {
+    name: 'bazaar-theme',
+    lat: 29.574138,
+    lng: -95.361177
   },
   {
     name: 'gerudo',

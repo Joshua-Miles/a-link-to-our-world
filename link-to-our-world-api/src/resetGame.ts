@@ -5,6 +5,7 @@ import { GameController } from "./GameController";
 import { Session } from "./Session";
 import { resetMemories } from "./Memory";
 import { resetInventoryItems } from "./InventoryItem";
+import { resetMeters } from "./Meters";
 
 export async function resetGame(client: Client<Session>) {
     const { loggedInUserId } = await client.getSession();
@@ -13,6 +14,7 @@ export async function resetGame(client: Client<Session>) {
     await resetObjectives(loggedInUserId);
     await resetInventoryItems(loggedInUserId);
     await resetMemories(loggedInUserId);
+    await resetMeters(loggedInUserId);
     await GameController.handle({
         type: 'NEW_GAME',
         playerId: loggedInUserId

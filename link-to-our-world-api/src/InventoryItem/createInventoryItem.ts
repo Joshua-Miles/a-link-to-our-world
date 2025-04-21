@@ -5,7 +5,7 @@ type Slug = InventoryItem['slug'];
 
 type RequiredOptions = Pick<InventoryItem, 'name' | 'type'>
 
-type Options = RequiredOptions & Partial<Pick<InventoryItem, 'imageSlug'>>
+type Options = RequiredOptions & Partial<Pick<InventoryItem, 'imageSlug' | 'power'>>
 
 export const createInventoryItem = async (playerId: number, slug: Slug, { name, type, ...options }: Options) => {
     const item = await InventoryItems.withPlayerIdAndSlug(playerId, slug).get({
@@ -22,7 +22,8 @@ export const createInventoryItem = async (playerId: number, slug: Slug, { name, 
             type,
             quantity: 1,
             imageSlug: options.imageSlug ?? slug,
-            acknowledged: false
+            acknowledged: false,
+            power: options.power
         })
     }
 }

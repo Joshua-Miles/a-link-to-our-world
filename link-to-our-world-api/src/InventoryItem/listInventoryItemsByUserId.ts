@@ -13,5 +13,6 @@ export const listInventoryItemsByUserId = observer(async ({ observe }: ObserverC
             .name()
             .imageSlug()
             .acknowledged()
+            .power()
     }))
 })
