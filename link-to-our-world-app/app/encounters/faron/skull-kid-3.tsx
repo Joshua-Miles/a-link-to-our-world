@@ -1,5 +1,5 @@
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, ItemGet, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1C } from "./tavon";
 import { isLoading, useResult } from "@triframe/utils-react";
@@ -14,6 +14,8 @@ export default function () {
         'thankYouScribeleaf',
         'imGlad',
         'scribeleafShouldBePlanted',
+        'thankYou',
+        'heartContainer',
         'meanwhile',
         'gorrukFindsTheDemonFlute'
     ])
@@ -102,6 +104,21 @@ export default function () {
                         `Nearby is a good spot to play her a lullaby on the goddess flute; I have marked it on your map.`
                      ]}
                     hasStarted={sequnece.hasReached('scribeleafShouldBePlanted')}
+                    onFinished={sequnece.next}
+                />
+                <SpeechCard
+                    asset="tavon"
+                    text={[
+                         `Before you leave, ${playerName}, please take this, as a token of our appreciation.`,
+                    ]}
+                    hasStarted={sequnece.hasReached('thankYou')}
+                    onFinished={sequnece.next}
+                />
+                <ItemGet 
+                    title="Heart Container"
+                    description="This will increase your max health by 1"
+                    asset='heart-container'
+                    isOpen={sequnece.isAt('heartContainer')}
                     onFinished={sequnece.next}
                 />
             </>}

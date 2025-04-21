@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, ItemGet, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1D } from "./kyllis";
 
@@ -13,7 +13,9 @@ export default function () {
         'myNameIsTumblebreeze',
         'thankYouTumblebreeze',
         'dontThinkLessOfPeopleWhoAreDifferent',
-        'tumblebreezeShouldBePlanted'
+        'tumblebreezeShouldBePlanted',
+        'thankYou',
+        'heartContainer'
     ])
 
     function handleFinished() {
@@ -102,6 +104,21 @@ export default function () {
                         `Nearby is a good spot to play him a lullaby on the goddess flute; I have marked it on your map.`
                      ]}
                     hasStarted={sequnece.hasReached('tumblebreezeShouldBePlanted')}
+                    onFinished={sequnece.next}
+                />
+                <SpeechCard
+                    asset="kyllis"
+                    text={[
+                            `Before you leave, ${playerName}, please take this, as a token of our appreciation.`,
+                    ]}
+                    hasStarted={sequnece.hasReached('thankYou')}
+                    onFinished={sequnece.next}
+                />
+                <ItemGet 
+                    title="Heart Container"
+                    description="This will increase your max health by 1"
+                    asset='heart-container'
+                    isOpen={sequnece.isAt('heartContainer')}
                     onFinished={sequnece.next}
                 />
             </>}

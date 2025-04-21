@@ -1,9 +1,10 @@
-import { createChest, createChicken, createCow, createEncounter, createGrass, createPot, createTree, createWell, getEncounterByPlayerIdAndSlug } from "./Encounter";
+import { createChest, createChicken, createCow, createEncounter, createGrass, createPalmTree, createPool, createPot, createSnowTree, createTree, createWell, createWolf, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
 import { getSeedsPlantedByUserId } from "./getSeedsPlanted";
 import { getTemplesWateredByUserId } from "./getTemplesWatered";
 import { createInventoryItem, removeInventoryItem } from "./InventoryItem";
+import { incrementHeartContainers } from "./Meters";
 import { completeObjective, createObjective } from "./Objective";
 
 export const GameController = {
@@ -229,6 +230,7 @@ async function handleLurelinEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'lurelin/moldarach':
+            incrementHeartContainers(event.playerId)
             createEncounter(event.playerId, 'lurelin/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -334,6 +336,7 @@ async function handleFaronEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'faron/skull-kid-2':
+            incrementHeartContainers(event.playerId);
             createEncounter(event.playerId, 'faron/skull-kid-3', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -442,6 +445,7 @@ async function handleFloriaEncounters(event: EncounterResolvedEvent) {
             })  
         break;
         case 'floria/bog-dobber':
+            incrementHeartContainers(event.playerId);
             createEncounter(event.playerId, 'floria/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -546,6 +550,7 @@ async function handleNecludaEncounters(event: EncounterResolvedEvent) {
             })  
         break;
         case 'necluda/argorok':
+            incrementHeartContainers(event.playerId)
             createEncounter(event.playerId, 'necluda/lullaby', {
                 label: 'Inspect...',
                 imageSlug: 'marker',
@@ -668,6 +673,59 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.521745,
                 lng:  -95.193940,
             })
+
+            createChest(event.playerId, 'common/chest/gerudo/1', {
+                lat: 29.521481, 
+                lng: -95.191849
+            })
+            createChest(event.playerId, 'common/chest/gerudo/2', {
+                lat: 29.521822, 
+                lng: -95.194610
+            })
+            createWell(event.playerId, 'common/well/gerudo/1', {
+                lat: 29.521024, 
+                lng: -95.194191
+            })
+            createPot(event.playerId, 'common/pot/gerudo/1', {
+                lat: 29.518485,
+                lng:  -95.193892
+            })
+            createPot(event.playerId, 'common/pot/gerudo/2', {
+                lat: 29.519758, 
+                lng: -95.192779
+            })
+            createPot(event.playerId, 'common/pot/gerudo/3', {
+                lat: 29.521629, 
+                lng: -95.193992
+            })
+            createPot(event.playerId, 'common/pot/gerudo/4', {
+                lat: 29.521652,
+                lng: -95.193748
+            })
+            createPot(event.playerId, 'common/pot/gerudo/5', {
+                lat: 29.520390, 
+                lng: -95.193291
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/gerudo/1', {
+                lat: 29.517713, 
+                lng: -95.194172
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/gerudo/2', {
+                lat: 29.519091, 
+                lng: -95.193417
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/gerudo/3', {
+                lat: 29.520176, 
+                lng: -95.193009
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/gerudo/4', {
+                lat: 29.521568, 
+                lng: -95.192077
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/gerudo/5', {
+                lat: 29.520968, 
+                lng: -95.191439
+            })
         break;
         case 'gerudo/tidebane':
             createEncounter(event.playerId, 'gerudo/tidebane-2', {
@@ -695,7 +753,8 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'gerudo/temple':
-            removeInventoryItem(event.playerId, 'key')
+            incrementHeartContainers(event.playerId);
+            removeInventoryItem(event.playerId, 'key');
             createEncounter(event.playerId, 'gerudo/cache', {
                 label: 'Inspect',
                 imageSlug: 'marker',
@@ -740,6 +799,54 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.5093, 
                 lng: -95.1396
             })
+            createChest(event.playerId, 'common/chest/eldin/1', {
+                lat: 29.510975, 
+                lng: -95.138515
+            })
+            createChest(event.playerId, 'common/chest/eldin/2', {
+                lat: 29.507914, 
+                lng: -95.132777
+            })
+            createPot(event.playerId, 'common/pot/eldin/1', {
+                lat: 29.508605, 
+                lng:  -95.136203
+            })
+            createPot(event.playerId, 'common/pot/eldin/2', {
+                lat: 29.507673,
+                lng: -95.138195
+            })
+            createGrass(event.playerId, 'common/grass/eldin/1', {
+                lat: 29.508132, 
+                lng: -95.135807
+            })
+            createGrass(event.playerId, 'common/grass/eldin/2', {
+                lat: 29.507815, 
+                lng: -95.134775
+            })
+            createGrass(event.playerId, 'common/grass/eldin/3', {
+                lat: 29.508683, 
+                lng: -95.134673
+            })
+            createWolf(event.playerId, 'common/wolf/eldin/1', {
+                lat: 29.5089, 
+                lng: -95.1387
+            })
+            createWolf(event.playerId, 'common/wolf/eldin/2', {
+                lat: 29.5076, 
+                lng: -95.1404
+            })
+            createWolf(event.playerId, 'common/wolf/eldin/3', {
+                lat: 29.5072, 
+                lng: -95.1406
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/eldin/1', {
+                lat: 29.508505, 
+                lng: -95.133599
+            })
+            createPalmTree(event.playerId, 'common/palm-tree/eldin/2', {
+                lat: 29.508238,
+                lng:  -95.136277
+            })
         break;
         case 'eldin/bouldan':
             createInventoryItem(event.playerId, 'milk', {
@@ -779,6 +886,7 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'eldin/temple':
+            incrementHeartContainers(event.playerId);
             removeInventoryItem(event.playerId, 'key');
             createEncounter(event.playerId, 'eldin/cache', {
                 label: 'Inspect',
@@ -824,6 +932,54 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
                 lat: 29.641209, 
                 lng: -95.219009
             })
+            createChest(event.playerId, 'common/chest/zoras/1', {
+                lat: 29.640741,
+                lng: -95.216783
+            })
+            createChest(event.playerId, 'common/chest/zoras/2', {
+                lat: 29.642115, 
+                lng:  -95.217834
+            })
+            createPool(event.playerId, 'common/pool/zoras/1', {
+                lat: 29.640770,
+                lng: -95.218130
+            })
+            createPool(event.playerId, 'common/pool/zoras/2', {
+                lat: 29.641596, 
+                lng:  -95.217906
+            })
+            createPool(event.playerId, 'common/pool/zoras/3', {
+                lat: 29.641448, 
+                lng:  -95.219389
+            })
+            createPool(event.playerId, 'common/pool/zoras/4', {
+                lat: 29.642141, 
+                lng:  -95.218464
+            })
+            createPool(event.playerId, 'common/pool/zoras/5', {
+                lat: 29.640992, 
+                lng: -95.220044
+            })
+            createGrass(event.playerId, 'common/grass/zoras/1', {
+                lat: 29.641317, 
+                lng: -95.219431
+            })
+            createGrass(event.playerId, 'common/grass/zoras/2', {
+                lat: 29.641899, 
+                lng: -95.217609
+            })
+            createTree(event.playerId, 'common/tree/zoras/1', {
+                lat: 29.641263, 
+                lng: -95.217867
+            })
+            createTree(event.playerId, 'common/tree/zoras/2', {
+                lat: 29.642236, 
+                lng:  -95.218835
+            })
+            createTree(event.playerId, 'common/tree/zoras/3', {
+                lat: 29.640980, 
+                lng:  -95.220439
+            })
         break;
         case 'zoras/nerali':
             createEncounter(event.playerId, 'zoras/throne-room', {
@@ -850,6 +1006,7 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'zoras/temple':
+            incrementHeartContainers(event.playerId);
             removeInventoryItem(event.playerId, 'key')
             createEncounter(event.playerId, 'zoras/cache', {
                 label: 'Inspect',
@@ -877,11 +1034,59 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lat: 29.582168, 
                 lng: -95.416507
             })
-            createEncounter(event.playerId, 'hebra/wolf', {
+            createEncounter(event.playerId, 'hebra/fox', {
                 label: 'Talk',
-                imageSlug: 'wolf',
+                imageSlug: 'fox',
                 lat: 29.581471, 
                 lng: -95.416594
+            })
+            createChest(event.playerId, 'common/chest/hebra/1', {
+                lat: 29.582533, 
+                lng: -95.415775
+            })
+            createChest(event.playerId, 'common/chest/hebra/2', {
+                lat: 29.580531, 
+                lng:  -95.409370
+            })
+            createWolf(event.playerId, 'common/wolf/hebra/1', {
+                lat: 29.581874, 
+                lng: -95.415021
+            })
+            createWolf(event.playerId, 'common/wolf/hebra/2', {
+                lat: 29.582001, 
+                lng:  -95.412672
+            })
+            createWolf(event.playerId, 'common/wolf/hebra/3', {
+                lat: 29.581242, 
+                lng:  -95.409227
+            })
+            createGrass(event.playerId, 'common/grass/hebra/1', {
+                lat: 29.581359, 
+                lng: -95.417012
+            })
+            createGrass(event.playerId, 'common/grass/hebra/2', {
+                lat: 29.582132, 
+                lng: -95.416520
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/1', {
+                lat: 29.581612,
+                lng:  -95.416352
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/2', {
+                lat: 29.581699, 
+                lng: -95.415306
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/3', {
+                lat: 29.582122, 
+                lng: -95.414126
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/4', {
+                lat: 29.581994, 
+                lng:  -95.412683
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/5', {
+                lat: 29.582423, 
+                lng: -95.410739
             })
         break;
         case 'hebra/kyllis':
@@ -915,9 +1120,10 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
             })
         break;
         case 'hebra/frostus':
-            markEncounterResolved(event.playerId, 'hebra/wolf', {});
+            markEncounterResolved(event.playerId, 'hebra/fox', {});
         break;
         case 'hebra/temple-2':
+            incrementHeartContainers(event.playerId);
             createEncounter(event.playerId, 'hebra/cache', {
                 label: 'Inspect...',
                 imageSlug: 'marker',

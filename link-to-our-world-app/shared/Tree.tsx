@@ -30,8 +30,8 @@ const items: Item[] = [
     },
 ]
 
-export function Tree({ encounter }: { encounter: Parameters<typeof resolveEncounter>[0] }) {
-    return <ItemDropper focus="tree" encounter={encounter} nextText="Pick" {...getRandomItem()} />
+export function Tree({ encounter, focus = 'tree' }: { encounter: Parameters<typeof resolveEncounter>[0], focus?: string  }) {
+    return <ItemDropper focus={focus} encounter={encounter} nextText="Pick" {...getRandomItem()} />
 }
 
 function getRandomItem(): Item {

@@ -66,3 +66,26 @@ export  const createWell = (playerId: number, slug: Slug & `common/well/${string
     imageSlug: 'well',
 })
 
+export  const createSnowTree = (playerId: number, slug: Slug & `common/snow-tree/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Pick',
+    imageSlug: 'snow-tree',
+})
+
+export  const createPalmTree = (playerId: number, slug: Slug & `common/palm-tree/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Pick',
+    imageSlug: 'palm-tree',
+})
+
+export  const createWolf = (playerId: number, slug: Slug & `common/wolf/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: 'wolf',
+})
+
+export  const createPool = (playerId: number, slug: Slug & `common/pool/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Inspect',
+    imageSlug: 'pool',
+})

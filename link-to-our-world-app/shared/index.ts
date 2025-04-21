@@ -34,6 +34,7 @@ export * from './ItemDropper';
 export * from './Chicken';
 export * from './Cow';
 export * from './Pot';
+export * from './Wolf';
 export * from './Tree';
 export * from './Grass';
 export * from './Well';

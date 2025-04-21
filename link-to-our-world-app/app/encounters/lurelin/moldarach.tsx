@@ -13,7 +13,7 @@ export default function () {
         'youreRight',
         'combat',
         'thankYou',
-        'thunderHelm',
+        'heartContainer',
         'thankYouGrinroot',
         'willYouSingMeALullaby',
         'grinRootShouldBePlanted'
@@ -44,7 +44,7 @@ export default function () {
 
     const youreRight: Record<Answer1A, string> = {
         "It's dangerous to go alone": `Ay, you're right little sprout. Stick close to me, ${playerName}, and we'll make short work o' this!`,
-        "You should look before running into new areas": `Ay, you're right little sprout... Woah! Did yee see that thing break the surface o' the sand? I can see it moving now. Alright then, stick close to me,  me, ${playerName}, and we'll make short work o' this!`,
+        "You should look before running into new areas": `Ay, you're right little sprout... Woah! Did yee see that thing break the surface o' the sand? I can see it moving now. Alright then, stick close to me, ${playerName}, and we'll make short work o' this!`,
         "We need you to keep us safe": `I'd never dream of it, little sprout. Alright then, stick close to me, ${playerName}, and we'll make short work o' this!`
     }
 
@@ -98,15 +98,15 @@ export default function () {
                     asset={sequnece.hasNotReached('willYouSingMeALullaby') ? 'tidebane' : 'grinroot'}
                 />
                 <SpeechStepper
-                    groups={[[ "I'd never have cut down that Moldarach on my own. Thank you for your help. Please take this as a token of my appreciation. It's been passed down in my family 8 generations."] ]}
+                    groups={[[ "I'd never have cut down that Moldarach on my own. Thank you for your help. Please take this as a token of my appreciation."] ]}
                     hasStarted={sequnece.hasReached('thankYou')}
                     onFinished={sequnece.next}
                 />
                 <ItemGet 
-                    title="The Thunderhelm"
-                    description="An ancient relic of a time long past"
-                    asset='thunderhelm'
-                    isOpen={sequnece.isAt('thunderHelm')}
+                    title="Heart Container"
+                    description="This will increase your max health by 1"
+                    asset='heart-container'
+                    isOpen={sequnece.isAt('heartContainer')}
                     onFinished={sequnece.next}
                 />
                 <SpeechStepper

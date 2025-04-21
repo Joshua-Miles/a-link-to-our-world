@@ -16,7 +16,7 @@ export default function () {
 
     return (
         <Scene>
-            <SceneFocus asset="wolf" />
+            <SceneFocus asset="fox" />
             <SpeechStepper
                 hasStarted={sequence.hasReached('intro')}
                 groups={[

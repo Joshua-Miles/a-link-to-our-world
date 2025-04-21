@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Combat, ItemGet, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 import { Answer1B } from "./intro";
 
@@ -9,6 +9,8 @@ export default function () {
     const sequnece = useSequence({ hasStarted: true, onFinished: handleFinished }, [
         'sureIsScary',
         'combat',
+        'thankYou',
+        'heartContainer',
         'thankYouFayflutter',
         'willYouSingMeALullaby',
         'fayflutterShouldBePlanted'
@@ -60,9 +62,22 @@ export default function () {
                 <SceneFocus
                     asset={sequnece.hasNotReached('willYouSingMeALullaby') ? 'nimri' : 'fayflutter'}
                 />
-                <SpeechStepper
+                 <SpeechStepper
                     groups={[
                         [ "Thank you for fighting the bog-dobber with me!"],
+                    ]}
+                    hasStarted={sequnece.hasReached('thankYouFayflutter')}
+                    onFinished={sequnece.next}
+                />
+                <ItemGet 
+                    title="Heart Container"
+                    description="This will increase your max health by 1"
+                    asset='heart-container'
+                    isOpen={sequnece.isAt('heartContainer')}
+                    onFinished={sequnece.next}
+                />
+                <SpeechStepper
+                    groups={[
                         [ thankYouFayflutter[answer1B] ]
                     ]}
                     hasStarted={sequnece.hasReached('thankYouFayflutter')}

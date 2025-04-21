@@ -4,6 +4,7 @@ export const Assets: Record<string, any> = {
     'marker': require('../assets/marker.png'),
     'health': require('../assets/health.png'),
     'health-slot': require('../assets/health-slot.png'),
+    'heart-container': require('../assets/heart-container.png'),
     'locked-door': require('../assets/locked-door.png'),
     'mines': require('../assets/mines.png'),
     'snowball': require('../assets/snowball.png'),
@@ -14,6 +15,11 @@ export const Assets: Record<string, any> = {
     'cucco': require('../assets/cucco.png'),
     'pot': require('../assets/pot.png'),
     'well': require('../assets/well.png'),
+    'wolf': require('../assets/wolf.png'),
+    'snow-tree': require('../assets/snow-tree.png'),
+    'palm-tree': require('../assets/palm-tree.png'),
+    'pool': require('../assets/pool.png'),
+
 
 
     // Enemies
@@ -143,7 +149,7 @@ export const Assets: Record<string, any> = {
     'sorai': require('../assets/characters/sorai.png'),
     'sorai-avatar': require('../assets/characters/sorai-avatar.png'),
 
-    'wolf': require('../assets/characters/wolf.png'),
+    'fox': require('../assets/characters/fox.png'),
     'thurnok': require('../assets/characters/thurnok.png'),
     'thurnok-avatar': require('../assets/characters/thurnok-avatar.png'),
     'eskra': require('../assets/characters/eskra.png'),
@@ -180,13 +186,21 @@ export const Assets: Record<string, any> = {
     'bazaar-theme': require('../assets/soundtrack/bazaar.mp3'),
 
     'lurelin': require('../assets/soundtrack/lurelin.mp3'),
+    'lurelin-battle': require('../assets/soundtrack/lurelin-battle.mp3'),
     'floria': require('../assets/soundtrack/floria.mp3'),
+    'floria-battle': require('../assets/soundtrack/floria-battle.mp3'),
     'faron': require('../assets/soundtrack/faron.mp3'),
+    'faron-battle': require('../assets/soundtrack/faron-battle.mp3'),
     'necluda': require('../assets/soundtrack/necluda.mp3'),
+    'necluda-battle': require('../assets/soundtrack/necluda-battle.mp3'),
     'gerudo': require('../assets/soundtrack/gerudo.mp3'),
+    'gerudo-battle': require('../assets/soundtrack/gerudo-battle.mp3'),
     'eldin': require('../assets/soundtrack/eldin.mp3'),
+    'eldin-battle': require('../assets/soundtrack/eldin-battle.mp3'),
     'zoras': require('../assets/soundtrack/zoras.mp3'),
+    'zoras-battle': require('../assets/soundtrack/zoras-battle.mp3'),
     'hebra': require('../assets/soundtrack/hebra.mp3'),
+    'hebra-battle': require('../assets/soundtrack/hebra-battle.mp3'),
 
     'ganon-theme': require('../assets/soundtrack/ganon.mp3'),
     'skull-kids-theme-clipped': require('../assets/soundtrack/skull-kids-theme-clipped.mp3'),

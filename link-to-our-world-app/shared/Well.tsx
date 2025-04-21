@@ -18,7 +18,7 @@ type Item = {
 }
 
 
-export function Well({ encounter }: { encounter: Parameters<typeof resolveEncounter>[0] }) {
+export function Well({ encounter, focus = "well" }: { encounter: Parameters<typeof resolveEncounter>[0], focus?: string }) {
     const sequence = useSequence({ hasStarted: true, onFinished: handleFinished }, [
         'intro',
         'itemGet'
@@ -61,7 +61,7 @@ export function Well({ encounter }: { encounter: Parameters<typeof resolveEncoun
 
     return (
         <Scene>
-            <SceneFocus asset="well" />
+            <SceneFocus asset={focus} />
             <Row justifyContent="space-evenly" display={sequence.hasReached('itemGet') ? 'none' : 'flex'}>
                 <Button.Filled onPress={handleFish} >
                     Fish <ArrowRightIcon />
