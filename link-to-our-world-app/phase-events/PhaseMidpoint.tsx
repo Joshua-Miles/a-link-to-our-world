@@ -58,7 +58,7 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
     return (
         <>
             {sequence.hasPassed('iSense') && !sequence.isAt('combat') && <SceneFocus asset="gorruk" />}
-            <Soundtrack isPlaying={hasStarted} asset="gorruks-theme" />
+            <Soundtrack isPlaying={hasStarted} asset="gorruk-theme-3" />
             <SpeechCard
                 hasStarted={sequence.hasReached('iSense')}
                 asset="lumina-avatar"

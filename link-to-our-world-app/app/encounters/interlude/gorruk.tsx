@@ -38,7 +38,7 @@ export default function() {
 
     return (
         <Scene>
-            <Soundtrack asset="gorruks-theme" />
+            <Soundtrack asset="gorruk-theme-2" />
             {sequence.hasNotReached('combat') &&
                 <>
                     <SceneFocus asset="gorruk" />                       

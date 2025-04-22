@@ -12,7 +12,11 @@ export const INITIAL_RUPEES = 0;
 export const getPlayerMeters = observer(async ({ observe }: ObserverContext, client: Client<Session>) => {
     const { loggedInUserId } = await observe(client.getSession());
     if (!loggedInUserId) return makeFailure('notAuthorized', {});
-    const healthMeter = await observe(PlayerMeters.withPlayerId(loggedInUserId).get({
+    return await observe(getPlayerMeterByPlayerId(loggedInUserId))
+})
+
+export const getPlayerMeterByPlayerId = observer(async ({ observe }: ObserverContext, playerId: number) => {
+    const healthMeter = await observe(PlayerMeters.withPlayerId(playerId).get({
         select: from(PlayerMeters.type)
             .playerId()
             .health()
@@ -23,6 +27,6 @@ export const getPlayerMeters = observer(async ({ observe }: ObserverContext, cli
     if (healthMeter) {
         return healthMeter;
     } else {
-        return await PlayerMeters.append({ playerId: loggedInUserId, health: INITIAL_HEALTH, heartContainers: INITIAL_HEART_CONTAINERS, rupees: INITIAL_RUPEES, continues: 0 })
+        return await PlayerMeters.append({ playerId: playerId, health: INITIAL_HEALTH, heartContainers: INITIAL_HEART_CONTAINERS, rupees: INITIAL_RUPEES, continues: 0 })
     }
 })

@@ -1,10 +1,10 @@
-import { createChest, createChicken, createCow, createEncounter, createGrass, createPalmTree, createPool, createPot, createSnowTree, createTree, createWell, createWolf, getEncounterByPlayerIdAndSlug } from "./Encounter";
+import { createChest, createChicken, createChu, createCow, createDarknut, createDekuBaba, createEncounter, createGibdo, createGrass, createKeese, createLizalfos, createMoblin, createPalmTree, createPool, createPot, createSnowTree, createTalus, createTree, createWell, createWolf, getEncounterByPlayerIdAndSlug } from "./Encounter";
 import { markEncounterResolved, resolveEncounter } from "./Encounter/resolveEncounter";
 import { EncounterResolvedEvent, GameEvent } from "./GameEvent";
 import { getSeedsPlantedByUserId } from "./getSeedsPlanted";
 import { getTemplesWateredByUserId } from "./getTemplesWatered";
 import { createInventoryItem, removeInventoryItem } from "./InventoryItem";
-import { incrementHeartContainers } from "./Meters";
+import { incrementHeartContainers, updateRupees } from "./Meters";
 import { completeObjective, createObjective } from "./Objective";
 
 export const GameController = {
@@ -25,6 +25,7 @@ export const GameController = {
             break;
             case 'ENCOUNTER_RESOLVED':
                 await handleEncounterDrops(event);
+                await handleEncounterRewards(event);
                 await handleIntroEncounters(event);
                 await handleLurelinEncounters(event);
                 await handleFaronEncounters(event);
@@ -43,7 +44,16 @@ export const GameController = {
 
 async function handleEncounterDrops(event: EncounterResolvedEvent) {
     if (event.state.drops) {
-        await createInventoryItem(event.playerId, event.state.drops.slug, event.state.drops)
+        await createInventoryItem(event.playerId, event.state.drops.slug, event.state.drops);
+    }
+}
+
+async function handleEncounterRewards(event: EncounterResolvedEvent) {
+    if (event.state.reward && typeof event.state.reward === 'number') {
+        await updateRupees(event.playerId, event.state.reward);
+    }
+    if (event.state.reward && event.state.rewart === 'heart-container') {
+        await incrementHeartContainers(event.playerId)
     }
 }
 
@@ -220,6 +230,50 @@ async function handleLurelinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.543840, 
                 lng: -95.312481
             })
+            createKeese(event.playerId, 'enemy/keese/standard/lurelin/1', {
+                lat: 29.545249,
+                lng: -95.308706
+            })
+            createKeese(event.playerId, 'enemy/keese/standard/lurelin/2', {
+                lat: 29.543882, 
+                lng: -95.311693
+            })
+            createKeese(event.playerId, 'enemy/keese/standard/lurelin/3', {
+                lat: 29.543087, 
+                lng: -95.310440
+            })
+            createKeese(event.playerId, 'enemy/keese/standard/lurelin/4', {
+                lat: 29.544805, 
+                lng: -95.307085
+            })
+            createKeese(event.playerId, 'enemy/keese/standard/lurelin/5', {
+                lat: 29.541849,
+                lng:  -95.308968
+            })
+            createChu(event.playerId, 'enemy/chu/standard/lurelin/1', {
+                lat: 29.544602, 
+                lng: -95.309520
+            })
+            createChu(event.playerId, 'enemy/chu/standard/lurelin/2', {
+                lat: 29.541991,
+                lng:  -95.306951
+            })
+            createChu(event.playerId, 'enemy/chu/standard/lurelin/3', {
+                lat: 29.542139, 
+                lng: -95.310447
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/lurelin/1', {
+                lat: 29.543561, 
+                lng:  -95.312620
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/lurelin/2', {
+                lat: 29.544731, 
+                lng: -95.309378
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/lurelin/3', {
+                lat: 29.541826, 
+                lng: -95.307996
+            })
         break;
         case 'lurelin/tidebane':
             createEncounter(event.playerId, 'lurelin/moldarach', {
@@ -316,6 +370,46 @@ async function handleFaronEncounters(event: EncounterResolvedEvent) {
             createTree(event.playerId, 'common/tree/faron/5', {
                 lat: 29.5489, 
                 lng: -95.1949
+            })
+            createChu(event.playerId, 'enemy/chu/standard/faron/1', {
+                lat: 29.547517,
+                lng: -95.196147
+            })
+            createChu(event.playerId, 'enemy/chu/standard/faron/2', {
+                lat: 29.548017, 
+                lng: -95.195782
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/faron/1', {
+                lat: 29.548450, 
+                lng: -95.196049
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/faron/2', {
+                lat: 29.5499,
+                lng: -95.1971
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/faron/3', {
+                lat: 29.5523,
+                lng: -95.1977
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/faron/4', {
+                lat: 29.544356, 
+                lng: -95.198480
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/faron/5', {
+                lat: 29.543904,
+                lng: -95.198110
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/faron/1', {
+                lat: 29.5499,
+                lng: -95.1949
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/faron/2', {
+                lat: 29.5467,
+                lng: -95.1966
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/faron/3', {
+                lat: 29.544205,
+                lng: -95.198467
             })
         break;
         case 'faron/tavon':
@@ -435,6 +529,46 @@ async function handleFloriaEncounters(event: EncounterResolvedEvent) {
                 lat: 29.4982,
                 lng: -95.1825
             })
+            createChu(event.playerId, 'enemy/chu/standard/floria/1', {
+                lat: 29.496955, 
+                lng: -95.183850
+            })
+            createChu(event.playerId, 'enemy/chu/standard/floria/2', {
+                lat: 29.497697, 
+                lng:-95.183002
+            })
+            createChu(event.playerId, 'enemy/chu/standard/floria/3', {
+                lat: 29.497966, 
+                lng: -95.182020
+            })
+            createChu(event.playerId, 'enemy/chu/standard/floria/4', {
+                lat: 29.496620, 
+                lng: -95.183134
+            })
+            createChu(event.playerId, 'enemy/chu/standard/floria/5', {
+                lat: 29.497669, 
+                lng: -95.183379
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/floria/1', {
+                lat: 29.4982, 
+                lng: -95.1819
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/floria/2', {
+                lat: 29.496254, 
+                lng: -95.182435
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/floria/1', {
+                lat: 29.4986,
+                lng: -95.1813
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/floria/2', {
+                lat: 29.498044, 
+                lng: -95.183130
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/floria/3', {
+                lat: 29.496473, 
+                lng: -95.182786
+            })
         break;
         case 'floria/nimri':
             createEncounter(event.playerId, 'floria/bog-dobber', {
@@ -531,6 +665,46 @@ async function handleNecludaEncounters(event: EncounterResolvedEvent) {
             createTree(event.playerId, 'common/tree/necluda/1', {
                 lat: 29.590021, 
                 lng: -95.377536
+            })
+            createChu(event.playerId, 'enemy/chu/standard/necluda/1', {
+                lat: 29.588784, 
+                lng: -95.376344
+            })
+            createChu(event.playerId, 'enemy/chu/standard/necluda/2', {
+                lat: 29.588892, 
+                lng: -95.374946
+            })
+            createChu(event.playerId, 'enemy/chu/standard/necluda/3', {
+                lat: 29.588354, 
+                lng: -95.375111
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/necluda/1', {
+                lat: 29.588768, 
+                lng: -95.376035
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/necluda/2', {
+                lat: 29.589328, 
+                lng: -95.375229
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/standard/necluda\/3', {
+                lat: 29.588392, 
+                lng: -95.374381
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/necluda/1', {
+                lat: 29.590323, 
+                lng: -95.378172
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/necluda/2', {
+                lat: 29.588915, 
+                lng: -95.376985
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/necluda/3', {
+                lat: 29.588262,
+                lng:  -95.374043
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/necluda/4', {
+                lat: 29.587925, 
+                lng: -95.373882
             })
         break;
         case 'necluda/kyllis':
@@ -726,6 +900,46 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.520968, 
                 lng: -95.191439
             })
+            createChu(event.playerId, 'enemy/chu/electric/gerudo/1', {
+                lat: 29.517581, 
+                lng: -95.194385
+            })
+            createChu(event.playerId, 'enemy/chu/electric/gerudo/2', {
+                lat: 29.520417, 
+                lng: -95.193701
+            })
+            createKeese(event.playerId, 'enemy/keese/electric/gerudo/1', {
+                lat: 29.520941, 
+                lng: -95.193967
+            })
+            createKeese(event.playerId, 'enemy/keese/electric/gerudo/2', {
+                lat: 29.520736, 
+                lng: -95.192324
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/standard/gerudo/1', {
+                lat: 29.520133, 
+                lng: -95.192738
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/standard/gerudo/2', {
+                lat: 29.521279,
+                lng:  -95.191644
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/standard/gerudo/3', {
+                lat: 29.520860, 
+                lng: -95.192147
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/gerudo/1', {
+                lat: 29.520075,
+                lng:  -95.193037
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/gerudo/2', {
+                lat: 29.520501, 
+                lng: -95.192482
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/gerudo/3', {
+                lat: 29.520972, 
+                lng: -95.192809
+            })
         break;
         case 'gerudo/tidebane':
             createEncounter(event.playerId, 'gerudo/tidebane-2', {
@@ -761,6 +975,14 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 lat: 29.520817, 
                 lng: -95.192433
             })
+            createGibdo(event.playerId, 'enemy/gibdo/electric/gerudo/1', {
+                lat: 29.520695, 
+                lng: -95.192180
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/electric/gerudo/1', {
+                lat: 29.520803,
+                lng: -95.192193
+            })
         break;
         case 'gerudo/cache':
             createInventoryItem(event.playerId, 'electric-sword', {
@@ -768,6 +990,27 @@ async function handleGerudoEncounters(event: EncounterResolvedEvent) {
                 type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId)
+            createGibdo(event.playerId, 'enemy/gibdo/electric/gerudo/2', {
+                lat: 29.520853, 
+                lng: -95.192577
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/electric/gerudo/3', {
+                lat: 29.520677, 
+                lng: -95.192117
+            })
+
+            createLizalfos(event.playerId, 'enemy/lizalfos/electric/gerudo/2', {
+                lat: 29.520731, 
+                lng: -95.192310
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/electric/gerudo/3', {
+                lat: 29.520871, 
+                lng: -95.192222
+            })
+            createTalus(event.playerId, 'enemy/talus/electric/bazaar/1', {
+                lat: 29.574467, 
+                lng: -95.363116
+            })
         break;
     }
 }
@@ -847,6 +1090,38 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.508238,
                 lng:  -95.136277
             })
+            createChu(event.playerId, 'enemy/chu/fire/eldin/1', {
+                lat: 29.508626, 
+                lng: -95.134093
+            })
+            createChu(event.playerId, 'enemy/chu/fire/eldin/2', {
+                lat: 29.508499, 
+                lng: -95.136980
+            })
+            createKeese(event.playerId, 'enemy/keese/fire/eldin/1', {
+                lat: 29.5081, 
+                lng: -95.1387
+            })
+            createKeese(event.playerId, 'enemy/keese/fire/eldin/2', {
+                lat: 29.5078, 
+                lng: -95.1381
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/1', {
+                lat: 29.508309, 
+                lng:  -95.135628
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/2', {
+                lat: 29.507981, 
+                lng: -95.132635
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/3', {
+                lat: 29.507140, 
+                lng: -95.137816
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/4', {
+                lat: 29.511230, 
+                lng: -95.138175
+            })
         break;
         case 'eldin/bouldan':
             createInventoryItem(event.playerId, 'milk', {
@@ -894,6 +1169,22 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.507617,
                 lng: -95.141983
             })
+            createGibdo(event.playerId, 'enemy/gibdo/standard/eldin/1', {
+                lat: 29.5089, 
+                lng: -95.1398
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/standard/eldin/2', {
+                lat: 29.5071, 
+                lng: -95.1417
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/1', {
+                lat: 29.5067, 
+                lng: -95.1426
+            })
+            createMoblin(event.playerId, 'enemy/moblin/fire/eldin/1', {
+                lat: 29.5067,
+                lng: -95.1423
+            })
         break;
         case 'eldin/cache':
             createInventoryItem(event.playerId, 'fire-sword', {
@@ -901,6 +1192,26 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
+            createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/2', {
+                lat: 29.5067, 
+                lng: -95.1434
+            })
+            createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/3', {
+                lat: 29.5091, 
+                lng: -95.1399
+            })
+            createMoblin(event.playerId, 'enemy/moblin/fire/eldin/2', {
+                lat: 29.5068, 
+                lng: -95.1428
+            })
+            createMoblin(event.playerId, 'enemy/moblin/fire/eldin/3', {
+                lat: 29.5091, 
+                lng: -95.1394
+            })
+            createTalus(event.playerId, 'enemy/talus/fire/bazaar/1', {
+                lat: 29.574208, 
+                lng: -95.363102
+            })
         break;
     }
 }
@@ -980,6 +1291,46 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
                 lat: 29.640980, 
                 lng:  -95.220439
             })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/water/zoras/1', {
+                lat: 29.640723, 
+                lng: -95.219099
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/water/zoras/2', {
+                lat: 29.641795, 
+                lng: -95.219334
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/water/zoras/3', {
+                lat: 29.641632, 
+                lng: -95.217803
+            })
+            createDekuBaba(event.playerId, 'enemy/deku-baba/water/zoras/4', {
+                lat: 29.642022,
+                lng: -95.218287
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/zoras/1', {
+                lat: 29.640723, 
+                lng: -95.218470
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/zoras/2', {
+                lat: 29.641408,
+                lng:  -95.219347
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/standard/zoras/3', {
+                lat: 29.640422, 
+                lng: -95.219082
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/zoras/1', {
+                lat: 29.640454,
+                lng: -95.220243
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/zoras/2', {
+                lat: 29.641990,
+                lng: -95.219123
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/zoras/3', {
+                lat: 29.641766, 
+                lng: -95.217953
+            })
         break;
         case 'zoras/nerali':
             createEncounter(event.playerId, 'zoras/throne-room', {
@@ -1014,6 +1365,14 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
                 lat: 29.64205,
                 lng: -95.2185
             })
+            createDarknut(event.playerId, 'enemy/darknut/water/zoras/1', {
+                lat: 29.642209, 
+                lng: -95.218935
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/water/zoras/1', {
+                lat: 29.642090, 
+                lng: -95.218820
+            })
         break;
         case 'zoras/cache':
             createInventoryItem(event.playerId, 'water-sword', {
@@ -1021,6 +1380,27 @@ async function handleZorasEncounters(event: EncounterResolvedEvent) {
                 type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
+            createDarknut(event.playerId, 'enemy/darknut/water/zoras/2', {
+                lat: 29.642169, 
+                lng: -95.218647
+            })
+            createDarknut(event.playerId, 'enemy/darknut/water/zoras/3', {
+                lat: 29.642191, 
+                lng: -95.218450
+            })
+
+            createLizalfos(event.playerId, 'enemy/lizalfos/water/zoras/2', {
+                lat: 29.642101, 
+                lng: -95.218585
+            })
+            createLizalfos(event.playerId, 'enemy/lizalfos/water/zoras/3', {
+                lat: 29.642072, 
+                lng: -95.218433
+            })
+            createTalus(event.playerId, 'enemy/talus/water/bazaar/1', {
+                lat: 29.574255, 
+                lng: -95.363394
+            })
         break;
     }
 }
@@ -1088,13 +1468,53 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lat: 29.582423, 
                 lng: -95.410739
             })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/1', {
+                lat: 29.581630,
+                lng:  -95.416891
+            })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/2', {
+                lat: 29.581612, 
+                lng: -95.415647
+            })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/3', {
+                lat: 29.582274, 
+                lng: -95.411988
+            })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/4', {
+                lat: 29.581602, 
+                lng: -95.409070
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/hebra/1', {
+                lat: 29.581660, 
+                lng: -95.416155
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/hebra/2', {
+                lat: 29.582113, 
+                lng: -95.414320
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/hebra/3', {
+                lat: 29.580633, 
+                lng: -95.409316
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/hebra/1', {
+                lat: 29.581729,
+                lng: -95.415309
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/hebra/2', {
+                lat: 29.581902,
+                lng:  -95.413176
+            })
+            createDarknut(event.playerId, 'enemy/darknut/standard/hebra/3', {
+                lat: 29.582343, 
+                lng: -95.411890
+            })
         break;
         case 'hebra/kyllis':
             createEncounter(event.playerId, 'hebra/temple-1', {
                 label: 'Inspect...',
                 imageSlug: 'locked-door',
-                lat: 29.582217, 
-                lng: -95.411933
+                lat: 29.582322, 
+                lng: -95.411810
             })
             createEncounter(event.playerId, 'hebra/lloron-den', {
                 label: 'Enter',
@@ -1107,8 +1527,8 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
             createEncounter(event.playerId, 'hebra/temple-2', {
                 label: 'Inspect...',
                 imageSlug: 'locked-door',
-                lat: 29.582217, 
-                lng: -95.411933
+                lat: 29.582322, 
+                lng: -95.411810
             })
         break;
         case 'hebra/lloron-den':
@@ -1130,6 +1550,14 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lat: 29.582217,
                 lng: -95.411933,
             })
+            createDarknut(event.playerId, 'enemy/darknut/ice/hebra/1', {
+                lat: 29.582337, 
+                lng: -95.411857
+            })
+            createMoblin(event.playerId, 'enemy/moblin/ice/hebra/1', {
+                lat: 29.582301, 
+                lng: -95.411850
+            })
         break;
         case 'hebra/cache':
             createInventoryItem(event.playerId, 'ice-sword', {
@@ -1137,6 +1565,26 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 type: 'weapon'
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
+            createDarknut(event.playerId, 'enemy/darknut/ice/hebra/2', {
+                lat: 29.582298, 
+                lng: -95.411940
+            })
+            createDarknut(event.playerId, 'enemy/darknut/ice/hebra/3', {
+                lat: 29.582292, 
+                lng: -95.412056
+            })
+            createMoblin(event.playerId, 'enemy/moblin/ice/hebra/2', {
+                lat: 29.582296, 
+                lng: -95.411995
+            })
+            createMoblin(event.playerId, 'enemy/moblin/ice/hebra/3', {
+                lat: 29.582283, 
+                lng: -95.412124
+            })
+            createTalus(event.playerId, 'enemy/talus/ice/bazaar/1', {
+                lat: 29.574469, 
+                lng: -95.363427
+            })
         break;
     }
 }

@@ -47,7 +47,7 @@ export function PhaseFinale({ hasStarted, currentForce, onFinished }: PhaseFinal
 
     return (
         <>
-            <Soundtrack asset="ganon-theme" isPlaying={hasStarted} />
+            <Soundtrack asset="gorruk-theme-4" isPlaying={hasStarted} />
             {focus && <SceneFocus asset={focus} opacity={sequence.hasNotReached('outro') ? 1 : 0} transitions={{ opacity: timing(60000)}}/>}
             <SpeechCard
                 hasStarted={sequence.hasReached('iSense')}

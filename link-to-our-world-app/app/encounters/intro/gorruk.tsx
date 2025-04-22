@@ -26,7 +26,7 @@ export default function() {
             <Soundtrack asset="gorruks-theme" />
             {sequence.hasNotReached('combat') &&
                 <>
-                    <SceneFocus asset="gorruk" label="Gorruk" />                       
+                    <SceneFocus asset="gorruk-theme-1" label="Gorruk" />                       
                     <SpeechCard
                         hasStarted={sequence.isAt('luminasStats')}
                         asset="lumina-avatar" 

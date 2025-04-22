@@ -183,7 +183,10 @@ export const Assets: Record<string, any> = {
 
     'luminas-theme': require('../assets/soundtrack/luminas-theme.mp3'),
     'koroks-theme': require('../assets/soundtrack/koroks-theme.mp3'),
-    'gorruks-theme': require('../assets/soundtrack/gorruks-theme.mp3'),
+    'gorruk-theme-1': require('../assets/soundtrack/gorruk-1.mp3'),
+    'gorruk-theme-2': require('../assets/soundtrack/gorruk-2.mp3'),
+    'gorruk-theme-3': require('../assets/soundtrack/gorruk-3.mp3'),
+    'gorruk-theme-4': require('../assets/soundtrack/gorruk-4.mp3'),
 
     'bazaar-theme': require('../assets/soundtrack/bazaar.mp3'),
 

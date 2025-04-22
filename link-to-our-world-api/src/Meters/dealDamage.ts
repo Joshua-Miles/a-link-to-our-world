@@ -8,5 +8,6 @@ export async function dealDamage(client: Client<Session>, damage: number) {
     if (damage < 0) return makeFailure('cannotDealNegativeDamage', {});
     const meter = await getPlayerMeters(client);
     if (isAnyFailure(meter)) return meter;
+    if (meter.health === 0) return;
     await PlayerMeters.withPlayerId(meter.playerId).set((meter) => ({ health: meter.health - damage }))
 }

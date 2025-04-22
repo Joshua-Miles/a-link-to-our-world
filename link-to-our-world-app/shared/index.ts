@@ -40,3 +40,4 @@ export * from './Tree';
 export * from './Grass';
 export * from './Well';
 export * from './Chest';
+export * from './Enemy';

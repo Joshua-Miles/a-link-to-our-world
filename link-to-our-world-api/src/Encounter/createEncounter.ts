@@ -89,3 +89,61 @@ export  const createPool = (playerId: number, slug: Slug & `common/pool/${string
     label: 'Inspect',
     imageSlug: 'pool',
 })
+
+type Force = 'standard' | 'fire' | 'water' | 'ice' | 'electric'
+
+export const createChu = (playerId: number,  slug: Slug & `enemy/chu/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('chu', slug),
+})
+
+export const createDekuBaba = (playerId: number,  slug: Slug & `enemy/deku-baba/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('deku-baba', slug),
+})
+
+export const createKeese = (playerId: number,  slug: Slug & `enemy/keese/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('keese', slug),
+})
+
+export const createMoblin = (playerId: number,  slug: Slug & `enemy/moblin/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('moblin', slug),
+})
+
+export const createLizalfos = (playerId: number,  slug: Slug & `enemy/lizalfos/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('lizalfos', slug),
+})
+
+export const createGibdo = (playerId: number,  slug: Slug & `enemy/gibdo/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('gibdo', slug),
+})
+
+export const createDarknut = (playerId: number,  slug: Slug & `enemy/darknut/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('darknut', slug),
+})
+
+export const createTalus = (playerId: number,  slug: Slug & `enemy/talus/${Force}/${string}`, options: Pick<Options, 'lat' | 'lng'>) => createEncounter(playerId, slug, {
+    ...options,
+    label: 'Attack',
+    imageSlug: prefixImageSlug('talus', slug),
+})
+
+function prefixImageSlug(imageSlug: string, slug: string) {
+    if (slug.includes('fire')) return `fire-${imageSlug}`
+    if (slug.includes('ice')) return `ice-${imageSlug}`
+    if (slug.includes('water')) return `water-${imageSlug}`
+    if (slug.includes('electric')) return `electric-${imageSlug}`
+    return imageSlug
+}
