@@ -3,6 +3,7 @@ import { Session } from "../Session";
 import { InventoryItem, InventoryItemSlug } from "../InventoryItem/InventoryItem";
 import { createInventoryItem, listInventoryItemsByUserId, removeInventoryItem } from "../InventoryItem";
 import { makeFailure } from "@triframe/scribe";
+import { updateRupees } from "../Meters";
 
 type CookingMethod = 'pan' | 'oven' | 'pot';
 
@@ -324,6 +325,8 @@ export async function cook(client: Client<Session>, method: CookingMethod, ingre
     }
 
     const foodCreator = recipies[recipe];
+
+    await updateRupees(loggedInUserId, -10);
 
     if (foodCreator) {
         return await foodCreator(loggedInUserId)

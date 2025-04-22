@@ -30,6 +30,7 @@ export * from './Friends';
 export * from './HealthMeter';
 export * from './ItemTile';
 export * from './ItemDropper';
+export * from './RupeeMeter';
 
 export * from './Chicken';
 export * from './Cow';

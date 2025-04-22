@@ -5,6 +5,8 @@ export const Assets: Record<string, any> = {
     'health': require('../assets/health.png'),
     'health-slot': require('../assets/health-slot.png'),
     'heart-container': require('../assets/heart-container.png'),
+    'rupee': require('../assets/rupee.png'),
+
     'locked-door': require('../assets/locked-door.png'),
     'mines': require('../assets/mines.png'),
     'snowball': require('../assets/snowball.png'),

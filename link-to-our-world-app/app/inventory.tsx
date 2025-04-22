@@ -3,7 +3,7 @@ import { eat, listInventoryItems } from "api";
 import { Button, Column, Label, Row, RowReverse, useDesignerTheme } from "designer-m3";
 import { useState } from "react";
 import { Image, ScrollView } from "react-native";
-import { Assets, HealthMeter, InventoryItemSlug, ItemTile, Nav } from "shared";
+import { Assets, HealthMeter, InventoryItemSlug, ItemTile, Nav, RupeeMeter } from "shared";
 
 export default function () {
     const items = useResult(listInventoryItems);
@@ -40,27 +40,30 @@ export default function () {
     return (
         <>
             <Column flex={1} px={4}>
-                <HealthMeter />
+                <Row justifyContent="space-between">
+                    <RupeeMeter />
+                    <HealthMeter />
+                </Row>
                 <ScrollView contentContainerStyle={{ gap: 8 }}>
-                    {questItems.length > 0 && <Label.Medium>Quest Items</Label.Medium>}
+                    {questItems.length > 0 && <Label.Medium mt={spacing.md}>Quest Items</Label.Medium>}
                     <Row flexWrap="wrap">
                         {questItems.map(item => (
                             <ItemTile key={item.id} item={item} />
                         ))}
                     </Row>
-                    {weapons.length > 0 && <Label.Medium>Weapons</Label.Medium>}
+                    {weapons.length > 0 && <Label.Medium mt={spacing.md}>Weapons</Label.Medium>}
                     <Row flexWrap="wrap">
                         {weapons.map(item => (
                             <ItemTile key={item.id} item={item} />
                         ))}
                     </Row>
-                    {foods.length > 0 && <Label.Medium>Food</Label.Medium>}
+                    {foods.length > 0 && <Label.Medium mt={spacing.md}>Food</Label.Medium>}
                     <Row flexWrap="wrap">
                         {foods.map(item => (
                             <ItemTile key={item.id} item={item} isSelected={item.slug === selectedItemSlug} onPress={() => toggleSelected(item.slug)}/>
                         ))}
                     </Row>
-                    {ingredients.length > 0 && <Label.Medium>Ingredients</Label.Medium>}
+                    {ingredients.length > 0 && <Label.Medium mt={spacing.md}>Ingredients</Label.Medium>}
                     <Row flexWrap="wrap">
                         {ingredients.map(item => (
                             <ItemTile key={item.id} item={item} />

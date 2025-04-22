@@ -1,11 +1,11 @@
 import { ExcludeFailures, isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
-import { cook, listInventoryItems } from "api";
+import { cook, getPlayerMeters, listInventoryItems } from "api";
 import { Button, Column, Label, Row, useDesignerTheme } from "designer-m3";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Image, ScrollView } from "react-native";
-import { Assets, dialog, Dialog, InventoryItemSlug, ItemGet, ItemTile, Scene, SceneFocus, Speech, useSequence } from "shared";
+import { Assets, dialog, Dialog, InventoryItemSlug, ItemGet, ItemTile, RupeeMeter, Scene, SceneFocus, Speech, useSequence } from "shared";
 
 type CookingMethod = 'pan' | 'oven' | 'pot'
 
@@ -15,6 +15,7 @@ export default function () {
     const [method, setMethod] = useState<CookingMethod | null>(null)
     const [result, setResult] = useState<Food | null>(null)
     const [ selectedIngredients, setSelectedIngredients ] = useState<InventoryItemSlug[]>([]);
+    const playerMeter = useResult(getPlayerMeters);
 
     const sequence = useSequence({ hasStarted: true, onFinished: handleFinished }, [
         'dialog',
@@ -24,7 +25,7 @@ export default function () {
 
     const items = useResult(listInventoryItems)
 
-    if (isLoading(items)) return null;
+    if (isLoading(items) || isLoading(playerMeter) || isAnyFailure(playerMeter)) return null;
 
     const ingredients = items.filter(item => item.type === 'ingredient')
 
@@ -49,12 +50,11 @@ export default function () {
         sequence.next()
     }
 
-    const canCook = ingredients.length >= 3;
-
-
+    const canCook = ingredients.length >= 3 && playerMeter.rupees >= 10;
 
     return (
         <Scene>
+            <RupeeMeter />
             <SceneFocus asset="beedle" />
             <Dialog
                 hasStarted={sequence.hasReached('dialog')}
@@ -66,7 +66,9 @@ export default function () {
                             'An oven': dialog('Sounds great!'),
                             'A pot': dialog('Sounds great!')
                         })
-                        : dialog(`You don't have enough ingredients to cook. Come back when you have at least 3 ingredients`),
+                        : dialog(ingredients.length < 3 
+                            ? `You don't have enough ingredients to cook. Come back when you have at least 3 ingredients` 
+                            : `You don't have enough rupees to cook. Come back when you have at least 10 rupees` ),
                     'Bye!': dialog('See you around!')
                 })}
                 onFinished={(selections) => {
