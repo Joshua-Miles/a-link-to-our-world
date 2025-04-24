@@ -3,7 +3,8 @@ import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
 import { dialog, Dialog, Friends, Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
-import { Column, Display, Label } from "designer-m3";
+import { Button, Column, Display, Label, timing } from "designer-m3";
+import { ArrowLeftIcon, ArrowRightIcon } from "designer-m3/icons";
 
 export default function () {
     const playerName = usePlayerName();
@@ -28,7 +29,8 @@ export default function () {
         'koroksWill',
         'sagesWill',
         'thenLetThisPassIntoLegend',
-        'credits'
+        'credits',
+        'continue'
     ])
 
     function handleFinished() {
@@ -187,7 +189,13 @@ export default function () {
                 onFinished={sequence.next}
             />
             <Soundtrack isPlaying={sequence.hasReached('credits')} asset="staff-roll" fadeDuration={0} />
-            <Column display={sequence.hasReached('credits') ? 'flex': 'none'} height="100%" width="100%" justifyContent="center" alignItems="center">
+            <Column display={sequence.hasReached('credits') ? 'flex': 'none'} height="100%" width="100%" justifyContent="center" alignItems="center"
+                opacity={0}
+                _displayed={{ opacity: 1 }}
+                transitions={{
+                    opacity: timing(2000).then(() => setTimeout(() => sequence.next(), 5000))
+                }}
+            >
                 <Column position="relative"  height={150} width={300}>
                     <Label.Small
                         position="absolute"
@@ -210,6 +218,9 @@ export default function () {
                         A Link to Our World
                     </Label.Large>
                 </Column>
+                <Button.Text mt={32} onPress={sequence.next} opacity={sequence.hasReached('continue') ? 1 : 0} transitions={{ opacity: timing(1000) }}>
+                    Thank you for playing <ArrowRightIcon />
+                </Button.Text>
             </Column>
         </Scene>
     )

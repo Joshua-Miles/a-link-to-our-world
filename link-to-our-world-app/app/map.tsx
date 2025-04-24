@@ -1,6 +1,6 @@
-import { isAnyFailure, isFailure } from "@triframe/ambassador";
+import { ExcludeFailures, isAnyFailure, isFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
-import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon, useDesignerTheme } from "designer-m3";
+import { Label, Column, ListItem, ListItemTitle, ListItemTrailing, PressableListItem, ListItemLeadingIcon, useDesignerTheme, Modal, Headline, Button, Body } from "designer-m3";
 import { useLocation } from "../shared/useLocation";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useState } from "react";
@@ -16,6 +16,8 @@ Mapbox.setAccessToken(
 
 const MAX_FEET_FOR_NEARBY_ENCOUNTER = 30;
 
+type EncounterSlug = Awaited<ReturnType<typeof listEncounters>>[number]['slug']
+
 export default function Map() {
   const realLocation = useLocation();
 
@@ -25,11 +27,19 @@ export default function Map() {
 
   const templesWatered = useResult(getTemplesWatered);
 
+  const interludeIntro = useResult(getEncounter, 'interlude/intro')
+
+  const gorruk2 = useResult(getEncounter, 'interlude/gorruk')
+
   const finaleIntro = useResult(getEncounter, 'finale/intro')
 
   const finaleSongs = useResult(getEncounter, 'finale/songs')
 
+  const finaleEpilogue = useResult(getEncounter, 'finale/epilogue')
+
   const [ spoofLocation, setSpoofLocation ] = usePersistedState<Coordinate | null>('persisted-state', null);
+
+  const [ selectedEncounter, setSelectedEncounter ] = useState<EncounterSlug | null>(null)
 
   const location = spoofLocation === null ? realLocation : spoofLocation;
 
@@ -37,7 +47,7 @@ export default function Map() {
 
   const [ mapLoaded, setMapLoaded ] = useState(false);
 
-  if (isLoading(location) || isLoading(encounters) || isLoading(seedsPlanted) || isLoading(templesWatered) || isAnyFailure(seedsPlanted) || isAnyFailure(templesWatered) || isLoading(finaleIntro) || isAnyFailure(finaleIntro) || isLoading(finaleSongs) || isAnyFailure(finaleSongs)) return <><Column flex={1}/><Nav /></>;
+  if (isLoading(location) || isLoading(encounters) || isLoading(seedsPlanted) || isLoading(templesWatered) || isAnyFailure(seedsPlanted) || isAnyFailure(templesWatered) || isLoading(finaleIntro) || isAnyFailure(finaleIntro) || isLoading(finaleSongs) || isAnyFailure(finaleSongs)|| isLoading(interludeIntro) || isAnyFailure(interludeIntro) || isLoading(gorruk2) || isAnyFailure(gorruk2) || isLoading(finaleEpilogue) || isAnyFailure(finaleEpilogue)) return <><Column flex={1}/><Nav /></>;
 
   if (isFailure(location, "permissionDenied"))
     return <Label.Small>Location Unavailable</Label.Small>;
@@ -58,13 +68,19 @@ export default function Map() {
 
   let track = closestProvince.name;
 
-  if (finaleSongs?.resolved) {
+  if (finaleEpilogue?.resolved) {
+    track = closestProvince.name;
+  } else if (finaleSongs?.resolved) {
     track = 'last-catch';
   } else if (finaleIntro?.resolved) {
     track = 'eclipse-of-the-world';
-  } else if (seedsPlanted.totalComplete === 4) {
+  } else if (templesWatered.totalComplete === 4) {
     track = 'eclipse-of-the-moon';
+  } else if (interludeIntro?.resolved && !gorruk2?.resolved) {
+    track = 'gorruk-theme-2'
   }
+
+  const keyEncounter = selectedEncounter ? keyEncounters[selectedEncounter] ?? null : null
 
   return (
     <Column flex={1}>
@@ -92,6 +108,7 @@ export default function Map() {
               lng={encounter.lng}
               imageSlug={encounter.imageSlug}
               size={encounter.imageSize}
+              onSelected={() => setSelectedEncounter(encounter.slug)}
             />
           ))}
         </MapView>
@@ -116,16 +133,89 @@ export default function Map() {
           </PressableListItem>
         ))}
       </Column>
+      <Modal isOpen={keyEncounter !== null} onClose={() => setSelectedEncounter(null)}>
+        <Column gap={16}>
+          <Headline.Large fontFamily="TriForce">{keyEncounter?.name}</Headline.Large>
+          <Body.Small>{keyEncounter?.description}</Body.Small>
+          <Button.Filled href={keyEncounter?.url ?? '' as any}>
+            Directions <ArrowRightIcon />
+          </Button.Filled>
+        </Column>
+      </Modal>
       <Nav />
     </Column>
   );
 }
 
+
+const keyEncounters: Partial<Record<EncounterSlug, {
+  name: string,
+  description: string
+  url: string
+}>> = {
+  'intro/beckoning': {
+    name: 'The Sacred Grove',
+    description: 'Lumina has invited you to the sacred Grove to learn more about the destiny that awaits you...',
+    url: 'https://maps.app.goo.gl/kXyZr7rePLEJy2vWA'
+  },
+  'lurelin/intro': {
+    name: 'Lurelin Beach',
+    description: 'Lumina has identified this rough-and-tumble pirate beach as a candidate for planting a Korok Seedling.',
+    url: 'https://maps.app.goo.gl/skw7o3W2J4oEqm2w6'
+  },
+  'floria/intro': {
+    name: 'Floria Springs',
+    description: 'Lumina has identified this beautiful fairy spring as a candidate for planting a Korok Seedling.',
+    url: 'https://maps.app.goo.gl/khty6uiE6PHaAKGx7'
+  },
+  'faron/intro': {
+    name: 'Faron Woods',
+    description: 'Lumina has identified this vast, lush forest as a candidate for planting a Korok Seedling.',
+    url: 'https://maps.app.goo.gl/9s8KBRbGKBf3iMaD7'
+  },
+  'necluda/intro': {
+    name: 'Necluda Cliffs',
+    description: 'Lumina has identified this intimidating cliff-face as a candidate for planting a Korok Seedling.',
+    url: 'https://maps.app.goo.gl/bkBXXShwm2yaehZr8'
+  },
+  'interlude/intro': {
+    name: 'The Sacred Grove',
+    description: 'Now that the Korok Seeds are planted, it is time to return to Impa for further instructions.',
+    url: 'https://maps.app.goo.gl/kXyZr7rePLEJy2vWA'
+  },
+  'gerudo/intro': {
+    name: 'Gerudo Desert',
+    description: 'Travel to the Lightning Temple in Gerudo Desert to water the Korok Seedlings.',
+    url: 'https://maps.app.goo.gl/rZKZ3WRVs8ogUT3k6'
+  },
+  'eldin/intro': {
+    name: 'Eldin Volcano',
+    description: 'Travel to the Fire Temple near Eldin Volcano to water the Korok Seedlings.',
+    url: 'https://maps.app.goo.gl/PMAU7MhHsc34UhQT8'
+  },
+  'zoras/intro': {
+    name: 'Zora\'s Domain',
+    description: 'Travel to the Water Temple near Zora\'s domain to water the Korok Seedlings.',
+    url: 'https://maps.app.goo.gl/zZCgpY7MRxz9ZAd17'
+  },
+  'hebra/intro': {
+    name: 'Hebra Peak',
+    description: 'Travel to the Ice Temple in the Hebra Mountains to water the Korok Seedlings.',
+    url: 'https://maps.app.goo.gl/Qb9DrxiehxVsdsyn6'
+  },
+  'finale/intro': {
+    name: 'The Sacred Grove',
+    description: 'With hope all but lost, there is nothing left but to return to the Sacred Grove to challenge Gorruk and his hoard.',
+    url: 'https://maps.app.goo.gl/kXyZr7rePLEJy2vWA'
+  },
+}
+
+
 const phase1Provinces = [
   {
     name: 'luminas-theme',
-    lat: 29.574452,
-    lng: -95.363353,
+    lat: 29.539441, 
+    lng: -95.363014
   },
   {
     name: 'bazaar-theme',
@@ -157,8 +247,13 @@ const phase1Provinces = [
 const phase2Provinces = [
   {
     name: 'luminas-theme',
-    lat: 29.574452,
-    lng: -95.363353,
+    lat: 29.539441, 
+    lng: -95.363014
+  },
+  {
+    name: 'talus-theme',
+    lat: 29.574395, 
+    lng: -95.363335
   },
   {
     name: 'bazaar-theme',

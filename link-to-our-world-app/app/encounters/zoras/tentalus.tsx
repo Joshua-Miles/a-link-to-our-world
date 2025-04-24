@@ -52,9 +52,9 @@ export default function () {
             {sequence.isAt('combat') &&
                 <Combat
                     asset="tentalus"
-                    fortitude={50}
+                    fortitude={75}
                     damage={2}
-                    speed={10000}
+                    speed={4000}
                     onFinished={sequence.next}
                 />
             }

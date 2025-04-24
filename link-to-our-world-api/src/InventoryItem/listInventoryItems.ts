@@ -15,5 +15,6 @@ export const listInventoryItems = observer(async ({ observe }: ObserverContext, 
             .name()
             .imageSlug()
             .acknowledged()
+            .power()
     }))
 })

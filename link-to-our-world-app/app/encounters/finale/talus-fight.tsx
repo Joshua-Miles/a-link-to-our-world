@@ -6,9 +6,9 @@ export default function() {
     return (
         <Combat
             asset="talus"
-            fortitude={50}
-            damage={1}
-            speed={30000}
+            fortitude={30}
+            damage={8}
+            speed={2000}
             forces={['ice']}
             onFinished={() => {
                 resolveEncounter('finale/talus-fight', {})

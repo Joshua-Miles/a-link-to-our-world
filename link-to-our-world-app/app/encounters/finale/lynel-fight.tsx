@@ -7,8 +7,8 @@ export default function() {
         <Combat
             asset="lynel"
             fortitude={50}
-            damage={1}
-            speed={30000}
+            damage={4000}
+            speed={2000}
             onFinished={() => {
                 resolveEncounter('finale/lynel-fight', {})
                 router.push('/map')

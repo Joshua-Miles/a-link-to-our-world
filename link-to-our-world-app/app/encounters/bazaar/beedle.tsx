@@ -53,7 +53,7 @@ export default function () {
     const canCook = ingredients.length >= 3 && playerMeter.rupees >= 10;
 
     return (
-        <Scene>
+        <Scene px={0}>
             <RupeeMeter />
             <SceneFocus asset="beedle" />
             <Dialog
@@ -90,8 +90,8 @@ export default function () {
             {sequence.isAt('ingredientSelect') && (
                 <>
                     <Speech text={`What would you like to cook with a ${method}?`} />
-                    <ScrollView style={{ flex: 1, margin: 8 }}>
-                        <Row flexWrap="wrap" mt={16} gap={8}>
+                    <ScrollView style={{ flex: 1, marginHorizontal: 0, padding: 0 }} contentContainerStyle={{ padding: 0, margin: 0 }}>
+                        <Row flexWrap="wrap" mt={16} width="100%">
                             {ingredients.map(ingredient => (
                                 <ItemTile 
                                     key={ingredient.slug}
@@ -111,7 +111,12 @@ export default function () {
             <ItemGet
                 isOpen={sequence.isAt('showResult')}
                 title={result.name}
-                description=""
+                description={
+                    result.type === 'food' ? 
+                        (result.power !== null && result.power > 0) ? `Eat this to replenish ${result.power} hearts` 
+                        : `Eating this will not replenish any health`
+                    : 'Use this to cook extra tasty dishes'
+                 }
                 asset={result.imageSlug}
                 onFinished={sequence.next}
             />}

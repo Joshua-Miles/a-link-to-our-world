@@ -43,7 +43,7 @@ export function ItemGet({ isOpen, title, description, asset, onFinished, resumeP
                 }}
             >
                 <Image source={Assets[asset]} style={{ width: 120, height: 120, objectFit: 'contain' }} />
-                <Column>
+                <Column flex={1}>
                     <Headline.Small color={colors.roles.onPrimary}>
                         {title}
                     </Headline.Small>

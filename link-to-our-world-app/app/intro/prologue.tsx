@@ -108,7 +108,7 @@ type PrologueState = {
 
 
 export default function Prologue() {
-  const overture = useAudioPlayer(require("../../assets/overture.mp4"));
+  const overture = useAudioPlayer(require("../../assets/soundtrack/overture.mp3"));
   const { spacing, colors } = useDesignerTheme();
 
   const mapView = useRef<MapView>(null);
@@ -149,35 +149,33 @@ export default function Prologue() {
 
     moveCamera(Locations.Centroid, 9.75, 41000);
 
-    say("Long ago, Hylia created Hyrule from a song...", 6000);
-
-    await wait(1500)
-
     overture.play();
 
-    await wait(4500);
+    say("Long ago, Hylia created Hyrule from a song...", 6000);
 
-    say("4 seeds sprouted from the song, bringing fire, water, ice, and lightning to Hyrule ", 5000)
+    await wait(6000)
 
-    await wait(5000);
+    say("4 seeds sprouted from the song, bringing fire, water, ice, and lightning to Hyrule ", 8000)
 
-    say("Hylia tended these seedlings, but fearing a great demise descending, she hid them away, and ascended to the heavens.", 6000)
+    await wait(8000);
 
-    await wait(6000);
+    say("Hylia tended these seedlings, but fearing a great demise descending, she hid them away, and ascended to the heavens.", 10000)
 
-    say("The kingdom of Hyrule became a kingdom in decline, a scattered people striving against trial and monster in isolation.", 6000);
+    await wait(10000);
 
-    await wait(6000);
+    say("The kingdom of Hyrule became a kingdom in decline, a scattered people striving against trial and monster in isolation.", 10000);
 
-    say("From the harsh cliffsides of Necluda...", 2000)
+    await wait(10000);
 
-    setMarker(Locations.TomBass)
+    say("From the lofty peaks of Hebra...", 2000)
+
+    setMarker(Locations.ShadowCreek)
 
     await wait(2000);
 
-    say("...to the lofty peaks of Hebra", 2000)
+    say("...to the harsh cliffsides of Necluda.", 2000)
 
-    setMarker(Locations.ShadowCreek)
+    setMarker(Locations.TomBass)
 
     await wait(2000);
 
@@ -187,7 +185,7 @@ export default function Prologue() {
 
     await wait(2000);
 
-    say("...to the relentless Gerudo Desert", 2000)
+    say("...to the grand kingdom of Zora's Domain.", 2000)
 
     setMarker(Locations.Wilson)
 
@@ -199,7 +197,7 @@ export default function Prologue() {
 
     await wait(2000);
 
-    say("...to the lake of Lanayru", 2000)
+    say("...to the baren Gerudo Desert", 2000)
 
     setMarker(Locations.Stevenson)
 
@@ -211,7 +209,7 @@ export default function Prologue() {
 
     await wait(2000);
 
-    say("...to the heat of Eldin Mountains.", 2000)
+    say("...to the heat of Eldin Volcano.", 2000)
 
     setMarker(Locations.ChallengerSeven)
 
@@ -374,6 +372,7 @@ export default function Prologue() {
           p={spacing.md}
         >
           <Speech
+            textAlign="left"
             key={dialog.text}
             text={dialog.text}
             duration={dialog.duration / 2}

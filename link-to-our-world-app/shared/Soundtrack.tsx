@@ -5,6 +5,7 @@ import { Assets } from "./Assets";
 
 type PlayOptions = {
     offset?: number
+    loop?: boolean
     resume?: boolean
     onFinished?: () => any
 }
@@ -55,7 +56,10 @@ class SoundtrackPlayer {
         function handleTrackEnd({ didJustFinish }: { didJustFinish: boolean }) {
             if (didJustFinish) {
                 options?.onFinished?.()
-                newPlayer.removeListener('playbackStatusUpdate', handleTrackEnd)
+                if (options?.loop) {
+                    newPlayer.seekTo(0)
+                    newPlayer.play()
+                }
             }
         }
 
@@ -70,12 +74,14 @@ class SoundtrackPlayer {
         if (!oldPlayer) {
             if (fadeDuration) this.currentFade = fadeIn(newPlayer, fadeDuration)
             else {
+                newPlayer.volume = 1;
                 newPlayer.play()
             }
         } else {
             if (fadeDuration) this.currentFade = crossFade(oldPlayer, newPlayer, fadeDuration);
             else {
                 oldPlayer.pause()
+                newPlayer.volume = 1;
                 newPlayer.play()
             }
         }
@@ -148,6 +154,7 @@ export type SoundtrackProps = PlayOptions & {
     asset: string;
     push?: boolean;
     isPlaying?: boolean;
+    loop?: boolean
     fadeDuration?: number
 }
 
@@ -155,6 +162,8 @@ export function Soundtrack({ asset, push = false, isPlaying = true, fadeDuration
     const player = useSoundtrackPlayer();
 
     const wasPlaying = useRef(false);
+
+    if (playOptions.loop === undefined && !push) playOptions.loop = true
 
     useEffect(() => {
         if (isPlaying) {

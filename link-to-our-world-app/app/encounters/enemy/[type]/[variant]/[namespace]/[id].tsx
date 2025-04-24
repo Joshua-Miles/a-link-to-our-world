@@ -24,7 +24,7 @@ const enemies: Record<EnemyType, {
     chu: {
         fortitude: 4,
         damage: 1,
-        speed: 2000,
+        speed: 4000,
         rewardRange: {
             from: 1,
             to: 1
@@ -33,7 +33,7 @@ const enemies: Record<EnemyType, {
     "deku-baba": {
         fortitude: 8,
         damage: 1,
-        speed: 1500,
+        speed: 2000,
         rewardRange: {
             from: 1,
             to: 5
@@ -42,7 +42,7 @@ const enemies: Record<EnemyType, {
     keese: {
         fortitude: 12,
         damage: 1,
-        speed: 1500,
+        speed: 2000,
         rewardRange: {
             from: 1,
             to: 5
@@ -51,7 +51,7 @@ const enemies: Record<EnemyType, {
     moblin: {
         fortitude: 14,
         damage: 1,
-        speed: 1500,
+        speed: 2000,
         rewardRange: {
             from: 1,
             to: 10
@@ -60,7 +60,7 @@ const enemies: Record<EnemyType, {
     lizalfos: {
         fortitude: 8,
         damage: 1,
-        speed: 750,
+        speed: 1000,
         rewardRange: {
             from: 5,
             to: 10
@@ -68,8 +68,8 @@ const enemies: Record<EnemyType, {
     },
     gibdo: {
         fortitude: 25,
-        damage: 2,
-        speed: 6000,
+        damage: 4,
+        speed: 8000,
         rewardRange: {
             from: 10,
             to: 20
@@ -77,8 +77,8 @@ const enemies: Record<EnemyType, {
     },
     darknut: {
         fortitude: 25,
-        damage: 1,
-        speed: 1500,
+        damage: 2,
+        speed: 2000,
         rewardRange: {
             from: 10,
             to: 20
@@ -86,8 +86,8 @@ const enemies: Record<EnemyType, {
     },
     talus: {
         fortitude: 30,
-        damage: 3,
-        speed: 8000,
+        damage: 8,
+        speed: 2000,
         givesHeartContainer: true,
         rewardRange: {
             from: 20,

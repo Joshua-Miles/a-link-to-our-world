@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Combat, Scene, SceneFocus, SpeechCard, usePlayerName, useSequence } from "shared";
+import { Combat, Scene, SceneFocus, Soundtrack, SpeechCard, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {
@@ -19,6 +19,7 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="skull-kids-theme-clipped"/>
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus asset="skull-kid" />
                 <SpeechCard

@@ -24,6 +24,10 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack 
+                isPlaying={sequence.hasNotReached('song')}
+                asset="eclipse-of-the-moon"
+            />
             {!sequence.isAt('song') && <SceneFocus asset="impa" />}
             <SpeechStepper
                 hasStarted={sequence.hasReached('intro')}

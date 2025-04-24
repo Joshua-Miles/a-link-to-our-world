@@ -25,8 +25,8 @@ export default function Splash() {
                         Resume Game
                     </Button.Text>
                     <Button.Filled
-                        // href="/intro/prologue"
-                        href="/intro/sign-up"
+                        href="/intro/prologue"
+                        // href="/intro/sign-up"
                     >
                         New Game
                     </Button.Filled>

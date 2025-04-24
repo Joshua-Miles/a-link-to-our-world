@@ -41,6 +41,10 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack 
+                isPlaying={sequence.hasNotReached('youAreHardWorking')}
+                asset="eclipse-of-the-world"
+            />
             <SpeechStepper
                 justifyContent="center"
                 hasStarted={sequence.hasReached('intro')}

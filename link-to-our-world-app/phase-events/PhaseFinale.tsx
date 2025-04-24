@@ -47,7 +47,7 @@ export function PhaseFinale({ hasStarted, currentForce, onFinished }: PhaseFinal
 
     return (
         <>
-            <Soundtrack asset="gorruk-theme-4" isPlaying={hasStarted} />
+            <Soundtrack asset="gorruk-theme-4" isPlaying={hasStarted && !sequence.hasReached('glitch')} />
             {focus && <SceneFocus asset={focus} opacity={sequence.hasNotReached('outro') ? 1 : 0} transitions={{ opacity: timing(60000)}}/>}
             <SpeechCard
                 hasStarted={sequence.hasReached('iSense')}
@@ -74,9 +74,9 @@ export function PhaseFinale({ hasStarted, currentForce, onFinished }: PhaseFinal
             {sequence.isAt('combat') &&
                 <Combat
                     asset='gorruk'
-                    speed={6000}
-                    damage={1}
-                    fortitude={50}
+                    speed={1500}
+                    damage={2}
+                    fortitude={150}
                     forces={[ 'electric', 'fire', 'ice', 'water' ]}
                     onFinished={sequence.next}
                     // The player has been gifted sword for the current force, but it won't reflect
@@ -104,7 +104,7 @@ export function PhaseFinale({ hasStarted, currentForce, onFinished }: PhaseFinal
             <SpeechCard
                 hasStarted={sequence.hasReached('skullKidsTheme')}
                 asset="lumina-avatar" 
-                text={[ `${playerName}, it appears that Gorrck has the demon flute!` ]}
+                text={[ `${playerName}, it appears that Gorruk has the demon flute!` ]}
                 onFinished={sequence.next}
             />
             <Soundtrack 

@@ -77,6 +77,7 @@ export const Assets: Record<string, any> = {
     'lynel': require('../assets/enemies/lynel.png'),
 
     'ganon': require('../assets/enemies/ganon.png'),
+    'ganon-avatar': require('../assets/enemies/ganon-avatar.png'),
 
 
     // Bosses
@@ -189,6 +190,7 @@ export const Assets: Record<string, any> = {
     'gorruk-theme-4': require('../assets/soundtrack/gorruk-4.mp3'),
 
     'bazaar-theme': require('../assets/soundtrack/bazaar.mp3'),
+    'talus-theme': require('../assets/soundtrack/talus-theme.mp3'),
 
     'lurelin': require('../assets/soundtrack/lurelin.mp3'),
     'lurelin-battle': require('../assets/soundtrack/lurelin-battle.mp3'),

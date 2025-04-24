@@ -87,9 +87,9 @@ export default function () {
             {sequnece.isAt('combat') && <>
                 <Combat
                     asset="moldarach"
-                    fortitude={50}
-                    damage={2}
-                    speed={10000}
+                    fortitude={45}
+                    damage={1}
+                    speed={3000}
                     onFinished={sequnece.next}
                 />
             </>}

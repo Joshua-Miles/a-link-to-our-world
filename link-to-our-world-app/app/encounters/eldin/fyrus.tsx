@@ -53,7 +53,7 @@ export default function () {
                     asset="fyrus"
                     fortitude={50}
                     damage={2}
-                    speed={10000}
+                    speed={2000}
                     onFinished={sequence.next}
                 />
             }

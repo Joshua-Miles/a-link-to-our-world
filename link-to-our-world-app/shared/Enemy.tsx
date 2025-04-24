@@ -3,6 +3,7 @@ import { useSequence } from "./useSequence"
 import { useState } from "react"
 import { Combat } from "./Combat"
 import { ItemGet } from "./ItemGet"
+import { router } from "expo-router"
 
 type CombatProps = Parameters<typeof Combat>[0];
 
@@ -22,6 +23,7 @@ export function Enemy({ encounter, rewardRange, givesHeartContainer = false, ...
 
     function handleFinished() {
         resolveEncounter(encounter, { reward: givesHeartContainer ? 'heart-container' : reward })
+        router.push('/map')
     }
 
     return (
@@ -35,7 +37,7 @@ export function Enemy({ encounter, rewardRange, givesHeartContainer = false, ...
             <ItemGet
                 asset={givesHeartContainer ? 'heart-container' : "rupee"}
                 title={givesHeartContainer ? 'Heart Container' : `${reward} Rupees`}
-                description={givesHeartContainer ? 'This will increase your max health by 1' : 'It\'s always nice to have some spending money!'}
+                description={givesHeartContainer ? 'This will increase your max health by 1' : 'Don\'t spend it all in one place!'}
                 isOpen={sequence.isAt('reward')}
                 onFinished={sequence.next}
             />

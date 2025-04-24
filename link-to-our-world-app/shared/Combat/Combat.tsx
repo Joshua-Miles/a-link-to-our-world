@@ -34,10 +34,14 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
     const [ showHitScrim, setShowHitScrim ] = useState(false);
     const [ force, setForce ] = useState(getRandomForce());
     const [ selectedItemSlug, setSelectedItemSlug ] = useState<InventoryItemSlug | null>(null)
+    const [ canBlock, setCanBlock ] = useState(false);
+    const blocked  = useRef(false);
 
     const inventoryItems = useResult(listInventoryItems)
     const playerMeter = useResult(getPlayerMeters);
     const hasFinished = useRef(false);
+
+    const blockWindow = speed - 1000;
 
     function getRandomForce() {
         if (!forces) return null;
@@ -68,7 +72,11 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
     });
 
     const dealPlayerDamage = useLatestCallback(async () => {
-        if (enemyHealth > 0 && playerHealth > 0) {
+        const wasBlocked = blocked.current;
+        blocked.current = false;
+        setCanBlock(false)
+        setTimeout(allowBlock, blockWindow)
+        if (!wasBlocked && enemyHealth > 0 && playerHealth > 0) {
             setShowHitScrim(true)
             dealDamage(damage)
             await wait(500)
@@ -76,8 +84,17 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
         }
     })
 
+    function allowBlock() {
+        setCanBlock(true)
+    }
+
+    function block() {
+        blocked.current = true;
+        setCanBlock(false)
+    }
+
     useEffect(() => {
-        if (enemyHealth === 0 && !hasFinished.current) {
+        if (enemyHealth <= 0 && !hasFinished.current) {
             hasFinished.current = true;
             onFinished?.()
         }
@@ -85,6 +102,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
 
     useEffect(() => {
         const interval = setInterval(dealPlayerDamage, speed)
+        setTimeout(allowBlock, blockWindow)
         return () => clearInterval(interval)
     }, [])
 
@@ -92,7 +110,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
 
     const playerHealth = playerMeter.health;
 
-    const playerPiecesOfHealth = new Array(playerHealth).fill(1)
+    const playerPiecesOfHealth = new Array(playerHealth < 0 ? 0 : playerHealth).fill(1)
 
     const itemSlugs = inventoryItems.map( item => item.slug);
 
@@ -155,7 +173,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
                     width: timing(100)
                 }}/>
             </Row>
-            <ScrollView>
+            <ScrollView style={{ width: '100%' }}>
                 {weaponGroup1.length > 0 || weaponGroup2.length > 0 && <Label.Medium>Weapons</Label.Medium>}
                 <Row mt={spacing.lg} width="100%">
                     {weaponGroup1.filter(slug => itemSlugs.includes(slug)).map( slug => (
@@ -180,7 +198,7 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
             }}/>
             {selectedItem && (
                 <Row backgroundColor={colors.roles.surfaceContainerHighest} alignItems="center" px={spacing.sm}>
-                    <Image source={Assets[selectedItem.imageSlug]}/>
+                    <Image source={Assets[selectedItem.imageSlug]} style={{ width: 75, height: 75, objectFit: 'contain' }}/>
                     <RowReverse flex={1} gap={spacing.xs}>
                         <Button.Filled onPress={handleEat}>
                             Eat
@@ -191,6 +209,9 @@ export function Combat({ asset, fortitude, damage, speed, forces, onFinished, ex
                     </RowReverse>
                 </Row>
             )}
+            <Button.Filled display={canBlock ? 'flex' : 'none'} onPress={block} width="100%">
+                Block
+            </Button.Filled>
         </Column>
     );
 }

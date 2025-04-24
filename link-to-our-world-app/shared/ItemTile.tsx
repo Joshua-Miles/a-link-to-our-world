@@ -1,5 +1,5 @@
-import { Column, Label, useDesignerTheme } from "designer-m3"
-import { Image } from "react-native"
+import { Column, Label, Row, useDesignerTheme } from "designer-m3"
+import { Image, useWindowDimensions } from "react-native"
 import { Assets } from "./Assets"
 
 type ItemTileProps = {
@@ -7,34 +7,48 @@ type ItemTileProps = {
     onPress?: () => any
     item: {
         slug: string
+        type: string
         imageSlug: string
         name: string
         quantity: number
+        power?: number | null
     }
 }
 
 export function ItemTile({ item, isSelected, onPress }: ItemTileProps) {
     const { colors, spacing } = useDesignerTheme();
+    const screen = useWindowDimensions();
+    const size = (screen.width - 32) / 4;
     return (
-        <Column width="25%" key={item.slug} position="relative" onPress={onPress} borderColor={colors.roles.primary} borderWidth={isSelected ? spacing.lines.sm : 0}>
+        <Column backgroundColor={colors.roles.surfaceContainerHigh} mx={spacing.hairline} mt={spacing.hairline} width={size} height={size} borderColor={colors.roles.primary} borderWidth={isSelected ? spacing.lines.sm : 0} onPressIn={onPress}>
             <Image
-                style={{ width: 100, height: 100, objectFit: 'contain' }}
+                style={{ width: size, height: size, objectFit: 'contain' }}
                 source={Assets[item.imageSlug]}
             />
-            <Label.Small textAlign="center">{item.name}</Label.Small>
-            {item.quantity > 1 && (
-                <Label.Small
+            <Label.Small width="100%" backgroundColor="rgba(0,0,0,0.5)" position="absolute" bottom={0} textAlign="center">{item.name}</Label.Small>
+            <Row position="absolute" left={0} top={0} width="100%" justifyContent={item.type === 'food' ? 'space-between' : 'flex-end'} >
+                {item.type === 'food' && (
+                    <>
+                        <Image source={Assets['health']} style={{position: 'absolute', left: 2, top: 0, width: 22, height: 22, objectFit: 'contain' }} />
+                        <Label.Small
+                            textAlign="center"
+                            width={25}
+                            color={colors.roles.onPrimary}
+                        >
+                            {item.power ?? 0}
+                        </Label.Small>
+                    </>
+                )}
+                {item.quantity > 1 && (<Label.Small
                     textAlign="center"
-                    position="absolute"
-                    top={75}
                     width={25}
-                    left={75}
-                    backgroundColor={colors.roles.surfaceContainerHighest}
+                    backgroundColor={colors.roles.surfaceContainerLowest}
                     color={colors.roles.onSurface}
                 >
                     {item.quantity}
                 </Label.Small>
-            )}
+                )}
+            </Row>
         </Column>
     )
 }

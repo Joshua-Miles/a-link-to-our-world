@@ -333,12 +333,14 @@ type PasswordStepProps = Parameters<typeof Column>[0] & {
 
 const PasswordIsRequired = makeFailure('passwordIsRequired', {});
 
+const PasswordTooShort = makeFailure('passwordTooShort', {});
+
 function PasswordStep({ name, hasStarted, onNext, ...props }: PasswordStepProps) {
   const { spacing } = useDesignerTheme();
 
   const [password, setPassword] = useState('');
 
-  const [failure, setFailure] = useState<typeof PasswordIsRequired | null>();
+  const [failure, setFailure] = useState<typeof PasswordIsRequired | typeof PasswordTooShort | null>();
 
   const sequence = useSequence({ hasStarted }, [
     'perfect',
@@ -385,13 +387,16 @@ function PasswordStep({ name, hasStarted, onNext, ...props }: PasswordStepProps)
               setFailure(null)
             }}
             hasError={isFailure(failure, 'passwordIsRequired')}
-            supporting={isFailure(failure, 'passwordIsRequired') ? 'Please enter a password' : undefined}
+            supporting={isFailure(failure, 'passwordIsRequired') ? 'Please enter a password' 
+                : isFailure(failure, 'passwordTooShort') ? 'Password must be longer than 6 characters'
+                : undefined}
           />
           <Button.Filled
             opacity={sequence.hasReached('passwordInputFocused') ? 1 : 0}
             transitions={{ opacity: timing(1000) }}
             onPress={() => {
               if (!password) setFailure(PasswordIsRequired);
+              if (password.length < 6)setFailure(PasswordTooShort); 
               else {
                 Keyboard.dismiss();
                 onNext(password)

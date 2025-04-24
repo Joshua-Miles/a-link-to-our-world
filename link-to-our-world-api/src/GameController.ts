@@ -121,6 +121,12 @@ async function handleIntroEncounters(event: EncounterResolvedEvent) {
                 lat: 29.574138,
                 lng: -95.361177
             })
+            createEncounter(event.playerId, 'bazaar/rupee-chest', {
+                label: 'Open',
+                imageSlug: 'chest',
+                lat: 29.574128, 
+                lng: -95.360913
+            })
             createChest(event.playerId, 'common/chest/bazaar/1', {
                 lat: 29.573744, 
                 lng: -95.360779
@@ -651,8 +657,8 @@ async function handleNecludaEncounters(event: EncounterResolvedEvent) {
                 lng: -95.373717
             })
             createGrass(event.playerId, 'common/grass/necluda/1', {
-                lat: 29.5485, 
-                lng: -95.1959
+                lat: 29.588956, 
+                lng: -95.375681
             })
             createGrass(event.playerId, 'common/grass/necluda/2', {
                 lat: 29.589215, 
@@ -1054,10 +1060,6 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.508605, 
                 lng:  -95.136203
             })
-            createPot(event.playerId, 'common/pot/eldin/2', {
-                lat: 29.507673,
-                lng: -95.138195
-            })
             createGrass(event.playerId, 'common/grass/eldin/1', {
                 lat: 29.508132, 
                 lng: -95.135807
@@ -1078,10 +1080,6 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.5076, 
                 lng: -95.1404
             })
-            createWolf(event.playerId, 'common/wolf/eldin/3', {
-                lat: 29.5072, 
-                lng: -95.1406
-            })
             createPalmTree(event.playerId, 'common/palm-tree/eldin/1', {
                 lat: 29.508505, 
                 lng: -95.133599
@@ -1099,13 +1097,10 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lng: -95.136980
             })
             createKeese(event.playerId, 'enemy/keese/fire/eldin/1', {
-                lat: 29.5081, 
-                lng: -95.1387
-            })
-            createKeese(event.playerId, 'enemy/keese/fire/eldin/2', {
-                lat: 29.5078, 
+                lat: 29.5101, 
                 lng: -95.1381
             })
+          
             createMoblin(event.playerId, 'enemy/moblin/standard/eldin/1', {
                 lat: 29.508309, 
                 lng:  -95.135628
@@ -1114,10 +1109,7 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lat: 29.507981, 
                 lng: -95.132635
             })
-            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/3', {
-                lat: 29.507140, 
-                lng: -95.137816
-            })
+            
             createMoblin(event.playerId, 'enemy/moblin/standard/eldin/4', {
                 lat: 29.511230, 
                 lng: -95.138175
@@ -1141,6 +1133,18 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 imageSlug: 'darvok-avatar',
                 lat: 29.506907, 
                 lng: -95.137956
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/eldin/3', {
+                lat: 29.507140, 
+                lng: -95.137816
+            })
+            createKeese(event.playerId, 'enemy/keese/fire/eldin/2', {
+                lat: 29.5078, 
+                lng: -95.1381
+            })
+            createPot(event.playerId, 'common/pot/eldin/2', {
+                lat: 29.507673,
+                lng: -95.138195
             })
         break;
         case 'eldin/darvok':
@@ -1178,12 +1182,24 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
                 lng: -95.1417
             })
             createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/1', {
-                lat: 29.5067, 
-                lng: -95.1426
+                lat: 29.5085, 
+                lng: -95.1398
             })
             createMoblin(event.playerId, 'enemy/moblin/fire/eldin/1', {
-                lat: 29.5067,
-                lng: -95.1423
+                lat: 29.5076,
+                lng: -95.1410
+            })
+            createPot(event.playerId, 'common/pot/eldin/3', {
+                lat: 29.5082,
+                lng: -95.1399
+            })
+            createPot(event.playerId, 'common/pot/eldin/4', {
+                lat: 29.5073,
+                lng: -95.1414
+            })
+            createPot(event.playerId, 'common/pot/eldin/5', {
+                lat: 29.5082,
+                lng: -95.1399
             })
         break;
         case 'eldin/cache':
@@ -1193,16 +1209,16 @@ async function handleEldinEncounters(event: EncounterResolvedEvent) {
             })
             await createFinaleIfAllTemplesWatered(event.playerId);
             createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/2', {
-                lat: 29.5067, 
-                lng: -95.1434
+                lat: 29.5078, 
+                lng: -95.1418
             })
             createGibdo(event.playerId, 'enemy/gibdo/fire/eldin/3', {
                 lat: 29.5091, 
                 lng: -95.1399
             })
             createMoblin(event.playerId, 'enemy/moblin/fire/eldin/2', {
-                lat: 29.5068, 
-                lng: -95.1428
+                lat: 29.5087, 
+                lng: -95.1415
             })
             createMoblin(event.playerId, 'enemy/moblin/fire/eldin/3', {
                 lat: 29.5091, 
@@ -1424,6 +1440,44 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lat: 29.582533, 
                 lng: -95.415775
             })
+            createGrass(event.playerId, 'common/grass/hebra/1', {
+                lat: 29.581359, 
+                lng: -95.417012
+            })
+            createGrass(event.playerId, 'common/grass/hebra/2', {
+                lat: 29.582132, 
+                lng: -95.416520
+            })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/1', {
+                lat: 29.581630,
+                lng:  -95.416891
+            })
+            createKeese(event.playerId, 'enemy/keese/ice/hebra/2', {
+                lat: 29.581612, 
+                lng: -95.415647
+            })
+            createSnowTree(event.playerId, 'common/snow-tree/hebra/1', {
+                lat: 29.581612,
+                lng:  -95.416352
+            })
+            createMoblin(event.playerId, 'enemy/moblin/standard/hebra/1', {
+                lat: 29.581660, 
+                lng: -95.416155
+            })
+        break;
+        case 'hebra/kyllis':
+            createEncounter(event.playerId, 'hebra/temple-1', {
+                label: 'Inspect...',
+                imageSlug: 'locked-door',
+                lat: 29.582322, 
+                lng: -95.411810
+            })
+            createEncounter(event.playerId, 'hebra/lloron-den', {
+                label: 'Enter',
+                imageSlug: 'lloron-den',
+                lat: 29.582166, 
+                lng: -95.409761
+            })
             createChest(event.playerId, 'common/chest/hebra/2', {
                 lat: 29.580531, 
                 lng:  -95.409370
@@ -1439,18 +1493,6 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
             createWolf(event.playerId, 'common/wolf/hebra/3', {
                 lat: 29.581242, 
                 lng:  -95.409227
-            })
-            createGrass(event.playerId, 'common/grass/hebra/1', {
-                lat: 29.581359, 
-                lng: -95.417012
-            })
-            createGrass(event.playerId, 'common/grass/hebra/2', {
-                lat: 29.582132, 
-                lng: -95.416520
-            })
-            createSnowTree(event.playerId, 'common/snow-tree/hebra/1', {
-                lat: 29.581612,
-                lng:  -95.416352
             })
             createSnowTree(event.playerId, 'common/snow-tree/hebra/2', {
                 lat: 29.581699, 
@@ -1468,14 +1510,6 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
                 lat: 29.582423, 
                 lng: -95.410739
             })
-            createKeese(event.playerId, 'enemy/keese/ice/hebra/1', {
-                lat: 29.581630,
-                lng:  -95.416891
-            })
-            createKeese(event.playerId, 'enemy/keese/ice/hebra/2', {
-                lat: 29.581612, 
-                lng: -95.415647
-            })
             createKeese(event.playerId, 'enemy/keese/ice/hebra/3', {
                 lat: 29.582274, 
                 lng: -95.411988
@@ -1483,10 +1517,6 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
             createKeese(event.playerId, 'enemy/keese/ice/hebra/4', {
                 lat: 29.581602, 
                 lng: -95.409070
-            })
-            createMoblin(event.playerId, 'enemy/moblin/standard/hebra/1', {
-                lat: 29.581660, 
-                lng: -95.416155
             })
             createMoblin(event.playerId, 'enemy/moblin/standard/hebra/2', {
                 lat: 29.582113, 
@@ -1507,20 +1537,6 @@ async function handleHebraEncounters(event: EncounterResolvedEvent) {
             createDarknut(event.playerId, 'enemy/darknut/standard/hebra/3', {
                 lat: 29.582343, 
                 lng: -95.411890
-            })
-        break;
-        case 'hebra/kyllis':
-            createEncounter(event.playerId, 'hebra/temple-1', {
-                label: 'Inspect...',
-                imageSlug: 'locked-door',
-                lat: 29.582322, 
-                lng: -95.411810
-            })
-            createEncounter(event.playerId, 'hebra/lloron-den', {
-                label: 'Enter',
-                imageSlug: 'lloron-den',
-                lat: 29.582166, 
-                lng: -95.409761
             })
         break;
         case 'hebra/temple-1':

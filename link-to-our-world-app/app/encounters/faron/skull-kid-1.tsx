@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Combat, SceneFocus, SpeechCard, usePlayerName, useSequence } from "shared";
+import { Combat, SceneFocus, Soundtrack, SpeechCard, usePlayerName, useSequence } from "shared";
 import { Column } from "designer-m3";
 import { router } from "expo-router";
 
@@ -23,6 +23,7 @@ export default function () {
 
     return (
         <Column flex={1}>
+            <Soundtrack asset="skull-kids-theme-clipped"/>
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus asset="skull-kid" />
                 <SpeechCard

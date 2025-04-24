@@ -35,7 +35,7 @@ export default function () {
 
     return (
         <Scene>
-            <Soundtrack asset="hebra-battle" />
+            <Soundtrack asset="hebra-battle" isPlaying={sequence.hasReached('letsFightHimTogether')} />
             <Soundtrack isPlaying={sequence.hasReached('thankYou')} asset="hebra" />            
             {focus && <SceneFocus asset={focus} label={label ?? undefined} /> }
             <SpeechCard
@@ -67,7 +67,7 @@ export default function () {
                     asset="frostus"
                     fortitude={50}
                     damage={2}
-                    speed={10000}
+                    speed={2000}
                     onFinished={sequence.next}
                 />
             }

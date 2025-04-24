@@ -6,9 +6,9 @@ export default function() {
     return (
         <Combat
             asset="moblin"
-            fortitude={50}
+            fortitude={14}
             damage={1}
-            speed={30000}
+            speed={2000}
             onFinished={() => {
                 resolveEncounter('finale/moblin-fight', {})
                 router.push('/map')

@@ -23,10 +23,11 @@ export default function() {
 
     return (
         <Scene>
-            <Soundtrack asset="gorruks-theme" />
+            <Soundtrack asset="gorruk-theme-1" isPlaying={sequence.hasNotReached('exit')} />
+            <Soundtrack asset="koroks-theme" isPlaying={sequence.hasReached('exit')} />
             {sequence.hasNotReached('combat') &&
                 <>
-                    <SceneFocus asset="gorruk-theme-1" label="Gorruk" />                       
+                    <SceneFocus asset="gorruk" label="Gorruk" />                       
                     <SpeechCard
                         hasStarted={sequence.isAt('luminasStats')}
                         asset="lumina-avatar" 
@@ -125,6 +126,9 @@ export default function() {
                             ],
                             [
                                 'I have marked each of these locations on your map'
+                            ],
+                            [
+                                'There is also a bazaar, just north of here, if you wish to gather supplies first.'
                             ]
                         ]}
                     />

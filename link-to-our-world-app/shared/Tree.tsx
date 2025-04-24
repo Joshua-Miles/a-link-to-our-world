@@ -28,6 +28,12 @@ const items: Item[] = [
         name: 'Banana',
         description: 'A sweet yellow fruit.'
     },
+    {
+        slug: 'honey',
+        type: 'ingredient',
+        name: 'Honey',
+        description: 'A lovely sweetener.'
+    },
 ]
 
 export function Tree({ encounter, focus = 'tree' }: { encounter: Parameters<typeof resolveEncounter>[0], focus?: string  }) {

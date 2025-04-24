@@ -6,9 +6,9 @@ export default function() {
     return (
         <Combat
             asset="darknut"
-            fortitude={50}
-            damage={1}
-            speed={30000}
+            fortitude={25}
+            damage={2}
+            speed={2000}
             forces={['water']}
             onFinished={() => {
                 resolveEncounter('finale/darknut-fight', {})

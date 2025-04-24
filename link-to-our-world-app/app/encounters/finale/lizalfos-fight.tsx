@@ -6,9 +6,9 @@ export default function() {
     return (
         <Combat
             asset="lizalfos"
-            fortitude={50}
+            fortitude={8}
             damage={1}
-            speed={30000}
+            speed={1000}
             forces={[ 'electric' ]}
             onFinished={() => {
                 resolveEncounter('finale/lizalfos-fight', {})

@@ -20,6 +20,8 @@ export function listInventoryItems(this: AmbassadorClient | void): Observable<ne
     imageSlug: string;
 } & {
     acknowledged: boolean;
+} & {
+    power: null | number;
 }>> {
     let api = AmbassadorClient.get(this, process.env.EXPO_PUBLIC_API_URL as string);
     return api.callRemoteObservableFunction("listInventoryItems");

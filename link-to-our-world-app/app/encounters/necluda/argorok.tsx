@@ -59,9 +59,9 @@ export default function () {
             {sequnece.isAt('combat') && <>
                 <Combat
                     asset="argorok"
-                    fortitude={50}
-                    damage={2}
-                    speed={10000}
+                    fortitude={15}
+                    damage={1}
+                    speed={1500}
                     onFinished={sequnece.next}
                 />
             </>}
@@ -107,9 +107,9 @@ export default function () {
                     onFinished={sequnece.next}
                 />
                 <SpeechCard
-                    asset="kyllis"
+                    asset="kyllis-avatar"
                     text={[
-                            `Before you leave, ${playerName}, please take this, as a token of our appreciation.`,
+                            `Before you leave, ${playerName}, please take this, as a token of my appreciation.`,
                     ]}
                     hasStarted={sequnece.hasReached('thankYou')}
                     onFinished={sequnece.next}

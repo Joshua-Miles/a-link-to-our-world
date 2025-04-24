@@ -73,7 +73,7 @@ export function PhaseMidpoint ({ hasStarted, currentForce, onFinished }: PhaseMi
             {sequence.isAt('combat') && 
                 <Combat 
                     asset='gorruk'
-                    speed={6000}
+                    speed={1500}
                     damage={1}
                     fortitude={50}
                     forces={masteredForces}

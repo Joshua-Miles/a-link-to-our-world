@@ -1,7 +1,7 @@
 import { isAnyFailure } from "@triframe/ambassador";
 import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
-import { dialog, Dialog, DialogNode, Scene, SceneFocus, Song, SongData, SongPlayer, Speech, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { dialog, Dialog, DialogNode, Scene, SceneFocus, Song, SongData, SongPlayer, Soundtrack, Speech, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { dragonRootTheme, fairyTheme, skyTheme, wildsTheme } from "shared";
 import { router } from "expo-router";
 import { useState } from "react";
@@ -66,6 +66,7 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="gerudo" isPlaying={!sequence.isAt('song')} />
             {!sequence.isAt('song') && <SceneFocus
                 height="30%"
                 asset={

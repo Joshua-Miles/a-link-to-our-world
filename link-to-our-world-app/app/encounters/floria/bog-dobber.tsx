@@ -40,7 +40,7 @@ export default function () {
     return (
         <Scene>
             <Soundtrack asset="floria-battle" />
-            <Soundtrack isPlaying={sequnece.hasReached('thankYouFayflutter')} asset="floria" />
+            <Soundtrack isPlaying={sequnece.hasReached('thankYou')} asset="floria" />
             {sequnece.hasNotReached('combat') && <>
                 <SceneFocus asset="nimri" />
                 <SpeechStepper
@@ -52,9 +52,9 @@ export default function () {
             {sequnece.isAt('combat') && <>
                 <Combat
                     asset="bog-dobber"
-                    fortitude={50}
-                    damage={2}
-                    speed={10000}
+                    fortitude={30}
+                    damage={1}
+                    speed={2000}
                     onFinished={sequnece.next}
                 />
             </>}
@@ -66,7 +66,7 @@ export default function () {
                     groups={[
                         [ "Thank you for fighting the bog-dobber with me!"],
                     ]}
-                    hasStarted={sequnece.hasReached('thankYouFayflutter')}
+                    hasStarted={sequnece.hasReached('thankYou')}
                     onFinished={sequnece.next}
                 />
                 <ItemGet 

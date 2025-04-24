@@ -8,11 +8,11 @@ import { updateRupees } from "../Meters";
 type CookingMethod = 'pan' | 'oven' | 'pot';
 
 const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryItem>>> = {
-    'pot>chicken|oil|wheat': (playerId) => createInventoryItem(playerId, 'fried-chicken', {
+    'pan>chicken|oil|wheat': (playerId) => createInventoryItem(playerId, 'fried-chicken', {
         name: 'Fried Chicken',
         type: 'ingredient',
     }),
-    'pan>oil|steak|wheat': (playerId) => createInventoryItem(playerId, 'fried-steak', {
+    'pan>meat|oil|wheat': (playerId) => createInventoryItem(playerId, 'fried-steak', {
         name: 'Fried Steak',
         type: 'ingredient',
     }),
@@ -34,7 +34,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 4
     }),
-    'pot>cream|rice|steak': (playerId) => createInventoryItem(playerId, 'steak-soup', {
+    'pot>cream|meat|rice': (playerId) => createInventoryItem(playerId, 'steak-soup', {
         name: 'Steak Soup',
         type: 'food',
         power: 3
@@ -64,7 +64,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 4
     }),
-    'pot>rice|steak|water': (playerId) => createInventoryItem(playerId, 'steak-soup', {
+    'pot>meat|rice|water': (playerId) => createInventoryItem(playerId, 'steak-soup', {
         name: 'Steak Soup',
         type: 'food',
         power: 3
@@ -110,7 +110,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 3
     }),
-    'oven>butter|steak|wheat': (playerId) => createInventoryItem(playerId, 'steak-pie', {
+    'oven>butter|meat|wheat': (playerId) => createInventoryItem(playerId, 'steak-pie', {
         name: 'Steak Pie',
         type: 'food',
         power: 2
@@ -126,7 +126,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 4
     }),
-    'pan>butter|egg|steak': (playerId) => createInventoryItem(playerId, 'steak-omelet', {
+    'pan>butter|egg|meat': (playerId) => createInventoryItem(playerId, 'steak-omelet', {
         name: 'Steak Omelet',
         type: 'food',
         power: 3
@@ -157,7 +157,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         power: 1
     }),
 
-    'pan>butter|rice|steak': (playerId) => createInventoryItem(playerId, 'steak-fried-rice', {
+    'pan>butter|meat|rice': (playerId) => createInventoryItem(playerId, 'steak-fried-rice', {
         name: 'Steak Fried Rice',
         type: 'food',
         power: 3
@@ -187,7 +187,7 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 1
     }),
-    'pan>oil|rice|steak': (playerId) => createInventoryItem(playerId, 'steak-fried-rice', {
+    'pan>meat|oil|rice': (playerId) => createInventoryItem(playerId, 'steak-fried-rice', {
         name: 'Steak Fried Rice',
         type: 'food',
         power: 3
@@ -229,12 +229,17 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         power: 7
     }),
 
-    'pan>noodles|tomato|cheese': (playerId) => createInventoryItem(playerId, 'tomato-pasta', {
+    'pan>cheese|noodles|tomato': (playerId) => createInventoryItem(playerId, 'tomato-pasta', {
         name: 'Tomato Pasta',
         type: 'food',
         power: 14
     }),
-    'pan>noodles|cream|cheese': (playerId) => createInventoryItem(playerId, 'alfredo-pasta', {
+    'pan>cheese|cream|noodles': (playerId) => createInventoryItem(playerId, 'alfredo-pasta', {
+        name: 'Alfredo Pasta',
+        type: 'food',
+        power: 14
+    }),
+    'pan>butter|cream|noodles': (playerId) => createInventoryItem(playerId, 'alfredo-pasta', {
         name: 'Alfredo Pasta',
         type: 'food',
         power: 14

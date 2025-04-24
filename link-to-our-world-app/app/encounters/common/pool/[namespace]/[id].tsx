@@ -3,5 +3,5 @@ import { Well } from "shared";
 
 export default () => {
     const { namespace, id } = useLocalSearchParams();
-    return <Well encounter={`common/well/${namespace}/${id}` as any} />
+    return <Well focus="pool" encounter={`common/pool/${namespace}/${id}` as any} />
 }

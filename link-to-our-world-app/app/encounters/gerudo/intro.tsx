@@ -1,4 +1,4 @@
-import { useResult } from "@triframe/utils-react";
+import { isLoading, useResult } from "@triframe/utils-react";
 import { getEncounter, resolveEncounter } from "api";
 import { dialog, Dialog, Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
@@ -13,6 +13,10 @@ export default function () {
     function handleFinished() {
         resolveEncounter('gerudo/intro', {});
         router.push('/map');
+    }
+
+    if (isLoading(playerName)) {
+        return null
     }
 
     return (

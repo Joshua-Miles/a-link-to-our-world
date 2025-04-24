@@ -41,9 +41,9 @@ export default function () {
             {sequence.isAt('combat') &&
                 <Combat
                     asset="scervus"
-                    fortitude={50}
+                    fortitude={25}
                     damage={2}
-                    speed={10000}
+                    speed={1000}
                     onFinished={sequence.next}
                 />
             }
@@ -51,7 +51,7 @@ export default function () {
                 hasStarted={sequence.hasReached('thankYou')}
                 groups={[
                     [ `Thank you, Tidebane!`, `With Scervus defeated, the rebellion is no longer a threat.` ],
-                    [ `And thank you, ${playerName}.`, `Hearing the story of Tumbleweed helped me to better protect my kingdom.`, `Is there anything I can do for you in return?`],
+                    [ `And thank you, ${playerName}.`, `Hearing the story of Tumblebreeze helped me to better protect my kingdom.`, `Is there anything I can do for you in return?`],
                     [ `...the key to The Lightning Temple?`, `Absolutely, here, take it.`],
                     [ `Now you should be able to enter the temple.`]
                 ]}

@@ -1,5 +1,5 @@
 import { resolveEncounter } from "api";
-import { Scene, SceneFocus, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
+import { Scene, SceneFocus, Soundtrack, SpeechCard, SpeechStepper, usePlayerName, useSequence } from "shared";
 import { router } from "expo-router";
 
 export default function () {
@@ -17,6 +17,7 @@ export default function () {
 
     return (
         <Scene>
+            <Soundtrack asset="gorruk-theme-2" />
             <SceneFocus asset="lumina" />
             <SpeechCard
                 hasStarted={sequence.hasReached('impa')}

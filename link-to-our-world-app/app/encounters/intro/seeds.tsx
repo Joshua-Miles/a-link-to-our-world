@@ -131,7 +131,7 @@ export default () => {
                         [
                             `${playerName}, these are the Korok seedlings.`,
                             'They may seem... chaotic.',
-                            'But it is vital that we plant these seedlings across Hyrule that was.',
+                            'But it is vital that we plant these seedlings across the Hyrule of decline.',
                             'As they grow, these plants will restore my world.'
                         ],
                         [

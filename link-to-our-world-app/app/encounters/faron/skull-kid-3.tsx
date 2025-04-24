@@ -55,9 +55,9 @@ export default function () {
             {sequnece.isAt('combat') && <>
                 <Combat
                     asset="skull-kid"
-                    fortitude={50}
-                    damage={2}
-                    speed={10000}
+                    fortitude={30}
+                    damage={1}
+                    speed={2000}
                     onFinished={sequnece.next}
                 />
             </>}
@@ -123,6 +123,7 @@ export default function () {
                 />
             </>}
             {sequnece.hasReached('meanwhile') && <>
+                <Soundtrack asset="gorruk-theme-1" />
                 <SpeechStepper
                     hasStarted={sequnece.hasReached('meanwhile')}
                     justifyContent="center"

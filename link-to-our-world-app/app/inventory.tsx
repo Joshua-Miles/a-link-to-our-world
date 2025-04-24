@@ -73,7 +73,7 @@ export default function () {
             </Column>
             {selectedItem && (
                 <Row backgroundColor={colors.roles.surfaceContainerHighest} alignItems="center" px={spacing.sm}>
-                    <Image source={Assets[selectedItem.imageSlug]}/>
+                    <Image source={Assets[selectedItem.imageSlug]} style={{ width: 75, height: 75, objectFit: 'contain' }} />
                     <RowReverse flex={1} gap={spacing.xs}>
                         <Button.Filled onPress={handleEat}>
                             Eat

@@ -45,7 +45,7 @@ export default function () {
                         onFinished={sequence.next}
                     />
                     <SpeechStepper
-                        hasStarted={true}
+                        hasStarted={sequence.hasReached('justAhead')}
                         groups={[
                             ['The place to water the Korok Seedling is just ahead...']
                         ]}

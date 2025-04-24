@@ -6,9 +6,9 @@ export default function() {
     return (
         <Combat
             asset="gibdo"
-            fortitude={50}
-            damage={1}
-            speed={30000}
+            fortitude={25}
+            damage={4}
+            speed={8000}
             forces={['fire']}
             onFinished={() => {
                 resolveEncounter('finale/gibdo-fight', {})

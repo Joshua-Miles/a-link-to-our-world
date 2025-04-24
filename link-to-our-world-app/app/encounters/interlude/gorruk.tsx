@@ -26,7 +26,7 @@ export default function() {
         resolveEncounter('interlude/gorruk', state)
     }
 
-    if (isLoading(gorruk1) || isAnyFailure(gorruk1)) {
+    if (isLoading(gorruk1) || isAnyFailure(gorruk1) || isLoading(playerName)) {
         return null;
     }
 
@@ -39,6 +39,7 @@ export default function() {
     return (
         <Scene>
             <Soundtrack asset="gorruk-theme-2" />
+            <Soundtrack asset="luminas-theme" isPlaying={sequence.hasReached('thankYouForDrivingHimAway')} />
             {sequence.hasNotReached('combat') &&
                 <>
                     <SceneFocus asset="gorruk" />                       
@@ -70,9 +71,9 @@ export default function() {
                 <>
                     <Combat 
                         asset='gorruk'
-                        speed={3000}
+                        speed={1500}
                         damage={1}
-                        fortitude={10}
+                        fortitude={28}
                         onFinished={sequence.next}
                     />
                 </>

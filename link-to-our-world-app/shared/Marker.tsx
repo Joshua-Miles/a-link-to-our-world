@@ -9,9 +9,10 @@ export type MarkerProps = {
   lng: number | string;
   size?: number | null;
   imageSlug: string
+  onSelected?: () => any
 };
 
-export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
+export function Marker({ id, lat, lng, imageSlug, size = 20, onSelected }: MarkerProps) {
   const pointAnnotation = useRef<Mapbox.PointAnnotation>(null);
   const [_, setState] = useState(0);
   lat = typeof lat == 'number' ? lat : parseFloat(lat)
@@ -21,7 +22,7 @@ export function Marker({ id, lat, lng, imageSlug, size = 20 }: MarkerProps) {
       id={id}
       coordinate={[lng, lat]}
       ref={pointAnnotation}
-      onSelected={() => console.log(id)}
+      onSelected={onSelected}
     >
       <Image
         fadeDuration={0}

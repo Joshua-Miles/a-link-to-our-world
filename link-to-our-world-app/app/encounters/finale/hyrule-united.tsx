@@ -35,8 +35,8 @@ export default function () {
             {sequence.isAt('hoarde') ? <Hoarde /> : <Friends />}
             <SpeechCard
                 hasStarted={sequence.hasReached('hoarde')}
-                asset="impa-avatar"
-                text={[`${playerName}! There are so many monsters approaching!`]}
+                asset="ganon-avatar"
+                text={[`${playerName}! You cannot escape me!`, `You have only tasted the first fruits of my hoard!`]}
                 onFinished={sequence.next}
             />
             <SpeechCard
