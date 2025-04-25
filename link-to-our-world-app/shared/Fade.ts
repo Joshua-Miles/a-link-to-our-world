@@ -3,20 +3,25 @@ import { Easing } from "react-native";
 
 export class Fade {
     private callback: () => Promise<boolean>;
+    private done: () => any;
     private aborted: boolean = false;
 
-    constructor(callback: () => Promise<boolean>) {
+    constructor(callback: () => Promise<boolean>, done: () => any) {
         this.callback = callback;
+        this.done = done
         this.do()
     }
 
     abort() {
         this.aborted = true;
+        this.done();
     }
 
     private async do() {
         if (!this.aborted && !await this.callback()) {
             requestAnimationFrame(() => this.do());
+        } else {
+            this.done();
         }
     }
 }
@@ -43,12 +48,13 @@ export function crossFade(playerOut: Audio.Sound, playerIn: Audio.Sound, duratio
             const remainingOut = remaining - (duration / 2)
             await playerOut.setVolumeAsync(Easing.ease(remainingOut / (duration / 2)));
         } else {
-            if (await isPlaying(playerOut)) await playerOut.pauseAsync();
             if (!await isPlaying(playerIn)) await playerIn.playAsync();
             await playerIn.setVolumeAsync(Easing.ease(1 - remaining / (duration/2)));
         }
         
         return false;
+    }, () => {
+        playerOut.pauseAsync();
     })
 }
 
@@ -68,7 +74,7 @@ export function fadeIn(audioPlayer: Audio.Sound, duration: number) {
         // Change player volume
         await audioPlayer.setVolumeAsync(Easing.ease(1 - remaining / duration));
         return false;
-    })
+    }, () => {})
 }
 
 export function fadeOut(audioPlayer: Audio.Sound, duration: number) {
@@ -79,12 +85,13 @@ export function fadeOut(audioPlayer: Audio.Sound, duration: number) {
 
         if (remaining < 60) {
             // End animation here as there's less than 60 milliseconds left
-            await audioPlayer.pauseAsync()
             return true;
         }
 
         // Change player volume
         await audioPlayer.setVolumeAsync(Easing.ease(remaining / duration));
         return false;
+    }, () => {
+        audioPlayer.pauseAsync()
     })
 }
