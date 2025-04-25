@@ -37,11 +37,13 @@ export default function Map() {
 
   const finaleEpilogue = useResult(getEncounter, 'finale/epilogue')
 
-  const [ spoofLocation, setSpoofLocation ] = usePersistedState<Coordinate | null>('persisted-state', null);
+  const [ isClickNavigationEnabled ] = usePersistedState<boolean>('isClickNavigationEnabled', false);
+
+  const [ spoofLocation, setSpoofLocation ] = usePersistedState<Coordinate | null>('spoofLocation', null);
 
   const [ selectedEncounter, setSelectedEncounter ] = useState<EncounterSlug | null>(null)
 
-  const location = spoofLocation === null ? realLocation : spoofLocation;
+  const location = (!isClickNavigationEnabled || spoofLocation === null) ? realLocation : spoofLocation;
 
   const encounters = useResult(listEncounters)
 
@@ -53,7 +55,7 @@ export default function Map() {
     return <Label.Small>Location Unavailable</Label.Small>;
 
   function handleMapPress(e: any) {
-    if (!__DEV__) return;
+    if (!isClickNavigationEnabled) return;
     const [ lng, lat ] = e.geometry.coordinates as number[];
     setSpoofLocation({ lat, lng })
   }

@@ -1,16 +1,23 @@
 import { logout, resetGame } from "api";
 import {
   Column,
+  IconButton,
+  ListItem,
   ListItemLeadingIcon,
   ListItemTitle,
   PressableListItem,
+  RadioButton,
+  RadioButtonLabel,
+  RadioGroup,
 } from "designer-m3";
-import { BackwardIcon, LockIcon } from "designer-m3/icons";
+import { BackwardIcon, CheckIcon, LockIcon, XIcon } from "designer-m3/icons";
 import { useRouter } from "expo-router";
-import { Nav } from "shared";
+import { Nav, usePersistedState } from "shared";
 
 export default function More() {
   const router = useRouter();
+
+  const [ isClickNavigationEnabled, setIsClickNavigationEnabled ] = usePersistedState<boolean>('isClickNavigationEnabled', false);
 
   async function handleLogout() {
     await logout();
@@ -26,22 +33,25 @@ export default function More() {
           </ListItemLeadingIcon>
           <ListItemTitle>Logout</ListItemTitle>
         </PressableListItem>
-        {__DEV__ && (
-          <PressableListItem onPress={resetGame}>
-            <ListItemLeadingIcon>
-              <BackwardIcon />
-            </ListItemLeadingIcon>
-            <ListItemTitle>Reset</ListItemTitle>
-          </PressableListItem>
-        )}
-         {__DEV__ && (
-          <PressableListItem href="/scrathpad">
-            <ListItemLeadingIcon>
-              <BackwardIcon />
-            </ListItemLeadingIcon>
-            <ListItemTitle>Scratch Paad</ListItemTitle>
-          </PressableListItem>
-        )}
+        <PressableListItem onPress={() => setIsClickNavigationEnabled(!isClickNavigationEnabled)}>
+          <ListItemLeadingIcon>
+              {isClickNavigationEnabled ? <CheckIcon /> : <XIcon />}
+          </ListItemLeadingIcon>
+          <ListItemTitle>
+            Use Click Navigation
+          </ListItemTitle>
+         
+          {/* <RadioGroup value={isClickNavigationEnabled} onChange={setIsClickNavigationEnabled}>
+            <RadioButtonLabel value={true}>
+              Yes
+            </RadioButtonLabel>
+            <RadioButton value={true} />
+            <RadioButtonLabel value={false}>
+              No
+            </RadioButtonLabel>
+            <RadioButton value={false} />
+          </RadioGroup> */}
+        </PressableListItem>
       </Column>
       <Nav />
     </>

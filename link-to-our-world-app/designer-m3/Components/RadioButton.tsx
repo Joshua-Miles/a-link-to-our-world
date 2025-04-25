@@ -10,13 +10,13 @@ type RadioGroupState<T> = {
     onChange: (value: T) => any
 }
 
-const RadioGroupContext = createContext<RadioGroupState<any>>(null);
+const RadioGroupContext = createContext<RadioGroupState<any> | null>(null);
 
 export type RadioGroupProps<T> = RadioGroupState<T> & {
     children: ReactNode
 }
 
-export function RadioGroup({ children, value, onChange }) {
+export function RadioGroup<T>({ children, value, onChange }: RadioGroupProps<T>) {
     return (
         <RadioGroupContext.Provider value={{ value, onChange }}>
             {children}
@@ -30,6 +30,7 @@ export type RadioButtonProps = {
 
 export function RadioButton({ value }: RadioButtonProps) {
     const group = useContext(RadioGroupContext);
+    if (!group) throw Error('Cannot use RadioButton outside of RadioGroup')
     return (
         <RadioContainer forceState={{ _checked: group.value === value }} onPress={() => group.onChange(value)}>
             <RadioOutline>
@@ -45,6 +46,7 @@ export type RadioButtonLabelProps = RadioButtonProps & {
 
 export function RadioButtonLabel({ value, children }: RadioButtonLabelProps) {
     const group = useContext(RadioGroupContext);
+    if (!group) throw Error('Cannot use RadioButton outside of RadioGroup')
     const { spacing } = useDesignerTheme();
     return <Label.Small paddingLeft={spacing.xs} onPress={() => group.onChange(value)}>{children}</Label.Small>
 }
