@@ -1,11 +1,11 @@
-import { AudioPlayer } from "expo-audio";
+import { Audio } from 'expo-av';
 import { Easing } from "react-native";
 
 export class Fade {
-    private callback: () => boolean;
+    private callback: () => Promise<boolean>;
     private aborted: boolean = false;
 
-    constructor(callback: () => boolean) {
+    constructor(callback: () => Promise<boolean>) {
         this.callback = callback;
         this.do()
     }
@@ -14,18 +14,23 @@ export class Fade {
         this.aborted = true;
     }
 
-    private do() {
-        if (!this.aborted && !this.callback()) {
+    private async do() {
+        if (!this.aborted && !await this.callback()) {
             requestAnimationFrame(() => this.do());
         }
     }
 }
 
-export function crossFade(playerOut: AudioPlayer, playerIn: AudioPlayer, duration: number) {
-    const end = new Date().getTime() + duration;
-    playerIn.volume = 0;
+async function isPlaying(player: Audio.Sound) {
+    const status = await player.getStatusAsync();
+    return status.isLoaded && status.isPlaying;
+}
 
-    return new Fade(() => {
+export function crossFade(playerOut: Audio.Sound, playerIn: Audio.Sound, duration: number) {
+    const end = new Date().getTime() + duration;
+    playerIn.setVolumeAsync(0)
+
+    return new Fade(async () => {
         const current = new Date().getTime();
         const remaining = end - current;
 
@@ -36,22 +41,22 @@ export function crossFade(playerOut: AudioPlayer, playerIn: AudioPlayer, duratio
         // Change player volume
         if (remaining > (duration / 2)) {
             const remainingOut = remaining - (duration / 2)
-            playerOut.volume = Easing.ease(remainingOut / (duration / 2));
+            await playerOut.setVolumeAsync(Easing.ease(remainingOut / (duration / 2)));
         } else {
-            if (playerOut.playing) playerOut.pause();
-            if (!playerIn.playing) playerIn.play();
-            playerIn.volume = Easing.ease(1 - remaining / (duration/2));
+            if (await isPlaying(playerOut)) await playerOut.pauseAsync();
+            if (!await isPlaying(playerIn)) await playerIn.playAsync();
+            await playerIn.setVolumeAsync(Easing.ease(1 - remaining / (duration/2)));
         }
         
         return false;
     })
 }
 
-export function fadeIn(audioPlayer: AudioPlayer, duration: number) {
+export function fadeIn(audioPlayer: Audio.Sound, duration: number) {
     const end = new Date().getTime() + duration;
-    audioPlayer.volume = 0;
-    audioPlayer.play();
-    return new Fade(() => {
+    audioPlayer.setVolumeAsync(0)
+    audioPlayer.playAsync()
+    return new Fade(async () => {
         const current = new Date().getTime();
         const remaining = end - current;
 
@@ -61,25 +66,25 @@ export function fadeIn(audioPlayer: AudioPlayer, duration: number) {
         }
 
         // Change player volume
-        audioPlayer.volume = Easing.ease(1 - remaining / duration);
+        await audioPlayer.setVolumeAsync(Easing.ease(1 - remaining / duration));
         return false;
     })
 }
 
-export function fadeOut(audioPlayer: AudioPlayer, duration: number) {
+export function fadeOut(audioPlayer: Audio.Sound, duration: number) {
     const end = new Date().getTime() + duration;
-    return new Fade(() => {
+    return new Fade(async () => {
         const current = new Date().getTime();
         const remaining = end - current;
 
         if (remaining < 60) {
             // End animation here as there's less than 60 milliseconds left
-            audioPlayer.pause()
+            await audioPlayer.pauseAsync()
             return true;
         }
 
         // Change player volume
-        audioPlayer.volume = Easing.ease(remaining / duration);
+        audioPlayer.setVolumeAsync(Easing.ease(remaining / duration));
         return false;
     })
 }

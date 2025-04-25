@@ -4,6 +4,7 @@ import { difference } from "utils";
 import { gradeSong } from "./gradeSong";
 import { Note, REST, Song, SongNote, whole } from "./Song";
 import { useNotes } from "./useNotes";
+import { useSoundtrackPlayer } from "shared/Soundtrack";
 
 type SongPlayerState = {
     startTime: number;
@@ -29,7 +30,8 @@ export function useSongPlayer(songData: SongData) {
     const song = new Song(songData.bpm, [whole(REST), ...songData.notes]);
     const pitches = song.pitches;
     const screen = useWindowDimensions();
-    const notes = useNotes(pitches);
+    const notes = useNotes();
+    const soundtrackPlayer = useSoundtrackPlayer();
     const [state, setState] = useState<SongPlayerState>({
         startTime: 0,
         started: false,
@@ -87,14 +89,12 @@ export function useSongPlayer(songData: SongData) {
         const recordedNotes = [...state.recordedNotes];
 
         for (let pitch of addedPitches) {
-            notes[pitch].loop = true;
-            notes[pitch].play();
+            soundtrackPlayer.replace(notes[pitch], 0, { loop: true })
             pressTimes[pitch] = Date.now() - state.startTime;
         }
 
         for (let pitch of droppedPitches) {
-            notes[pitch].pause();
-            notes[pitch].seekTo(0);
+            soundtrackPlayer.pause(notes[pitch], 0)
             recordedNotes.push(createNoteForPressedPitch(pitch));
         }
 
@@ -110,8 +110,7 @@ export function useSongPlayer(songData: SongData) {
         // End all pressed notes here
         const allRecordedNotes = [...state.recordedNotes]
         for (let pitch of state.pressedPitches) {
-            notes[pitch].pause();
-            notes[pitch].seekTo(0);
+            soundtrackPlayer.pause(notes[pitch], 0)
             allRecordedNotes.push(createNoteForPressedPitch(pitch))
         }
         setState((state) => ({

@@ -181,6 +181,7 @@ export const Assets: Record<string, any> = {
     'game-over': require('../assets/soundtrack/game-over.mp3'),
 
     'hyrule-theme': require('../assets/soundtrack/hyrule-theme-trimmed.m4a'),
+    'overture': require('../assets/soundtrack/overture.mp3'),
 
     'luminas-theme': require('../assets/soundtrack/luminas-theme.mp3'),
     'koroks-theme': require('../assets/soundtrack/koroks-theme.mp3'),

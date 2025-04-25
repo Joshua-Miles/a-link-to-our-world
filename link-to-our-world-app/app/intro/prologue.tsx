@@ -10,9 +10,8 @@ import {
 } from "designer-m3";
 import Mapbox, { MapView } from "@rnmapbox/maps";
 import { useRef, useState } from "react";
-import { useAudioPlayer } from "expo-audio";
 import { ArrowRightIcon } from "designer-m3/icons";
-import { fadeOut, Coordinate, Speech, Marker } from "shared";
+import { fadeOut, Coordinate, Speech, Marker, Soundtrack } from "shared";
 
 Mapbox.setAccessToken(
   "pk.eyJ1IjoiY2hyaXN0Zmlyc3Rjb2RlciIsImEiOiJjbTZod3h3ajUwMjl6Mmtwa3hvYzR0Nm9hIn0.BZK9rdHBOzIyP6H3xPfUFA"
@@ -108,7 +107,6 @@ type PrologueState = {
 
 
 export default function Prologue() {
-  const overture = useAudioPlayer(require("../../assets/soundtrack/overture.mp3"));
   const { spacing, colors } = useDesignerTheme();
 
   const mapView = useRef<MapView>(null);
@@ -148,8 +146,6 @@ export default function Prologue() {
     hasStarted.current = true;
 
     moveCamera(Locations.Centroid, 9.75, 41000);
-
-    overture.play();
 
     say("Long ago, Hylia created Hyrule from a song...", 6000);
 
@@ -258,9 +254,9 @@ export default function Prologue() {
   return (
     <Page
       navTransitionOutDuration={2000}
-      onBeforeNavigate={() => fadeOut(overture, 2000)}
       justifyContent="center"
     >
+      <Soundtrack asset="overture" />
       <Column
         flex={1}
         opacity={1}

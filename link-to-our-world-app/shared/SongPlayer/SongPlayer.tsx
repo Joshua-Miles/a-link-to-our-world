@@ -1,6 +1,5 @@
 import { fadeIn } from "shared";
 import { Column, Row, timing, useDesignerTheme } from "designer-m3";
-import { AudioPlayer, useAudioPlayer } from "expo-audio";
 import { useEffect, useState } from "react";
 import { Easing } from "react-native-reanimated";
 import { Speech } from "../Speech";

@@ -1,11 +1,4 @@
-import { AudioPlayer, useAudioPlayer, setAudioModeAsync } from 'expo-audio';
-import { NotePitch } from './Song';
-
-setAudioModeAsync({
-    interruptionMode: 'mixWithOthers'
-}).then( s => {
-   
-})
+import { AVPlaybackSource } from 'expo-av';
 
 const Sources = {
     A2Flat: require('../../assets/woodwind/A2Flat.mp3'),
@@ -121,11 +114,6 @@ const Sources = {
     G6Sharp: require('../../assets/woodwind/G6Sharp.mp3'),
 }
 
-export function useNotes(pitches: NotePitch[]): Record<string, AudioPlayer> {
-    const result: Record<string, AudioPlayer> = {};
-    for (let pitch of pitches) {
-        // @ts-ignore
-        result[pitch] = useAudioPlayer(Sources[pitch]);
-    }
-    return result;
+export function useNotes(): Record<string, AVPlaybackSource> {
+    return Sources
 }

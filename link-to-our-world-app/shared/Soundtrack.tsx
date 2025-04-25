@@ -1,4 +1,4 @@
-import { AudioPlayer, AudioSource, createAudioPlayer } from "expo-audio";
+import { Audio, AVPlaybackSource, AVPlaybackStatus } from 'expo-av';
 import { createContext, ReactNode, useContext, useRef, useEffect } from "react";
 import { crossFade, Fade, fadeIn, fadeOut } from "./Fade";
 import { Assets } from "./Assets";
@@ -11,90 +11,90 @@ type PlayOptions = {
 }
 
 class SoundtrackPlayer {
-    private stack: AudioPlayer[] = [];
-    private players: Map<AudioSource, AudioPlayer> = new Map();
+    private stack: Audio.Sound[] = [];
+    private players: Map<AVPlaybackSource, Audio.Sound> = new Map();
 
-    private currentPlayer: AudioPlayer | null = null;
+    private currentPlayer: Audio.Sound | null = null;
     private currentFade: Fade | null = null;
 
     get cursor() {
         return this.stack.length > 0 ? this.stack.length -1 : null;
     }
 
-    push(source: AudioSource, fadeDuration: number = 1500, options?: PlayOptions) {
-        const newPlayer = this.getPlayer(source, fadeDuration);
+    async push(source: AVPlaybackSource, fadeDuration: number = 1500, options?: PlayOptions) {
+        const newPlayer = await this.getPlayer(source, fadeDuration);
         if (newPlayer === this.currentPlayer) return;
 
         this.stack.push(newPlayer);
-        this.play(newPlayer, fadeDuration, options)
+        await this.play(newPlayer, fadeDuration, options)
     }
 
-    replace(source: AudioSource, fadeDuration: number = 1500, options?: PlayOptions){
-        const newPlayer = this.getPlayer(source, fadeDuration);
+    async replace(source: AVPlaybackSource, fadeDuration: number = 1500, options?: PlayOptions){
+        const newPlayer = await this.getPlayer(source, fadeDuration);
         if (newPlayer === this.currentPlayer) return;
 
         const cursor = this.cursor;
         if (cursor !== null) this.stack[cursor] = newPlayer;
         else this.stack.push(newPlayer);
 
-        this.play(newPlayer, fadeDuration, options);
+        await this.play(newPlayer, fadeDuration, options);
     }
 
-    pause(source: AudioSource, fadeDuration: number = 1500) {
-        const targetPlayer = this.getPlayer(source);
+    async pause(source: AVPlaybackSource, fadeDuration: number = 1500) {
+        const targetPlayer = await this.getPlayer(source);
         this.stack = this.stack.filter( player => player !== targetPlayer);
         if (targetPlayer !== this.currentPlayer) return;
         this.currentFade = fadeOut(targetPlayer, fadeDuration)
         this.currentPlayer = null;
     }
 
-    private play(newPlayer: AudioPlayer, fadeDuration: number, options?: PlayOptions) {
+    private async play(newPlayer: Audio.Sound, fadeDuration: number, options?: PlayOptions) {
         this.currentFade?.abort();
 
         const oldPlayer = this.currentPlayer;
 
-        function handleTrackEnd({ didJustFinish }: { didJustFinish: boolean }) {
-            if (didJustFinish) {
+        function handleTrackEnd(status: AVPlaybackStatus) {
+            if (status.isLoaded && status.didJustFinish) {
                 options?.onFinished?.()
-                if (options?.loop) {
-                    newPlayer.seekTo(0)
-                    newPlayer.play()
-                }
             }
         }
 
-        newPlayer.addListener('playbackStatusUpdate', handleTrackEnd)
+        newPlayer.setOnPlaybackStatusUpdate(handleTrackEnd)
 
+        if (options?.loop) newPlayer.setIsLoopingAsync(true)
 
         if (!options?.resume) {
-            if (options?.offset) newPlayer.seekTo(options.offset);
-            else newPlayer.seekTo(0)
+            // Make sure this works
+            if (options?.offset) await newPlayer.setPositionAsync(options.offset * 1000);
+            else newPlayer.setPositionAsync(0)
         }
 
         if (!oldPlayer) {
             if (fadeDuration) this.currentFade = fadeIn(newPlayer, fadeDuration)
             else {
-                newPlayer.volume = 1;
-                newPlayer.play()
+                newPlayer.setVolumeAsync(1);
+                newPlayer.playAsync()
             }
         } else {
             if (fadeDuration) this.currentFade = crossFade(oldPlayer, newPlayer, fadeDuration);
             else {
-                oldPlayer.pause()
-                newPlayer.volume = 1;
-                newPlayer.play()
+                oldPlayer.pauseAsync()
+                newPlayer.setVolumeAsync(1);
+                newPlayer.playAsync()
             }
         }
 
         this.currentPlayer = newPlayer;
     }
 
-    getPlayer(source: AudioSource, fadeDuration: number = 1500) {
+    async getPlayer(source: AVPlaybackSource, fadeDuration: number = 1500) {
         if (!this.players.has(source)) {
-            const newPlayer = createAudioPlayer(source);
+            const { sound: newPlayer } = await Audio.Sound.createAsync(source);
+            // const newPlayer = createAudio.Sound(source);
             this.players.set(source, newPlayer)
-            newPlayer.addListener('playbackStatusUpdate', ({ didJustFinish }) => {
-                if ((didJustFinish || newPlayer.paused) && (this.currentPlayer === newPlayer || this.currentPlayer === null)) {
+            newPlayer.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
+                if (!status.isLoaded) return;
+                if ((status.didJustFinish) && (this.currentPlayer === newPlayer || this.currentPlayer === null)) {
                     this.currentPlayer = null;
                     this.stack.pop();
                     const cursor = this.cursor;
@@ -105,12 +105,12 @@ class SoundtrackPlayer {
                 }
             })
         }
-        return this.players.get(source) as AudioPlayer;
+        return this.players.get(source) as Audio.Sound;
     }
 
     releaseAllPlayers() {
         this.currentFade?.abort();
-        this.players.forEach(player => player.release());
+        this.players.forEach(player => player.unloadAsync());
         this.players = new Map();
     }
 }
@@ -129,11 +129,11 @@ export function SoundtrackProvider({ children, preload = [] }: SoundtrackProvide
         for (let track of preload) {
             player.getPlayer(Assets[track])
         }
-        return () => {
-            if (!__DEV__) {
-                player.releaseAllPlayers();
-            }
-        }
+        // return () => {
+        //     if (!__DEV__) {
+        //         player.releaseAllPlayers();
+        //     }
+        // }
     }, [])
 
     return (
