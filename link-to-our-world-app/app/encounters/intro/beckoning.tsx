@@ -80,7 +80,7 @@ export default () => {
                     isOpen={sequence.isAt('fluteGet')}
                     onFinished={sequence.next}
                     title='The Goddess Flute'
-                    description="Use this to awake the deku seedlings"
+                    description="Use this to awake the Korok seedlings"
                     asset="goddess-flute"
                     resumeParentTrack={false}
                 />

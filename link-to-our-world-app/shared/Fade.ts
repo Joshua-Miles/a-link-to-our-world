@@ -84,7 +84,7 @@ export function fadeOut(audioPlayer: Audio.Sound, duration: number) {
         }
 
         // Change player volume
-        audioPlayer.setVolumeAsync(Easing.ease(remaining / duration));
+        await audioPlayer.setVolumeAsync(Easing.ease(remaining / duration));
         return false;
     })
 }

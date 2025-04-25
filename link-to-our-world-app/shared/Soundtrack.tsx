@@ -53,9 +53,20 @@ class SoundtrackPlayer {
 
         const oldPlayer = this.currentPlayer;
 
-        function handleTrackEnd(status: AVPlaybackStatus) {
-            if (status.isLoaded && status.didJustFinish) {
+        const handleTrackEnd = (status: AVPlaybackStatus) => {
+            if (!status.isLoaded) return;
+
+            if (status.didJustFinish) {
                 options?.onFinished?.()
+            }
+            if ((status.didJustFinish) && (this.currentPlayer === newPlayer || this.currentPlayer === null)) {
+                this.currentPlayer = null;
+                this.stack.pop();
+                const cursor = this.cursor;
+                if (cursor !== null) {
+                    const previousTrack = this.stack[cursor];
+                    this.play(previousTrack, fadeDuration, { resume: true })
+                }
             }
         }
 
@@ -92,18 +103,6 @@ class SoundtrackPlayer {
             const { sound: newPlayer } = await Audio.Sound.createAsync(source);
             // const newPlayer = createAudio.Sound(source);
             this.players.set(source, newPlayer)
-            newPlayer.setOnPlaybackStatusUpdate((status: AVPlaybackStatus) => {
-                if (!status.isLoaded) return;
-                if ((status.didJustFinish) && (this.currentPlayer === newPlayer || this.currentPlayer === null)) {
-                    this.currentPlayer = null;
-                    this.stack.pop();
-                    const cursor = this.cursor;
-                    if (cursor !== null) {
-                        const previousTrack = this.stack[cursor];
-                        this.play(previousTrack, fadeDuration, { resume: true })
-                    }
-                }
-            })
         }
         return this.players.get(source) as Audio.Sound;
     }

@@ -20,7 +20,8 @@ export default function () {
 
     return (
         <Scene>
-            <Soundtrack isPlaying={!sequnece.hasStarted() || sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
+            <Soundtrack asset="necluda" isPlaying={sequnece.hasNotReached('playing')}/>
+            <Soundtrack isPlaying={sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
             {sequnece.isAt('intro') && <>
                 <SceneFocus asset="lumina" />
                 <SpeechStepper

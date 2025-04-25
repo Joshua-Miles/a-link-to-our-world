@@ -23,7 +23,7 @@ export default function() {
 
     return (
         <Scene>
-            <Soundtrack asset="gorruk-theme-1" isPlaying={sequence.hasNotReached('exit')} />
+            <Soundtrack asset="gorruk-theme-1" />
             <Soundtrack asset="koroks-theme" isPlaying={sequence.hasReached('exit')} />
             {sequence.hasNotReached('combat') &&
                 <>

@@ -2,6 +2,7 @@ import { resolveEncounter } from "api";
 import { Scene, SceneFocus, SongPlayer, Soundtrack, SpeechCard, SpeechStepper, useSequence } from "shared";
 import { wildsTheme } from "shared";
 import { router } from "expo-router";
+import { Sound } from "expo-av/build/Audio";
 
 export default function () {
     const sequnece = useSequence({ hasStarted: true, onFinished: handleFinished }, [
@@ -20,7 +21,8 @@ export default function () {
 
     return (
         <Scene>
-            <Soundtrack isPlaying={!sequnece.hasStarted() || sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
+            <Soundtrack asset="faron" isPlaying={sequnece.hasNotReached('playing')}/>
+            <Soundtrack isPlaying={sequnece.hasPassed('playing')} asset={song.src} offset={song.offset} fadeDuration={1000} />
             {sequnece.isAt('intro') && <>
                 <SceneFocus asset="lumina" />
                 <SpeechStepper
