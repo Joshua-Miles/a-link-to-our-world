@@ -101,7 +101,13 @@ export default function Map() {
             animationDuration={mapLoaded ? 500 : 0}
             zoomLevel={16}
           />
-          <Mapbox.UserLocation />
+          <Marker
+            id="location"
+            imageSlug="location"
+            lat={location.lat}
+            lng={location.lng}
+          />
+          {/* <Mapbox.UserLocation /> */}
           {encounters.map( encounter => (
             <Marker
               key={encounter.id}

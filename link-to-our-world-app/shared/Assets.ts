@@ -1,6 +1,7 @@
 
 export const Assets: Record<string, any> = {
     // Misc
+    'location': require('../assets/location.png'),
     'marker': require('../assets/marker.png'),
     'health': require('../assets/health.png'),
     'health-slot': require('../assets/health-slot.png'),
@@ -306,5 +307,8 @@ export const Assets: Record<string, any> = {
     'cake': require('../assets/food/cake.png'),
     'quiche': require('../assets/food/quiche.png'),
     'hawaiian-haystack': require('../assets/food/hawaiian-haystack.png'),
+
+    'banana-toast': require('../assets/food/nutcake.png'),
+
     'dubious-food': require('../assets/food/dubious-food.png'),
 }

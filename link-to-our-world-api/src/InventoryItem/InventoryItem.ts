@@ -97,6 +97,7 @@ export type FoodSlug =
     | 'cake'
     | 'quiche'
     | 'hawaiian-haystack'
+    | 'banana-toast'
     | 'dubious-food'
 
 export type InventoryItem = {

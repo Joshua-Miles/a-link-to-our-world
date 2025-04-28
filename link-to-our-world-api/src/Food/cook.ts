@@ -313,6 +313,12 @@ const recipies: Partial<Record<string, (playerId: number) => Promise<InventoryIt
         type: 'food',
         power: 7
     }),
+
+    'oven>banana|bread|butter': (playerId) => createInventoryItem(playerId, 'banana-toast', {
+        name: 'Banana Toast',
+        type: 'food',
+        power: 7
+    }),
 }
 
 export async function cook(client: Client<Session>, method: CookingMethod, ingredients: InventoryItemSlug[]) {
@@ -326,7 +332,6 @@ export async function cook(client: Client<Session>, method: CookingMethod, ingre
         if (!inventoryItems.some(item => item.slug === ingredient)) {
             return makeFailure('ingredientsNotFound', {})
         }
-        await removeInventoryItem(loggedInUserId, ingredient);
     }
 
     const foodCreator = recipies[recipe];
@@ -334,6 +339,9 @@ export async function cook(client: Client<Session>, method: CookingMethod, ingre
     await updateRupees(loggedInUserId, -10);
 
     if (foodCreator) {
+        for (let ingredient of ingredients) {
+            await removeInventoryItem(loggedInUserId, ingredient);
+        }
         return await foodCreator(loggedInUserId)
     } else {
         return await createInventoryItem(loggedInUserId, 'dubious-food', {
